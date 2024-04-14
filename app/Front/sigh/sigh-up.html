@@ -38,7 +38,19 @@
             console.log(data.error);
           }
         });
-      }
+    }
+
+    window.onload = function () {
+      
+      const signUpButton = document.querySelector('input[type="submit"][value="Sigh-up"]'); // 회원가입 버틀을 눌렀을 때 요소들을 가져옴
+
+      signUpButton.addEventListener('click', function (event) {
+
+        event.preventDefault();
+
+        test();   // test() 함수를 호출
+      });
+    };
   </script>
 </head>
 
@@ -55,7 +67,7 @@
       <p id="check-result"></p>
       <input type="submit" value="회원가입">
     </form> 
-   -->
+  -->
 
   <div class="box">
     <div class="group">
