@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    function test() {
+    const form = document.getElementById("register_form");
+    const formData = new FormData(form);
+
+    const jsonData = {
+
+        memberName: formData.get("memberName"),                         //이름
+        memberId: formData.get("memberId"),                             //아이디
+        memberPassword: formData.get("memberPassword"),                 //패스워드
+        memberBrithDate: parseInt(formData.get("memberBrithDate")),     //생년월일
+        memberEmail: formData.get("memberEmail"),                       //이메일
+    };
+
+    // JSON 데이터를 사용하여 API 호출
+    fetch("/member/register", {
+        method: "POST",
+        body: JSON.stringify(jsonData),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            // ...
+            // API 응답 처리
+            if (data.success) {
+                alert("회원 가입 성공!");
+                location.href = "/";
+            } else {
+                alert("회원 가입 실패!");
+                console.log(data.error);
+            }
+        });
+}
+</script>
