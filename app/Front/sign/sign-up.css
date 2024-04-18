@@ -1,4 +1,4 @@
-input[type=text]  {
+input[type="text"] {
   width: 455px;
   position: absolute;
   font-family: "Inter", Helvetica;
@@ -9,42 +9,47 @@ input[type=text]  {
   line-height: normal;
   white-space: nowrap;
   border: 0;
-  background-color: #CFE1E5;
+  background-color: #cfe1e5;
 }
 
 .box {
+  margin: 0 auto;
   width: 100%;
-  height: auto; 
+  height: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .box .group {
-  position: relative; 
-  width: 100%; 
-  height: 10px; 
+  position: relative;
+  width: 100%;
+  height: 10px;
   left: 0;
 }
 
 .box .overlap {
-  position: relative; 
-  width: 100%; 
-  height: auto; 
+  position: relative;
+  width: 100%;
 }
 
 .box .rectangle {
-  width: 1920px;
-  height: 1080px;
-  top: 19px;
+  width: 100%;
+  height: auto;
+  top: 0;
   background-color: #f1f5f2;
   border-color: #e4cfe5;
-  position: absolute;
+  position: relative;
   left: 0;
   border: 1px solid;
 }
 
 .box .vector {
-  position: absolute;
-  width: 1920px;
-  height: 412px;
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 1920px;
   top: 687px;
   left: 0;
 }
@@ -64,20 +69,19 @@ input[type=text]  {
   top: 148px;
   left: 0;
   border-radius: 209px;
-  
 }
 
 .box .rectangle-2 {
-  width: 846px;
+  max-width: 846px;
+  width: 100%;
   height: 114px;
   top: 0;
   background-color: #cfe1e5;
   border-radius: 209px;
   border-color: #777f81;
   transform: rotate(180deg);
-  position: absolute;
+  position: relative;
   left: 0;
-  border: 1px solid;
 }
 
 .box .text-wrapper {
@@ -173,15 +177,17 @@ input[type=text]  {
 
 .box .union {
   position: absolute;
-  width: 1920px;
-  height: 140px;
-  top: 19px;
+  width: 100%;
+  height: auto;
+  max-width: 1920px;
+  top: 0;
   left: 0;
 }
 
 .box .text-wrapper-4 {
   position: absolute;
-  width: 263px;
+  max-width: 263px;
+  width: 100%;
   height: 179px;
   top: 0;
   left: 838px;

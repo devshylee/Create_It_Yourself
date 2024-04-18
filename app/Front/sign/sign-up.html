@@ -1,119 +1,141 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="sign-up.css" />
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="globals.css" />
-  <link rel="stylesheet" href="sign-up.css" />
-  <!-- <link rel="stylesheet" href="sign-up.js" /> -->
+    <script>
+      function test() {
+        const form = document.getElementById("register_form");
+        const formData = new FormData(form);
 
-  <script>
-    function test() {
-      const form = document.getElementById("register_form");
-      const formData = new FormData(form);
+        const jsonData = {
+          memberEmail: formData.get("memberEmail"), //이메일
+          memberPassword: formData.get("memberPassword"), //패스워드
+          memberName: formData.get("memberName"), //이름
+          memberBirthDate: formData.get("memberBirthDate"), //생년월일
+        };
 
-      const jsonData = {
+        // JSON 데이터를 사용하여 API 호출
+        fetch("/member/save", {
+          method: "POST",
+          body: JSON.stringify(jsonData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // ...
+            // API 응답 처리
+            if (data.success) {
+              alert("회원 가입 성공!");
+              location.href = "/";
+            } else {
+              alert("회원 가입 실패!");
+              console.log(data.error);
+            }
+          });
+      }
 
-        memberName: formData.get("memberName"),                         //이름                           
-        memberEmail: formData.get("memberEmail"),                       //이메일
-        memberPassword: formData.get("memberPassword"),                 //패스워드
-        memberBirthDate: parseInt(formData.get("memberBirthDate")),     //생년월일
-      };
+      document.addEventListener("DOMContentLoaded", function () {
+        const signUpButton = document.querySelector(
+          'input[type="submit"][value="Sign-up"]'
+        );
 
-      // JSON 데이터를 사용하여 API 호출
-      fetch("/member/register", {
-        method: "POST",
-        body: JSON.stringify(jsonData),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // ...
-          // API 응답 처리
-          if (data.success) {
-            
-            alert("회원 가입 성공!");
-            location.href = "/";
-          } else {
-            alert("회원 가입 실패!");
-            console.log(data.error);
-          }
+        signUpButton.addEventListener("click", function (event) {
+          test();
         });
-    }
-
-    window.onload = function () {
-      
-      const signUpButton = document.querySelector('input[type="submit"][value="Sign-up"]'); // 회원가입 버틀을 눌렀을 때 요소들을 가져옴
-
-      signUpButton.addEventListener('click', function (event) {
-
-        event.preventDefault();
-
-        test();   // test() 함수를 호출
       });
-    };
-  </script>
-</head>
+    </script>
+  </head>
 
-<body>
+  <body>
+    <!-- <form action="/member/register" method="post" id="register_form">
 
-  <!-- <form action="/member/register" method="post" id="register_form">
+    <input type="text" name="memberName" placeholder="이름">
+    <input type="text" name="memberId" placeholder="아이디">
+    <input type="text" name="memberPassword" placeholder="비밀번호">
+    <input type="text" name="memberBirthDate" placeholder="생년월일">
+    <input type="text" name="memberMobile" placeholder="전화번호">
+    <input type="text" name="memberEmail" placeholder="이메일" id="memberEmail" onblur="emailCheck()">
+    <p id="check-result"></p>
+    <input type="submit" value="회원가입">
+  </form>
+-->
 
-      <input type="text" name="memberName" placeholder="이름">
-      <input type="text" name="memberId" placeholder="아이디"> 
-      <input type="text" name="memberPassword" placeholder="비밀번호">
-      <input type="text" name="memberBirthDate" placeholder="생년월일">
-      <input type="text" name="memberMobile" placeholder="전화번호">
-      <input type="text" name="memberEmail" placeholder="이메일" id="memberEmail" onblur="emailCheck()">
-      <p id="check-result"></p>
-      <input type="submit" value="회원가입">
-    </form> 
-  -->
-
-  <div class="box">
-    <div class="group">
-      <form action="/member/register" method="post" id="register_form">
-        <div class="overlap">
-          <div class="rectangle"></div>
-          <img class="vector" src="/app/Front/img/vector.svg" />
-          <div class="div">
-            <div class="overlap-group">
-              <div class="rectangle-2"></div>
-              <div class="text-wrapper"><input type="text" name="memberPassword" placeholder="비밀번호를 입력하세요"
-                  value="testPw1"></div>
-              <img class="free-icon-password" src="/app/Front/img/free-icon-password-4520142-1.png" />
+    <div class="box">
+      <div class="group">
+        <form action="/member/save" method="post" id="register_form">
+          <div class="overlap">
+            <div class="rectangle"></div>
+            <img class="vector" src="/app/Front/img/vector.svg" />
+            <div class="div">
+              <div class="overlap-group">
+                <div class="rectangle-2"></div>
+                <div class="text-wrapper">
+                  <input
+                    type="text"
+                    name="memberPassword"
+                    placeholder="비밀번호를 입력하세요"
+                    value="testPw1"
+                  />
+                </div>
+                <img
+                  class="free-icon-password"
+                  src="/app/Front/img/free-icon-password-4520142-1.png"
+                />
+              </div>
+              <div class="overlap-3">
+                <div class="rectangle-2"></div>
+                <div class="text-wrapper-3">
+                  <input
+                    type="text"
+                    name="memberEmail"
+                    placeholder="이메일"
+                    id="memberEmail"
+                    onblur="emailCheck()"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="overlap-3">
-              <div class="rectangle-2"></div>
-              <div class="text-wrapper-3"><input type="text" name="memberEmail" placeholder="이메일" id="memberEmail"
-                onblur="emailCheck()"> </div>
+            <div class="overlap-wrapper">
+              <div class="overlap-3">
+                <div class="rectangle-2"></div>
+                <div class="text-wrapper-3">
+                  <input
+                    type="text"
+                    name="memberName"
+                    placeholder="이름"
+                    value="testName1"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="overlap-wrapper">
-            <div class="overlap-3">
-              <div class="rectangle-2"></div>
-              <div class="text-wrapper-3"><input type="text" name="memberName" placeholder="이름" value="testName1"></div>
+            <div class="overlap-group-wrapper">
+              <div class="overlap-3">
+                <div class="rectangle-2"></div>
+                <div class="text-wrapper-3">
+                  <input
+                    type="text"
+                    name="memberBirthDate"
+                    placeholder="생년월일"
+                    value="011201"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="overlap-group-wrapper">
-            <div class="overlap-3">
-              <div class="rectangle-2"></div>
-              <div class="text-wrapper-3"><input type="text" name="memberBirthDate" placeholder="생년월일" value="011201">
+            <img class="union" src="/app/Front/img/union.svg" />
+            <div class="text-wrapper-4">CBY</div>
+            <div class="div-wrapper">
+              <div class="overlap-4">
+                <div class="rectangle-3"></div>
+                <div class="text-wrapper-5">
+                  <button onclick="save()">Sign up</button>
+                </div>
               </div>
             </div>
           </div>
-          <img class="union" src="/app/Front/img/union.svg" />
-          <div class="text-wrapper-4">CBY</div>
-          <div class="div-wrapper">
-            <div class="overlap-4">
-              <div class="rectangle-3"></div>
-              <div class="text-wrapper-5"><input type="submit" value="Sign-up"></div>
-            </div>
-          </div>
-  
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>
