@@ -7,7 +7,7 @@
 
 ## 현재 문제점 😣
 ### main.css 반응형으로 구현
-### 
+### prompt ai 자동생성 및 ai 이미지생성 api 사용가격 문제
 
 ## 향후계획 (기말)
 1. prompt ai 자동생성 및 ai 이미지생성 api key 얻어 적용시켜보이기
@@ -60,10 +60,11 @@ https://devkingdom.tistory.com/110 ( 스프링에서 RESTful API 구현하기 )
 
 
 ## 💡기술스택
+### 통신방법
+  - fetch api를 통한 data통신
 ### FE
-  - 1
-  - 2
-  - 3
+  - figma-anima plugin ui구성
+  - Html,CSS,JS
 ### BE
   - Jave version 11
   - Spring Framework
