@@ -9,7 +9,14 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sign-in.css" />
-
+    <script>
+        window.onload = function() {
+            document.getElementById("signupButton").addEventListener("click", function(event) {
+                event.preventDefault(); // 버튼의 기본 동작 중단
+                window.location.href = "${pageContext.request.contextPath}/member/save";
+            });
+        };
+    </script>
 
 <%--    <script>--%>
 <%--        document.getElementById("loginForm").addEventListener("submit", function (event) {--%>

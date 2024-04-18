@@ -38,6 +38,7 @@
                         console.log(data.error);
                     }
                 });
+
         }
 
         document.addEventListener("DOMContentLoaded", function () {
