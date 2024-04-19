@@ -16,10 +16,10 @@ input[type="text"] {
   margin: 0 auto;
   width: 100%;
   height: auto;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .box .group {

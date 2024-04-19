@@ -4,10 +4,18 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="main.css" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https: //fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
-   
+
+    <script>
+      function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
+      }
+    </script>
+
    </head>
   <body>
     <div class="box">
@@ -72,7 +80,17 @@
           <img class="line" src="img/line-17.png" />
           <div class="text-wrapper-18">2024</div>
           <div class="text-wrapper-19">january</div>
-          <img class="img" src="img/ellipse-30.png" />
+          <div class="icon" onclick="toggleSidebar()"><img class="img" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
+          <div id="sidebar" class="sidebar">
+            <!-- 메뉴 항목들 -->
+            <form action="/member/update">
+              <div class="menu-item"><button onclick="">userUdate</button></div>
+            </form>
+            <form action="/app/Front/sign/sign-in.html">
+              <div class="menu-item"><button onclick="">userLogout</button></div>
+            </form>
+            <div class="menu-item"><button onclick="">내정보</button></div>
+          </div>
           <div class="text-wrapper-20">CBY.com</div>
         </div>
       </div>

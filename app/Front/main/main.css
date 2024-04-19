@@ -7,19 +7,41 @@
     font-style: normal;
   }
   
-  
-.box {
-    width: 1920px;
-    height: 1080px;
+  .box {
+    margin: 0 auto;
+    width: 100%; /* 기본 너비를 100%로 설정하여 부모 요소에 맞추기 */
+    max-width: 1920px; /* 최대 너비를 1920px로 제한 */
+    height: auto; /* 높이를 자동으로 조정하여 비율 유지 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
   }
   
   .box .group {
-    position: fixed;
-    width: 1942px;
-    height: 1080px;
-    top: 0;
-    left: 0;
+    position: relative; /* 위치를 상대적으로 설정하여 부모 요소에 따라 배치 */
+    width: 100%; /* 너비를 100%로 설정하여 부모 요소에 맞추기 */
+    max-width: 1920px; 
+    height: 100%; 
   }
+  
+  /* 미디어 쿼리를 사용하여 화면 크기에 따라 스타일 조정 */
+  @media (max-width: 1920px) {
+    .box {
+      max-width: 90%; /* 최대 너비를 90%로 제한하여 과도한 확대를 방지 */
+    }
+    
+    .box .group {
+      max-width: 95%; /* 최대 너비를 95%로 제한하여 과도한 확대를 방지 */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .box .group {
+      max-width: 100%; /* 화면 크기가 작을 때 최대 너비를 100%로 설정하여 가로 스크롤이 생기지 않도록 함 */
+    }
+  }
+  
   
   .box .overlap-group {
     position: relative;
@@ -75,7 +97,9 @@
     height: 105px;
     top: 551px;
     left: 205px;
-    background-color: #d6e5cf;.box {
+    background-color: #d6e5cf;
+    
+    .box {
         width: 1920px;
         height: 1080px;
       }
@@ -1629,4 +1653,28 @@
     letter-spacing: 0;
     line-height: normal;
   }
+  /*사이드바.css start*/
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; 
+    width: 250px;
+    height: 100%;
+    background-color: #333; 
+    transition: all 0.3s ease;
+  }
   
+  
+  .sidebar.active {
+    left: 0; 
+  }
+  
+  .icon {
+    position: absolute;
+    
+    left: 20px;
+    cursor: pointer;
+    z-index: 999; 
+    color: #fff; 
+  }
+  /*사이드바.css end*/
