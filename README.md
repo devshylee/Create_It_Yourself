@@ -65,7 +65,7 @@ https://devkingdom.tistory.com/110 ( 스프링에서 RESTful API 구현하기 )
 ### FE
   - figma-anima plugin ui구성
   - Html,CSS,JS
-  - [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=yohan050605)](https://github.com/anuraghazra/github-readme-stats)
+ 
 ### BE
   - Jave version 11
   - Spring Framework
