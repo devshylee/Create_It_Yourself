@@ -2,7 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals2.css" />
     <link rel="stylesheet" href="style2.css" />
+    <script>
+      function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active"); /////
+      }
+    </script>
   </head>
   <body>
     <div class="box">
@@ -14,7 +21,17 @@
           <div class="header-bar">
             <div class="overlap-group">
               <div class="headbar"></div>
-              <img class="icon" src="img/menu.png" />
+              <img class="icon" onclick="toggleSidebar()" src="img/menu.png" />
+              <div id="sidebar" class="sidebar">
+                <!-- 메뉴 항목들 -->
+                <form action="/member/update">
+                  <div class="menu-item"><button onclick="">userUdate</button></div>
+                </form>
+                <form action="/app/Front/sign/sign-in.html">
+                  <div class="menu-item"><button onclick="">userLogout</button></div>
+                </form>
+                <div class="menu-item"><button onclick="">내정보</button></div>
+              </div>
               <div class="back-main">CBY.com</div>
             </div>
           </div>

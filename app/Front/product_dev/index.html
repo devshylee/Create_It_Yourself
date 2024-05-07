@@ -4,6 +4,13 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="style.css" />
+
+    <script>
+      function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active"); /////
+      }
+    </script>
   </head>
   <body>
     <div class="box">
@@ -23,7 +30,7 @@
                 <form action="/app/Front/sign/sign-in.html">
                   <div class="menu-item"><button onclick="">userLogout</button></div>
                 </form>
-                <div class="menu-item"><button onclick="">내정보</button></div><!---->
+                <div class="menu-item"><button onclick="">내정보</button></div>
               </div>
               <div class="back-main">CBY.com</div>
             </div>
