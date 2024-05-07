@@ -19,7 +19,6 @@ input[type="text"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
 .box .group {
