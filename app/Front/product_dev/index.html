@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="box">
+      <div class="question-page">
+        <div class="overlap">
+          <img class="main"/>
+          <div class="question-box"></div>
+          <div class="headerbar">
+            <div class="overlap-group">
+              <div class="headbar"></div>
+              <img class="icon" onclick="toggleSidebar()" src="img/menu.png" />
+              <div id="sidebar" class="sidebar">
+                <!-- 메뉴 항목들 -->
+                <form action="/member/update">
+                  <div class="menu-item"><button onclick="">userUdate</button></div>
+                </form>
+                <form action="/app/Front/sign/sign-in.html">
+                  <div class="menu-item"><button onclick="">userLogout</button></div>
+                </form>
+                <div class="menu-item"><button onclick="">내정보</button></div>
+              </div>
+              <div class="back-main">CBY.com</div>
+            </div>
+          </div>
+          <div class="reroll-button">
+            <div class="div">
+              <img class="reroll" src="img/reroll.png" />
+              <div class="reroll-box"></div>
+            </div>
+            
+          </div>
+          <div class="date">
+            <div class="overlap-2">
+              <div class="month-num">1</div>
+              <img class="month-line" src="img/monthline.svg" />
+            </div>
+            <div class="year">2024</div>
+            <div class="month-str">january</div>
+            <div class="day">28&nbsp;&nbsp; (일)</div>
+          </div>
+          <img class="question-three" src="img/questionthree.png" />
+          <img class="question-two" src="img/questiontwo.png" />
+          <div class="question-one">
+            <div class="overlap-3">
+              <p class="AI-question">Q :&nbsp;&nbsp; 오늘의 노래를 정해봐 !!!</p>
+              <p class="anser">A :&nbsp;&nbsp; Magnetic - 아일릿</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
