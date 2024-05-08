@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="globals2.css" />
     <link rel="stylesheet" href="style2.css" />
+    
     <script>
       function toggleSidebar() {
         var sidebar = document.getElementById("sidebar");
@@ -18,23 +19,6 @@
           <div class="main"></div>
           <div class="img-box"></div>
           <img class="img" src="img/img.png" />
-          <div class="header-bar">
-            <div class="overlap-group">
-              <div class="headbar"></div>
-              <img class="icon" onclick="toggleSidebar()" src="img/menu.png" />
-              <div id="sidebar" class="sidebar">
-                <!-- 메뉴 항목들 -->
-                <form action="/member/update">
-                  <div class="menu-item"><button onclick="">userUdate</button></div>
-                </form>
-                <form action="/app/Front/sign/sign-in.html">
-                  <div class="menu-item"><button onclick="">userLogout</button></div>
-                </form>
-                <div class="menu-item"><button onclick="">내정보</button></div>
-              </div>
-              <div class="back-main">CBY.com</div>
-            </div>
-          </div>
           <div class="reroll-button">
             <div class="div">
               <img class="reroll" src="img/reroll.png" />
@@ -56,6 +40,19 @@
             <div class="month-str">january</div>
             <div class="day">28&nbsp;&nbsp; (일)</div>
           </div>
+          <div class="headbar"></div>
+          <div class="icon" onclick="toggleSidebar()"><img class ="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
+              <div id="sidebar" class="sidebar">
+                <!-- 메뉴 항목들 -->
+                <form action="/member/update">
+                  <div class="menu-item"><button onclick="">userUdate</button></div>
+                </form>
+                <form action="/app/Front/sign/sign-in.html">
+                  <div class="menu-item"><button onclick="">userLogout</button></div>
+                </form>
+                <div class="menu-item"><button onclick="">내정보</button></div>
+              </div>
+              <div class="back-main">CBY.com</div>
         </div>
       </div>
     </div>
