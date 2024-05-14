@@ -46,8 +46,6 @@
         width: 1240px;
         height: 550px;
     }
-
-
     
     .box .headbar {
       position: absolute;
@@ -57,7 +55,6 @@
       left: 0;
       background-color: #d9d9d9;
     }
-
 
     .box .back-main {
       position: absolute;
