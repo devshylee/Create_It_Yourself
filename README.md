@@ -16,8 +16,9 @@
 
 
 ## 현재 문제점 😣
-### main.css 반응형으로 구현
-### prompt ai 자동생성 및 ai 이미지생성 api 사용가격 문제
+### main.css 반응형으로 구현 (O)
+### prompt ai 자동생성 및 ai 이미지생성 api 사용가격 문제 
+### flask 서버랑 Spring 간의 통신
 
 ## 향후계획 (기말)
 1. prompt ai 자동생성 및 ai 이미지생성 api key 얻어 적용시켜보이기
@@ -51,7 +52,7 @@ https://velog.io/@somday/RESTful-API-%EC%9D%B4%EB%9E%80 ( RESTful API란? )
 https://devkingdom.tistory.com/110 ( 스프링에서 RESTful API 구현하기 )
 
 
-### 마무리 ( 4. 17. ~ 4. 22 )
+### 마무리 ( 4. 17. ~ )
 최종작업 및 테스트
 
 ## 🏷목차
