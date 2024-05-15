@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <mata name = "viewport" content = "width=device-width, inital-scale=1.0">
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="questionpage.css" />
+
+    <script>
+      function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active"); /////
+      }
+    </script>
+  </head>
+  <body>
+ 
+    <div class="box">
+      <div class="question-page">
+          <img class="main"/>
+          <div class="question-box"></div>
+              
+          <div class="reroll-button">    
+              <div class="reroll-box">
+              <img class="reroll" src="img/reroll.png" />
+              </div>
+          </div>
+
+          <div class="date">
+            <div class="month">
+              <div class="month-num">
+                <p>1</p>
+              <img class="month-line" src="img/monthline.svg" />
+              </div>
+            </div>
+            <div class="year">
+              <p class = "year-num">2024</p>
+            </div>
+            <div class="month-str">
+              <p>january</p>
+            </div>
+            <div class="day">
+              <p>28&nbsp;&nbsp; (일) </p>
+            </div>
+          </div>
+          <div class = "one">
+            <div class="question-one">
+                <p class="AI-question">Q :&nbsp;&nbsp; 오늘의 노래를 정해봐 !!!</p>
+            </div>
+            <div class="anser-one">
+                <p class="anser">A :&nbsp;&nbsp; Magnetic - 아일릿</p>
+            </div>
+          </div>
+          <div class="two">
+            <div class="question-two"></div>
+            <div class="anser-two"></div>
+          </div>
+          <div class="three">
+            <div class="question-three"></div>
+            <div class="anser-three"></div>
+          </div>
+          
+          <div class="headbar"></div>
+            <div class="icon" onclick="toggleSidebar()"><img class ="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
+            <div id="sidebar" class="sidebar">
+              <!-- 메뉴 항목들 -->
+              <form action="/member/update">
+                <div class="menu-item"><button onclick="">userUdate</button></div>
+              </form>
+              <form action="/app/Front/sign/sign-in.html">
+                <div class="menu-item"><button onclick="">userLogout</button></div>
+              </form>
+              <div class="menu-item"><button onclick="">내정보</button></div>
+            </div>
+            <div class="back-main">CBY.com</div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Function to adjust text size based on window width
+  function adjustTextSize() {
+    var windowWidth = $(window).width();
+    // You can adjust this formula as needed
+    var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
+    $('.resizable-text, .month-num').css('font-size', monthnumSize + 'px');
+    var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
+    $('.month-str').css('font-size', monthstrSize + 'px');
+    var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
+    $('.year-num').css('font-size', yearSize + 'px');
+    var textSize = Math.max(25, Math.min(50, windowWidth / 50)); // Example formula
+    $('.AI-question, .anser , .day').css('font-size', textSize + 'px');
+  }
+
+  // Call adjustTextSize on page load and resize
+  adjustTextSize();
+  $(window).resize(adjustTextSize);
+});
+</script>
+  </body>
+</html>
