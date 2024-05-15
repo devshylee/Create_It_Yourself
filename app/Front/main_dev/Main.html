@@ -9,10 +9,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css" />
   <!--reset css css를 개발할때 웹브라우저의 있는 초기값을 삭제시켜줌-->
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https: //fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
-
   <script>
     function toggleSidebar() {
       var sidebar = document.getElementById("sidebar");
@@ -85,10 +81,12 @@
           <div class="feb">feb</div>
           <div class="jan">jan</div>
         </div>
-        <div class="header_month_num">1</div>
+        <!-- 헤더에 있는 date들-->
+        <div class="header_year"><span id=year>2024</span></div>
+        <div class="header_month_num"><span id=month>1</span></div>
         <img class="line" src="img/line-17.png" />
-        <div class="header_year">2024</div>
-        <div class="header_month_string">january</div>
+        <div class="header_month_string"><span id=smonth>january</span></div>
+        
         <div class="icon" onclick="toggleSidebar()">
           <img class="img" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" />
         </div>
@@ -96,7 +94,7 @@
 
         <!-- 사이드 메뉴 항목들 -->
         <div id="sidebar" class="sidebar">
-          
+
           <form action="/member/update">
             <div class="menu-item"><button onclick="">userUdate</button></div>
           </form>
@@ -117,13 +115,26 @@
       url = "http://127.0.0.1:5500/app/Front/sign/sign-in.html";
       window.location.href = url;
     }
+    //end
 
+    //헤더에 있는 날짜를 window 시각에 맞춰 바뀌게 해줌
     let date = new Date();
-    let year = document.querySelector('.header_year')
-    year = date.getFullYear;
-    let month = document.querySelector('.header_month_num') 
-    month = date.getFullYear;
-    
+    const $year = document.querySelector('#year')
+    $year.textContent = date.getFullYear();
+
+    const $month = document.querySelector('#month')
+    $month.textContent = date.getMonth();
+
+    const $smonth = document.querySelector('#smonth')
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+    var monthIndex = date.getMonth();
+    var monthName = monthNames[monthIndex-1];
+    $smonth.textContent = monthName;
+    //end
+
+
+
 
 
   </script>
