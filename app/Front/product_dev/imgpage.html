@@ -2,6 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8" />
+<<<<<<< HEAD
+    <mata name = "viewport" content = "width=device-width, inital-scale=1.0">
+=======
+>>>>>>> 85fc3634bc8621e50457df2f123ad3eeac77a781
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="imgpage.css" />
     
@@ -18,6 +22,35 @@
         <div class="overlap">
           <div class="main"></div>
           <div class="img-box"></div>
+<<<<<<< HEAD
+          <div class="img"  ><img class = "png" src="img/img.png"></div>
+          <div class="reroll-button">    
+            <div class="reroll-box">
+            <img class="reroll" src="img/reroll.png" />
+            </div>
+          </div>
+          <div class="save-button">    
+            <div class="save-box">
+            <img class="save" src="img/save.png" />
+            </div>
+          </div>
+          <div class="date">
+            <div class="month">
+              <div class="month-num">
+                <p>1</p>
+              <img class="month-line" src="img/monthline.svg" />
+              </div>
+            </div>
+            <div class="year">
+              <p class = "year-num">2024</p>
+            </div>
+            <div class="month-str">
+              <p>january</p>
+            </div>
+            <div class="day">
+              <p>28&nbsp;&nbsp; (일) </p>
+            </div>
+=======
           <img class="img" src="img/img.png" />
           <div class="reroll-button">
             <div class="div">
@@ -39,6 +72,7 @@
             <div class="year">2024</div>
             <div class="month-str">january</div>
             <div class="day">28&nbsp;&nbsp; (일)</div>
+>>>>>>> 85fc3634bc8621e50457df2f123ad3eeac77a781
           </div>
           <div class="headbar"></div>
           <div class="icon" onclick="toggleSidebar()"><img class ="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
@@ -56,5 +90,30 @@
         </div>
       </div>
     </div>
+<<<<<<< HEAD
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Function to adjust text size based on window width
+  function adjustTextSize() {
+    var windowWidth = $(window).width();
+    // You can adjust this formula as needed
+    var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
+    $('.resizable-text, .month-num').css('font-size', monthnumSize + 'px');
+    var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
+    $('.month-str').css('font-size', monthstrSize + 'px');
+    var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
+    $('.year-num').css('font-size', yearSize + 'px');
+    var textSize = Math.max(30, Math.min(50, windowWidth / 50)); // Example formula
+    $('.day').css('font-size', textSize + 'px');
+  }
+
+  // Call adjustTextSize on page load and resize
+  adjustTextSize();
+  $(window).resize(adjustTextSize);
+});
+</script>
+=======
+>>>>>>> 85fc3634bc8621e50457df2f123ad3eeac77a781
   </body>
 </html>
