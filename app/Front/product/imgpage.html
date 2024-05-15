@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="imgpage.css" />
+    
+    <script>
+      function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active"); /////
+      }
+    </script>
+  </head>
+  <body>
+    <div class="box">
+      <div class="img-page">
+        <div class="overlap">
+          <div class="main"></div>
+          <div class="img-box"></div>
+          <img class="img" src="img/img.png" />
+          <div class="reroll-button">
+            <div class="div">
+              <img class="reroll" src="img/reroll.png" />
+              <div class="reroll-box"></div>
+            </div>
+          </div>
+          <div class="save-button">
+            <div class= "div">
+            <img class="save" src="img/save.png" />
+            <div class="save-box"></div>
+            </div>
+          </div>
+          <div class="date">
+            <div class="overlap-2">
+              <div class="month-num">1</div>
+              <img class="month-line" src="img/monthline.svg" />
+            </div>
+            <div class="year">2024</div>
+            <div class="month-str">january</div>
+            <div class="day">28&nbsp;&nbsp; (일)</div>
+          </div>
+          <div class="headbar"></div>
+          <div class="icon" onclick="toggleSidebar()"><img class ="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
+              <div id="sidebar" class="sidebar">
+                <!-- 메뉴 항목들 -->
+                <form action="/member/update">
+                  <div class="menu-item"><button onclick="">userUdate</button></div>
+                </form>
+                <form action="/app/Front/sign/sign-in.html">
+                  <div class="menu-item"><button onclick="">userLogout</button></div>
+                </form>
+                <div class="menu-item"><button onclick="">내정보</button></div>
+              </div>
+              <div class="back-main">CBY.com</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
