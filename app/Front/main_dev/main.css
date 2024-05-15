@@ -1,6 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap'); /*캐비엇 폰트*/
+@import url('https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap'); /*캘리그라피 폰트*/
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap'); /*비터 폰트*/
 
+/* 폰트 모음 */
 .caveat {
   font-family: "Caveat", cursive;
   font-optical-sizing: auto;
@@ -13,6 +15,14 @@
   font-weight: 400;
   font-style: normal;
 }
+
+.bitter {
+  font-family: "Bitter", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+/* end */
 
 
 .box {
@@ -78,18 +88,48 @@
   left: 205px;
   background-color: #d6e5cf;
 }
-
+/* days start */
 .box .days {
   position: absolute;
+  width: calc(100% - 300px);
+  height: 37px;
+  top: 450px;
+  left: 155px;
+  font-family: "Calligraffitti", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 50px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  display: flex;
+  
+  
+}
+.box .days div {
   width: 130px;
   height: 105px;
-  top: 428px;
-  left: 205px;
-  background-color: #cdd5c9;
+  flex: 1; 
+  font-family: "Calligraffitti", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background-color: #d6e5cf;
+
   border-radius: 65px/52.61px;
   border: 1px solid;
   border-color: #b6c4af;
+  border: 1px solid red
 }
+/* days end */
+
+
 /* weeks start */
 .box .weeks {
   position: absolute;
@@ -135,7 +175,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -150,7 +190,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -166,7 +206,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -182,7 +222,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -197,7 +237,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -212,7 +252,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -227,7 +267,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -243,7 +283,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -259,7 +299,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -274,7 +314,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -289,7 +329,7 @@
   position: relative;
   height: 54px;
   top: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #6f6767;
   font-size: 60px;
@@ -305,7 +345,7 @@
   height: 54px;
   top: 0;
   left: 0;
-  font-family: "Bitter-Regular", Helvetica;
+  font-family: "Bitter", serif;
   font-weight: 400;
   color: #000000;
   font-size: 60px;

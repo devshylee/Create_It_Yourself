@@ -9,9 +9,9 @@
   
   .box {
     margin: 0 auto;
-    width: 100%; /* 기본 너비를 100%로 설정하여 부모 요소에 맞추기 */
-    max-width: 1920px; /* 최대 너비를 1920px로 제한 */
-    height: auto; /* 높이를 자동으로 조정하여 비율 유지 */
+    width: 100%; 
+    max-width: 1920px; 
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,27 +19,10 @@
   }
   
   .box .group {
-    position: relative; /* 위치를 상대적으로 설정하여 부모 요소에 따라 배치 */
-    width: 100%; /* 너비를 100%로 설정하여 부모 요소에 맞추기 */
+    position: relative; 
+    width: 100%;
     max-width: 1920px; 
     height: 100%; 
-  }
-  
-  /* 미디어 쿼리를 사용하여 화면 크기에 따라 스타일 조정 */
-  @media (max-width: 1920px) {
-    .box {
-      max-width: 90%; /* 최대 너비를 90%로 제한하여 과도한 확대를 방지 */
-    }
-    
-    .box .group {
-      max-width: 95%; /* 최대 너비를 95%로 제한하여 과도한 확대를 방지 */
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .box .group {
-      max-width: 100%; /* 화면 크기가 작을 때 최대 너비를 100%로 설정하여 가로 스크롤이 생기지 않도록 함 */
-    }
   }
   
   
