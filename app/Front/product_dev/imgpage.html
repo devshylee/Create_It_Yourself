@@ -11,6 +11,10 @@
         var sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("active"); /////
       }
+      function backmain() {
+        var backmain = document.getElementById("main");
+        backmain.classList("active"); /////
+      }
     </script>
   </head>
   <body>
@@ -34,7 +38,6 @@
             <div class="month">
               <div class="month-num">
                 <p>1</p>
-              <img class="month-line" src="img/monthline.svg" />
               </div>
             </div>
             <div class="year">
@@ -58,8 +61,8 @@
                   <div class="menu-item"><button onclick="">userLogout</button></div>
                 </form>
                 <div class="menu-item"><button onclick="">내정보</button></div>
-              </div>
-              <div class="back-main">CBY.com</div>
+          </div>
+          <div class="back-main" onclick="backmain()">CBY.com</div>
         </div>
       </div>
     </div>
