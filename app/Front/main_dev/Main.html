@@ -1,140 +1,168 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="global.css" />
-  <link rel="stylesheet" href="days.css" />
-  <link rel="stylesheet" href="main.css" />
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="days.css" />
+    <link rel="stylesheet" href="main.css" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css" />
-  <!--reset css css를 개발할때 웹브라우저의 있는 초기값을 삭제시켜줌-->
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"
+    />
+    <!--reset css css를 개발할때 웹브라우저의 있는 초기값을 삭제시켜줌-->
+  </head>
 
-<body>
-  <div class="box">
-    <div class="group">
-      <div class="overlap-group">
-        <div class="main"></div>
-        <div class="rectangle"></div>
-        <div class="headbar"></div>
-        <div class="days">
-          <div class="day-1"><span>1</span></div>
-          <div class="day-2"><span>2</span></div>
-          <div class="day-3"><span>3</span></div>
-          <div class="day-4"><span>4</span></div>
-          <div class="day-5"><span>5</span></div>
-          <div class="day-6"><span>6</span></div>
-          <div class="day-7"><span>7</span></div>
-          <div class="day-8"><span>8</span></div>
-          <div class="day-9"><span>9</span></div>
-          <div class="day-10"><span>10</span></div>
-          <div class="day-11"><span>11</span></div>
-          <div class="day-12"><span>12</span></div>
-          <div class="day-13"><span>13</span></div>
-          <div class="day-14"><span>14</span></div>
-          <div class="day-15"><span>15</span></div>
-          <div class="day-16"><span>16</span></div>
-          <div class="day-17"><span>17</span></div>
-          <div class="day-18"><span>18</span></div>
-          <div class="day-19"><span>19</span></div>
-          <div class="day-20"><span>20</span></div>
-          <div class="day-21"><span>21</span></div>
-          <div class="day-22"><span>22</span></div>
-          <div class="day-23"><span>23</span></div>
-          <div class="day-24"><span>24</span></div>
-          <div class="day-25"><span>25</span></div>
-          <div class="day-26"><span>26</span></div>
-          <div class="day-27"><span>27</span></div>
-          <div class="day-28"><span>28</span></div>
-          <div class="day-29"><span>29</span></div>
-          <div class="day-30"><span>30</span></div>
-          <div class="day-31"><span>31</span></div>          
-        </div>
-        <div class="weeks">
-          <div class="sun">sun</div>
-          <div class="mon">mon</div>
-          <div class="tue">tue</div>
-          <div class="wed">wed</div>
-          <div class="thu">thu</div>
-          <div class="fri">fri</div>
-          <div class="sat">sat</div>
-        </div>
-        <div class="months">
-          <div class="jan">Jan</div>
-          <div class="feb">Feb</div>
-          <div class="mar">Mar</div>
-          <div class="apr">Apr</div>
-          <div class="may">May</div>
-          <div class="jun">Jun</div>
-          <div class="jul">Jul</div>
-          <div class="aug">Aug</div>
-          <div class="sep">Sep</div>
-          <div class="oct">Oct</div>
-          <div class="nov">Nov</div>
-          <div class="dec">Dec</div>
-        </div>
-        <!-- 헤더에 있는 date들-->
-        <div class="header_year"><span id=year>2024</span></div>
-        <div class="header_month_num"><span id=month>1</span></div>
-        <img class="line" src="img/line-17.png" />
-        <div class="header_month_string"><span id=smonth>january</span></div>
-        
-        <!-- 헤더에 있는 ui들-->
-        <img class="imgicon" src="/app/Front/img/ellipse-30.png" onclick="toggleSidebar()"/>
-        <button class="home_button" onclick="main_button()">CBY.com</button>
+  <body>
+    <div class="box">
+      <div class="group">
+        <div class="overlap-group">
+          <div class="main"></div>
+          <div class="rectangle"></div>
+          <div class="headbar"></div>
+          <div class="days">
+            <div class="day-1"><span>1</span></div>
+            <div class="day-2"><span>2</span></div>
+            <div class="day-3"><span>3</span></div>
+            <div class="day-4"><span>4</span></div>
+            <div class="day-5"><span>5</span></div>
+            <div class="day-6"><span>6</span></div>
+            <div class="day-7"><span>7</span></div>
+            <div class="day-8"><span>8</span></div>
+            <div class="day-9"><span>9</span></div>
+            <div class="day-10"><span>10</span></div>
+            <div class="day-11"><span>11</span></div>
+            <div class="day-12"><span>12</span></div>
+            <div class="day-13"><span>13</span></div>
+            <div class="day-14"><span>14</span></div>
+            <div class="day-15"><span>15</span></div>
+            <div class="day-16"><span>16</span></div>
+            <div class="day-17"><span>17</span></div>
+            <div class="day-18"><span>18</span></div>
+            <div class="day-19"><span>19</span></div>
+            <div class="day-20"><span>20</span></div>
+            <div class="day-21"><span>21</span></div>
+            <div class="day-22"><span>22</span></div>
+            <div class="day-23"><span>23</span></div>
+            <div class="day-24"><span>24</span></div>
+            <div class="day-25"><span>25</span></div>
+            <div class="day-26"><span>26</span></div>
+            <div class="day-27"><span>27</span></div>
+            <div class="day-28"><span>28</span></div>
+            <div class="day-29"><span>29</span></div>
+            <div class="day-30"><span>30</span></div>
+            <div class="day-31"><span>31</span></div>
+          </div>
+          <div class="weeks">
+            <div class="sun">sun</div>
+            <div class="mon">mon</div>
+            <div class="tue">tue</div>
+            <div class="wed">wed</div>
+            <div class="thu">thu</div>
+            <div class="fri">fri</div>
+            <div class="sat">sat</div>
+          </div>
+          <div class="months">
+            <div class="jan">Jan</div>
+            <div class="feb">Feb</div>
+            <div class="mar">Mar</div>
+            <div class="apr">Apr</div>
+            <div class="may">May</div>
+            <div class="jun">Jun</div>
+            <div class="jul">Jul</div>
+            <div class="aug">Aug</div>
+            <div class="sep">Sep</div>
+            <div class="oct">Oct</div>
+            <div class="nov">Nov</div>
+            <div class="dec">Dec</div>
+          </div>
+          <!-- 헤더에 있는 date들-->
+          <div class="header_year"><span id="year">2024</span></div>
+          <div class="header_month_num"><span id="month">1</span></div>
+          <img class="line" src="img/line-17.png" />
+          <div class="header_month_string">
+            <span id="smonth">january</span>
+          </div>
 
-        <!-- 사이드 메뉴 항목들 -->
-        <div id="sidebar" class="sidebar">
-          <form action="/member/update">
-            <div class="menu-item"><button onclick="">userUdate</button></div>
-          </form>
-          <div class="menu-item"><button onclick="signout_button()">userSignout</button></div>
-          <div class="menu-item"><button onclick="">내정보</button></div>
-        </div>
+          <!-- 헤더에 있는 ui들-->
+          <img
+            class="imgicon"
+            src="/app/Front/img/ellipse-30.png"
+            onclick="toggleSidebar()"
+          />
+          <button class="home_button" onclick="main_button()">CBY.com</button>
 
+          <!-- 사이드 메뉴 항목들 -->
+          <div id="sidebar" class="sidebar">
+            <form action="/member/update">
+              <div class="menu-item"><button onclick="">userUdate</button></div>
+            </form>
+            <div class="menu-item">
+              <button onclick="signout_button()">userSignout</button>
+            </div>
+            <div class="menu-item"><button onclick="">내정보</button></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <script>
-    // 사이드바 함수 
-    const toggleSidebar = () => {
-      var sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("active");
-    }
-    //end
+    <script>
+      // 사이드바 함수
+      const toggleSidebar = () => {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
+      };
+      //end
 
-    // 버튼 이벤트 처리함수
-    const main_button = () => {
-      url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
-      window.location.href = url;
-    }
-    const signout_button = () => {
-      url = "http://127.0.0.1:5500/app/Front/sign/sign-in.html";
-      window.location.href = url;
-    }
-    //end
+      // 버튼 이벤트 처리함수
+      const main_button = () => {
+        url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
+        window.location.href = url;
+      };
+      const signout_button = () => {
+        url = "http://127.0.0.1:5500/app/Front/sign/sign-in.html";
+        window.location.href = url;
+      };
+      //end
 
-    //헤더에 있는 날짜를 window 시각에 맞춰 바뀌게 해줌
-    let date = new Date();
-    const $year = document.querySelector('#year')
-    $year.textContent = date.getFullYear();
+      //헤더에 있는 날짜를 window 시각에 맞춰 바뀌게 해줌
+      let date = new Date();
+      const $year = document.querySelector("#year");
+      $year.textContent = date.getFullYear();
 
-    const $month = document.querySelector('#month')
-    $month.textContent = date.getMonth();
+      const $month = document.querySelector("#month");
+      $month.textContent = date.getMonth();
 
-    const $smonth = document.querySelector('#smonth')
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"];
-    let monthIndex = date.getMonth();
-    let monthName = monthNames[monthIndex-1];
-    $smonth.textContent = monthName;
-    //end
+      const $smonth = document.querySelector("#smonth");
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let monthIndex = date.getMonth();
+      let monthName = monthNames[monthIndex - 1];
+      $smonth.textContent = monthName;
+      //end
 
-
-
-
-
-  </script>
-</body>
-
+      //days에 마우스가 오버되면 바뀌는 css
+      let $days = document.querySelector(".days div");
+      $days.addEventListener("mousemove", (e) => {
+        let x = e.offsetX;
+        let y = e.offsetY;
+        console.log(x, y);
+        let rotateX = (4 / 30) * y - 20;
+        let rotateY = (-1 / 5) * x + 20;
+        $days.style = `transform : perspective(350px) rotateX(${rotateX} deg)
+        rotateY(${rotateY} deg)`;
+      });
+    </script>
+  </body>
 </html>
