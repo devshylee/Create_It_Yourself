@@ -90,7 +90,7 @@
 .box .days {
   position: absolute;
   /* width: calc(100% - 300px); */
-  width: max-content;
+
   height: 37px;
   top: 450px;
   left: 155px;
