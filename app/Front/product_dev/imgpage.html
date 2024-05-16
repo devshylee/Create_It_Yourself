@@ -18,8 +18,8 @@
       <div class="img-page">
         <div class="overlap">
           <div class="main"></div>
-          <div class="img-box"></div>
-          <div class="img"  ><img class = "png" src="img/img.png"></div>
+          <div class="img-box">
+          <div class="img" ><img class = "png" src="img/img.png"></div>
           <div class="reroll-button">    
             <div class="reroll-box">
             <img class="reroll" src="img/reroll.png" />
@@ -30,6 +30,7 @@
             <img class="save" src="img/save.png" />
             </div>
           </div>
+          </div>
           <div class="date">
             <div class="month">
               <div class="month-num">
@@ -37,17 +38,17 @@
               </div>
             </div>
             <div class="year">
-              <p class = "year-num">2024</p>
+              2024
             </div>
             <div class="month-str">
-              <p>january</p>
+              january
             </div>
             <div class="day">
-              <p>28&nbsp;&nbsp; (일) </p>
+              28&nbsp;&nbsp; (일)
             </div>
           </div>
           <div class="headbar"></div>
-          <div class="icon" onclick="toggleSidebar()"><img class ="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
+          <div class="icon" onclick="toggleSidebar()"><img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
               <div id="sidebar" class="sidebar">
                 <!-- 메뉴 항목들 -->
                 <form action="/member/update">
@@ -65,21 +66,18 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
-  // Function to adjust text size based on window width
   function adjustTextSize() {
     var windowWidth = $(window).width();
-    // You can adjust this formula as needed
     var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
-    $('.resizable-text, .month-num').css('font-size', monthnumSize + 'px');
+    $('.month-num').css('font-size', monthnumSize + 'px');
     var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
     $('.month-str').css('font-size', monthstrSize + 'px');
     var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
-    $('.year-num').css('font-size', yearSize + 'px');
+    $('.year').css('font-size', yearSize + 'px');
     var textSize = Math.max(30, Math.min(50, windowWidth / 50)); // Example formula
     $('.day').css('font-size', textSize + 'px');
   }
 
-  // Call adjustTextSize on page load and resize
   adjustTextSize();
   $(window).resize(adjustTextSize);
 });
