@@ -89,8 +89,7 @@
 /* days start */
 .box .days {
   position: absolute;
-  /* width: calc(100% - 300px); */
-
+  width: calc(100% - 300px);
   height: 37px;
   top: 450px;
   left: 155px;
@@ -118,16 +117,15 @@
   align-items: center;
   font-size: 24px;
   background-color: #d6e5cf;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-
   border-radius: 65px/52.61px;
   border: 1px solid;
   border-color: #b6c4af;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* .box .days div :hover {
-  width: 260px;
-} */
+.box .days :nth-child(7n) {
+  border: 1px solid red;
+}
 /* days end */
 
 /* weeks start */
@@ -363,9 +361,19 @@
   top: 215px;
   left: 88px;
 }
+/*header쪽 date */
+.box .header_dates {
+  position: absolute;
+  width: calc(100% - 20px);
+  height: 54px;
+  top: 150px;
+  left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .box .header_month_num {
-  top: 65px;
   left: 5%;
   color: #3d3a3a;
   font-size: 8vw;
@@ -379,7 +387,6 @@
 }
 
 .box .header_year {
-  top: 100px;
   right: 5%;
   color: #6e666699;
   font-size: 6vw;
@@ -394,7 +401,6 @@
 
 .box .header_month_string {
   position: absolute;
-  top: 87px;
   left: calc(5% + 130px);
   font-family: "Calligraffitti", Helvetica;
   font-weight: 400;
@@ -404,6 +410,7 @@
   letter-spacing: 0;
   line-height: normal;
 }
+/*header쪽 date */
 
 .box .imgicon {
   position: absolute;

@@ -77,11 +77,14 @@
             <div class="dec">Dec</div>
           </div>
           <!-- 헤더에 있는 date들-->
-          <div class="header_year"><span id="year">2024</span></div>
-          <div class="header_month_num"><span id="month">1</span></div>
+          <div class = "header_dates">
+            <div class="header_year"><span id="year">2024</span></div>
+            <div class="header_month_num"><span id="month">1</span></div>
+            <div class="header_month_string"> <span id="smonth">january</span></div>
+          </div>
           <img class="line" src="img/line-17.png" />
-          <div class="header_month_string">
-            <span id="smonth">january</span>
+          
+           
           </div>
 
           <!-- 헤더에 있는 ui들-->
@@ -153,7 +156,7 @@
       //end
 
       //days에 마우스가 오버되면 바뀌는 css
-      let $days = document.querySelector(".days div");
+      let $days = document.querySelector(".days");
       $days.addEventListener("mousemove", (e) => {
         let x = e.offsetX;
         let y = e.offsetY;
