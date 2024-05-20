@@ -24,13 +24,21 @@ public class MemberController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute MemberDTO memberDTO) {
+    public String save(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
         memberDTO.setSignDate(new Date());
-        int saveResult = memberService.save(memberDTO);
-        if (saveResult > 0) {
-            return "login";
+        String checkResult = memberService.emailCheck(memberDTO.getMemberEmail());
+        if (checkResult.equals("ok")) {
+            // 중복되지 않은 경우에만 회원가입 처리
+            int saveResult = memberService.save(memberDTO);
+            if (saveResult > 0) {
+                return "login"; // 회원가입 성공 시 로그인 페이지로 이동
+            } else {
+                model.addAttribute("error", "회원가입에 실패했습니다. 다시 시도해주세요.");
+                return "save"; // 회원가입 실패 시 회원가입 페이지로 이동
+            }
         } else {
-            return "save";
+            model.addAttribute("error", "중복된 이메일 주소입니다. 다른 이메일 주소를 입력해주세요.");
+            return "save"; // 중복된 이메일 주소일 경우 회원가입 페이지로 이동
         }
     }
 
@@ -49,6 +57,7 @@ public class MemberController {
         } else {
             return "login";
         }
+
     }
 
     @GetMapping("/")
@@ -64,6 +73,17 @@ public class MemberController {
         MemberDTO memberDTO = memberService.findById(id);
         model.addAttribute("member", memberDTO);
         return "detail";
+    }
+
+    @GetMapping("/my-info") // 내정보 페이지로 이동하는 매핑
+    public String getMyInfo(HttpSession session, Model model) {
+        // 세션에서 로그인한 사용자의 이메일 가져오기
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        // 이메일을 기반으로 현재 로그인한 사용자의 정보를 가져옴
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        // 모델에 사용자 정보를 담아서 detail.jsp로 전달
+        model.addAttribute("member", memberDTO);
+        return "detail"; // detail.jsp로 이동
     }
 
     @GetMapping("/delete")

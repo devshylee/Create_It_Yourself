@@ -19,7 +19,7 @@
     const update = () => {
         const passwordDB = '${member.memberPassword}';
         const password = document.getElementById("memberPassword").value;
-        if (passwordDB == password) {
+        if (passwordDB === password) {
             document.updateForm.submit();
         } else {
             alert("비밀번호가 일치하지 않습니다!");

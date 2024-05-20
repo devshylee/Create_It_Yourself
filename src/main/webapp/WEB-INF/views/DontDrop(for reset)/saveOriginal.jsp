@@ -5,7 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <form action="/member/save" method="post">
+    <form action="${pageContext.request.contextPath}/member/save" method="post">
         <input type="text" name="memberEmail" placeholder="이메일" id="memberEmail" onblur="emailCheck()">
         <p id="check-result"></p>
         <input type="text" name="memberPassword" placeholder="비밀번호">
@@ -31,7 +31,7 @@
             },
             success: function(res) {
                 console.log("요청성공", res);
-                if (res == "ok") {
+                if (res === "ok") {
                     console.log("사용가능한 이메일");
                     checkResult.style.color = "green";
                     checkResult.innerHTML = "사용가능한 이메일";

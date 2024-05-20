@@ -15,18 +15,19 @@
             <th>조회</th>
             <th>삭제</th>
         </tr>
+        <jsp:useBean id="memberList" scope="request" type="java.util.List"/>
         <c:forEach items="${memberList}" var="member">
             <tr>
                 <td>${member.id}</td>
                 <td>
 
-                    <a href="/member?id=${member.id}">${member.memberEmail}</a>
+                    <a href="${pageContext.request.contextPath}/member?id=${member.id}">${member.memberEmail}</a>
                 </td>
                 <td>${member.memberPassword}</td>
                 <td>${member.memberName}</td>
                 <td>${member.memberBirthDate}</td>
                 <td>
-                    <a href="/member?id=${member.id}">조회</a>
+                    <a href="${pageContext.request.contextPath}/member?id=${member.id}">조회</a>
                 </td>
                 <td>
                     <button onclick="deleteMember('${member.id}')">삭제</button>

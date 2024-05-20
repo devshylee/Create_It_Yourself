@@ -16,23 +16,23 @@ public class MemberService {
         return memberRepository.save(memberDTO);
     }
 
-//    public boolean login(MemberDTO memberDTO) {
-//        MemberDTO loginMember = memberRepository.login(memberDTO);
-//        if (loginMember != null && loginMember.getMemberPassword().equals(memberDTO.getMemberPassword())) {
-//            return true; // 로그인 성공
-//        } else {
-//            return false; // 로그인 실패
-//        }
-//    }
-
     public boolean login(MemberDTO memberDTO) {
         MemberDTO loginMember = memberRepository.login(memberDTO);
-        if (loginMember != null) {
-            return true;
+        if (loginMember != null && loginMember.getMemberPassword().equals(memberDTO.getMemberPassword())) {
+            return true; // 로그인 성공
         } else {
-            return false;
+            return false; // 로그인 실패
         }
     }
+
+//    public boolean login(MemberDTO memberDTO) {
+//        MemberDTO loginMember = memberRepository.login(memberDTO);
+//        if (loginMember != null) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     public List<MemberDTO> findAll() {
         return memberRepository.findAll();

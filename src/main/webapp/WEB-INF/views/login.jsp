@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />SS
+    <meta charset="utf-8" />
 
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -42,16 +42,18 @@
         <form action="${pageContext.request.contextPath}/member/login" method="post" id="loginForm">
             <div class="overlap">
                 <div class="div">
+
                     <div class="overlap-group">
                         <div class="rectangle"></div>
                         <div class="text-wrapper"><input type="text" name="memberPassword" placeholder="비밀번호를 입력하세요"
-                                                         value="testPw1"></div>
+                                                         value="@connor0721"></div>
                         <img class="free-icon-password" src="${pageContext.request.contextPath}/resources/img/lock_FILL0_wght400_GRAD0_opsz24.png" />
                     </div>
+
                     <div class="overlap-2">
                         <div class="rectangle"></div>
                         <div class="text-wrapper-2"><input type="text" name="memberEmail" placeholder="이메일을 입력하세요"
-                                                           value="testPw1">
+                                                           value="b5959946c@daum.net">
                         </div>
                         <img class="free-icon-face-id" src="${pageContext.request.contextPath}/resources/img/person_FILL0_wght400_GRAD0_opsz24.png" />
                     </div>
