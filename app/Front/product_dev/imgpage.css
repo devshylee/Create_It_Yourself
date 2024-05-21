@@ -1,282 +1,240 @@
-
 @media (min-width: 500px) {
   .box {
     max-width: 100%;
   }
-	.box .img-page{
-		display: inline-block;
+
+  .box .img-page {
+    display: inline-block;
     vertical-align: top;
-    max-width: 100%;
-	}
-  .box .overlap{
-		display: inline-block;
-    vertical-align: top;
-    max-width: 100%;
-	}
-  
-}
-@media (max-width: 1920px) {
-  .box {
     max-width: 100%;
   }
-	.box .img-page{
-		display: inline-block;
-    vertical-align: top;
-    max-width: 100%;
-	}
+
+ 
+
 }
-   .box {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1920px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f1f5f2;
-    position: relative;
-    overflow: hidden;
-    }
 
-    .box .img-page {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      max-width: 1920px;
-    }
+.box {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f5f2;
+  position: relative;
+  overflow: hidden;
+}
 
-    .box .overlap {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .box .main {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      max-width: 1920px;
-      top: 70px;
-      left: 0;
-      background-color: #f1f5f2;
-    }
-
-    .box .img-box {
-      position: absolute;
-      width: calc(100% - 180px);
-      left: 105px;
-      top: 254px;
-      bottom: 15px;
-      margin: auto;
-      background-color: #cfe1e5;
-      border-radius: 54px;
-      border: 2px solid;
-      border-color: #777f81; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-      overflow: hidden;
-    }
-
-    .box .img {
-      position:absolute;
-      width: 50vw;
-      max-width: 900px;
-      height: 50vw;
-      max-height: 500px;
-      left: 20%;
-      top: 100px;
-      bottom: 15px;
-        }
-    .box .png {
-      position:absolute;
-      width: 50vw;
-      max-width: 900px;
-      height: 50vw;
-      max-height: 500px;
-    }
+.box .img-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  max-width: 1920px;
+}
 
 
-    
-    .box .headbar {
-      position: absolute;
-      width: 100%;
-      height: 70px;
-      top: 0;
-      left: 0;
-      background-color: #d9d9d9;
-    }
 
-   .box .back-main {
-      position: absolute;
-      height: 47px;
-      top: 16px;
-      left: 20px;
-      font-family: "Calligraffitti", Helvetica;
-      font-weight: 400;
-      color: #000000;
-      font-size: 30px;
-      text-align: center;
-      letter-spacing: 0;
-      line-height: normal;
-    }
-      
+.box .img-box {
+  position: absolute;
+  width: calc(100% - 180px);
+  left: 105px;
+  top: 254px;
+  bottom: 15px;
+  margin: auto;
+  background-color: #cfe1e5;
+  border-radius: 54px;
+  border: 2px solid red;
+  border-color: #777f81;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
 
-    .box .reroll-button {
-      position: absolute;
-      width: 7vw;
-      max-width: 123px;
-      height: 7vw;
-      max-height: 106px;
-      bottom: 30px;
-      left: 10%;
-    }
-    .box .reroll-box {
-      position: absolute;
-      width: 7vw;
-      max-width: 123px;
-      height: 7vw;
-      max-height: 106px;
-      border-radius: 230.5px;
-      border: 4px solid;
-      border-color: #00000099;
-    }
-    .box .reroll {
-      position: absolute;
-      width: 4vw;
-      max-width: 81px;
-      height: 4vw;
-      max-height: 74px;
-      top: 12%;
-      left: 17%;
-    }
-    
-    .box .save-button {
-      position: absolute;
-      width: 7vw;
-      max-width: 123px;
-      height: 7vw;
-      max-height: 106px;
-      bottom: 30px;
-      right: 10%;
-    }
-      .box .save {
-        position: absolute;
-        width: 4vw;
-        max-width: 65px;
-        height: 4vw;
-        max-height: 74px;
-        top: 12%;
-        left: 20%;
-        right: 70%;
-    }
-      .box .save-box {
-        position: absolute;
-      width: 7vw;
-      max-width: 123px;
-      height: 7vw;
-      max-height: 106px;
-      border-radius: 230.5px;
-      border: 4px solid;
-      border-color: #00000099;
-    }
+.box .img {
+  position: absolute;
+  width: 50vw;
+  max-width: 900px;
+  height: 300px;
+  max-height: 500px;
+  left: 20%;
+  top: 100px;
+  margin-bottom: 15px;
+  border: 1px solid red;
+}
 
-    .box .date {
-      position: absolute;
-      
-      width: 100%;
-      height: 300px;
-      top: 70px;
-    }
-    
-    .date .month {
-      position: absolute;
-      top: 30px;
-      left: 10%;
-    }
-    
-    .date .month-num {
-      position: absolute;
-      top: 0;
-      left: 0;
-      font-family: "Calligraffitti", Helvetica;
-      font-weight: 400;
-      color: #3d3a3a; 
-      font-size: 128px;
-      text-align: center;
-      letter-spacing: 0;
-      line-height: normal;
-      white-space: nowrap;
-    }
-    
-    .date .year {
-      position: absolute;
-      top: 42px;
-      left: 65%;
-      font-family: "Calligraffitti", Helvetica;
-      font-weight: 400;
-      color: #6e666699;
-      font-size: 110px;
-      text-align: center;
-      letter-spacing: 0;
-      line-height: normal;
-      white-space: nowrap;
-    }
-    
-    .date .month-str {
-      position: absolute;
-      top: 30px;
-      left: 20%;
-      font-family: "Calligraffitti", Helvetica;
-      font-weight: 400;
-      color: #6f6767;
-      font-size: 96px;
-      letter-spacing: 0;
-      line-height: normal;
-    }
-    
-    .date .day {
-      position: absolute;
-      width: 50vw;
-      max-width: 200px;
-      top: 200px;
-      left: 40%;
-      font-family: "Carme", Helvetica;
-      font-weight: 400;
-      color: #3e3a3a;
-      font-size: 50px;
-      text-align: center;
-      letter-spacing: 0;
-      line-height: normal;
-    }
-      
-      .sidebar {
-        position: fixed;
-        top: 0;
-        right: -250px; 
-        width: 250px;
-        height: 100%;
-        background-color: #333; 
-        transition: all 0.3s ease;
-      }
-      
-      
-      .sidebar.active {
-        right:  0; 
-      }
-      
-      .icon {
-        position: absolute;
-        right:  20px;
-        cursor: pointer;
-        z-index: 999; 
-        color: #fff; 
-        top: 5px;
-      }
-      .box .menuimg {
-        position: absolute;
-        width: 61px;
-        height: 61px;
-        top: 5px;
-        right: 20px ;
-        background-blend-mode: hard-light;
-        object-fit: cover;
-      }
-      
+
+.box .headbar {
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  top: 0;
+  left: 0;
+  background-color: #d9d9d9;
+}
+
+.box .back-main {
+  position: absolute;
+  height: 47px;
+  top: 16px;
+  left: 20px;
+  font-family: "Calligraffitti", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+
+.box .reroll-box {
+  position: absolute;
+  width: 7vw;
+  max-width: 123px;
+  height: 7vw;
+  max-height: 106px;
+  border-radius: 230.5px;
+  border: 4px solid;
+  border-color: #00000099;
+  bottom: 0;
+  padding: 15px;
+  margin: 30px;
+}
+
+.box .reroll {
+  position: absolute;
+  width: 4vw;
+  max-width: 81px;
+  height: 4vw;
+  max-height: 74px;
+  top: 12%;
+  left: 17%;
+}
+
+.box .save-box {
+  position: absolute;
+  width: 7vw;
+  max-width: 123px;
+  height: 7vw;
+  max-height: 106px;
+  border-radius: 230.5px;
+  border: 4px solid;
+  border-color: #00000099;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  margin: 30px;
+}
+
+.box .save {
+  position: absolute;
+  width: 4vw;
+  max-width: 65px;
+  height: 4vw;
+  max-height: 74px;
+  top: 12%;
+  left: 20%;
+  right: 70%;
+}
+
+
+.box .date {
+  position: absolute;
+  width: 100%;
+  top: 70px;
+  
+}
+
+.date .month {
+  position: absolute;
+  top: 30px;
+  left: 10%;
+}
+
+.date .month-num {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Calligraffitti", Helvetica;
+  font-weight: 400;
+  color: #3d3a3a;
+  font-size: 6vw;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.date .year {
+  position: absolute;
+  top: 42px;
+  left: 75%;
+  font-family: "Calligraffitti", Helvetica;
+  font-weight: 400;
+  color: #6e666699;
+  font-size: 5vw;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.date .month-str {
+  position: absolute;
+  top: 30px;
+  left: 18%;
+  font-family: "Calligraffitti", Helvetica;
+  font-weight: 400;
+  color: #6f6767;
+  font-size: 4vw;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.date .day {
+  position: absolute;
+  width: 100%;
+  top: 200px;
+  font-family: "Carme", Helvetica;
+  font-weight: 400;
+  color: #3e3a3a;
+  font-size: 3vw;
+
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+
+
+.sidebar.active {
+  right: 0;
+}
+
+.icon {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+  z-index: 999;
+  color: #fff;
+  top: 5px;
+}
+
+.box .menuimg {
+  position: absolute;
+  width: 61px;
+  height: 61px;
+  top: 5px;
+  right: 20px;
+  background-blend-mode: hard-light;
+  object-fit: cover;
+}
