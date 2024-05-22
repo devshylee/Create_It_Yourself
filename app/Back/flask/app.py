@@ -10,7 +10,7 @@ from flask_cors import CORS
 
 # %%
 # 본인 API키 등록
-GOOGLE_API_KEY = "AIzaSyB-aarWu_17ZWcUWJrgXQB96hBhxB-hulI"
+GOOGLE_API_KEY = "비밀"
 # %%
 import google.generativeai as genai
 from IPython.display import display
