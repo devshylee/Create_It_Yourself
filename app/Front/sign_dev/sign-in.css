@@ -1,0 +1,224 @@
+.box {
+  position: relative;
+  width: 100%;
+  height: 1080px;
+  display: flex;
+}
+
+.box .signin {
+  position: relative;
+  width: 100%;
+  height: 1080px;
+  top: 0;
+  left: 0;
+  background-color: #f1f5f2;
+  border: 1px solid;
+  border-color: #e4cfe5;
+}
+
+.box .overlap {
+  position: absolute;
+  width: 100%;
+  height: 449px;
+  top: 631px;
+  left: 0;
+}
+
+/*footer style*/
+.box .footer {
+  position: absolute;
+  width: 1922px;
+  height: 412px;
+  top: 37px;
+  left: 0;
+  background-color: transparent;
+}
+
+.box .footer_wave {
+  position: relative;
+  width: 1920px;
+  height: 412px;
+  background-image: url(/app/Front/img/footerwave.svg);
+  background-size: 100% 100%;
+}
+
+.box .text-wrapper {
+  position: absolute;
+  width: 730px;
+  height: 36px;
+  top: 259px;
+  left: 562px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #3e3a3a;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+/*footer style*/
+
+.box .password-group {
+  position: absolute;
+  width: 848px;
+  height: 114px;
+  top: 0;
+  left: 503px;
+}
+
+.box .div {
+  position: relative;
+  width: 846px;
+  height: 114px;
+  border-radius: 209px;
+}
+
+.box .div-2 {
+  position: absolute;
+  width: 846px;
+  height: 114px;
+  top: 0;
+  left: 0;
+  background-color: #cfe1e5;
+  border-radius: 209px;
+  border: 1px solid;
+  border-color: #777f81;
+  transform: rotate(180deg);
+}
+
+.box .text-wrapper-2 {
+  width: 455px;
+  position: absolute;
+  top: 37px;
+  left: 204px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6f6767;
+  font-size: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.box .password-icon {
+  position: absolute;
+  width: 74px;
+  height: 66px;
+  top: 20px;
+  left: 43px;
+  object-fit: cover;
+}
+
+.box .signin-button {
+  position: absolute;
+  width: 418px;
+  height: 114px;
+  top: 148px;
+  left: 503px;
+}
+
+.box .overlap-2 {
+  position: relative;
+  width: 416px;
+  height: 114px;
+  border-radius: 209px;
+}
+
+.box .div-3 {
+  position: absolute;
+  width: 416px;
+  height: 114px;
+  top: 0;
+  left: 0;
+  background-color: #777f81;
+  border-radius: 209px;
+  border: 1px solid;
+  border-color: #bfcacd;
+  transform: rotate(180deg);
+}
+
+.box .text-wrapper-3 {
+  position: absolute;
+  width: 154px;
+  height: 44px;
+  top: 35px;
+  left: 131px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.box .signup-button {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  width: 418px;
+  height: 114px;
+  top: 148px;
+  left: 933px;
+}
+
+.box .email-group {
+  position: absolute;
+  width: 848px;
+  height: 114px;
+  top: 482px;
+  left: 502px;
+}
+
+.box .text-wrapper-4 {
+  width: 439px;
+  position: absolute;
+  top: 37px;
+  left: 204px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6f6767;
+  font-size: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.box .email-icon {
+  position: absolute;
+  width: 69px;
+  height: 74px;
+  top: 20px;
+  left: 50px;
+}
+/*header style*/
+.box .header {
+  position: absolute;
+  width: 1922px;
+  height: 372px;
+  top: -1px;
+  left: -1px;
+  background-color: transparent;
+}
+
+.box .div-wrapper {
+  position: relative;
+  width: 100%;
+  height: 372px;
+  background-image: url(/app/Front/img/header.svg);
+  background-size: 100% 100%;
+}
+
+.box .header-text {
+  position: absolute;
+  width: 263px;
+  font-family: "Koh Santepheap-Regular", Helvetica;
+  font-weight: 400;
+  color: #3e3a3a;
+  font-size: 128px;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: normal;
+}
