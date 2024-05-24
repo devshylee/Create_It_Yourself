@@ -11,6 +11,10 @@
         var sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("active"); 
       }
+      const main_button = () => {
+      url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
+      window.location.href = url;
+      };
     </script>
   </head>
   <body>
@@ -18,25 +22,15 @@
       <div class="img-page">
 
           <div class="img-box">
+            <div class="days"><span id = "day">28&nbsp;&nbsp; (일)</span></div>
           <img class = "img" src="img/img.png" />
             <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
             <div class="save-box"><img class="save" src="img/save.png" /></div>
           </div>
-          <div class="date">
-            <div class="month">
-              <div class="month-num">
-                <p>1</p>
-              </div>
-            </div>
-            <div class="year">
-              2024
-            </div>
-            <div class="month-str">
-              january
-            </div>
-            <div class="day">
-              28&nbsp;&nbsp; (일)
-            </div>
+          <div class="header_dates">
+            <div class="header_year"><span id="year">2024</span></div>
+            <div class="header_month_num"><span id="month">1</span></div>
+            <div class="header_month_string"> <span id="smonth">january</span></div>
           </div>
           <div class="headbar"></div>
           <div class="icon" onclick="toggleSidebar()"><img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
@@ -50,12 +44,69 @@
                 </form>
                 <div class="menu-item"><button onclick="">내정보</button></div>
           </div>
-          <div class="back-main">CBY.com</div>
+          <div class="back-main" onclick="main_button()">CBY.com</div>
         
       </div>
     </div>
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<!-- <script>
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+    <script>
+// $(document).ready(function(){
+//   function adjustTextSize() {
+//     var windowWidth = $(window).width();
+//     var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
+//     $('.header_month_num').css('font-size', monthnumSize + 'px');
+//     var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
+//     $('.header_month_string').css('font-size', monthstrSize + 'px');
+//     var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
+//     $('.header_year').css('font-size', yearSize + 'px');
+//     var textSize = Math.max(30, Math.min(50, windowWidth / 50)); // Example formula
+//     $('.days').css('font-size', textSize + 'px');
+//   }
+
+//   adjustTextSize();
+//   $(window).resize(adjustTextSize);
+// });
+
+      let date = new Date();
+    const $year = document.querySelector("#year");
+    $year.textContent = date.getFullYear();
+
+    const $month = document.querySelector("#month");
+    $month.textContent = date.getMonth();
+
+    const $smonth = document.querySelector("#smonth");
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let monthIndex = date.getMonth();
+    let monthName = monthNames[monthIndex - 1];
+    $smonth.textContent = monthName;
+
+    const $day = document.querySelector("#day"); // Changed selector here
+        const weekdayNames = [
+            "일", "월", "화", "수", "목", "금", "토"
+        ];
+        let weekdayIndex = date.getDay();
+        let weekdayName = weekdayNames[weekdayIndex];
+        let day = date.getDate();
+        $day.textContent = `${day} (${weekdayName})`;
+    //end
+    </script>
+  </body>
+</html>
+
+<script>
 $(document).ready(function(){
   function adjustTextSize() {
     var windowWidth = $(window).width();
@@ -72,6 +123,4 @@ $(document).ready(function(){
   adjustTextSize();
   $(window).resize(adjustTextSize);
 });
-</script> -->
-  </body>
-</html>
+</script>
