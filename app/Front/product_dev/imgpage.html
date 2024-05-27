@@ -67,60 +67,30 @@
 //   $(window).resize(adjustTextSize);
 // });
 
-      let date = new Date();
-    const $year = document.querySelector("#year");
-    $year.textContent = date.getFullYear();
+            let date = new Date();
+            const $year = document.querySelector("#year");
+            $year.textContent = date.getFullYear();
 
-    const $month = document.querySelector("#month");
-    $month.textContent = date.getMonth();
+            const $month = document.querySelector("#month");
+            $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexed
 
-    const $smonth = document.querySelector("#smonth");
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let monthIndex = date.getMonth();
-    let monthName = monthNames[monthIndex - 1];
-    $smonth.textContent = monthName;
+            const $smonth = document.querySelector("#smonth");
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            let monthIndex = date.getMonth();
+            let monthName = monthNames[monthIndex];
+            $smonth.textContent = monthName;
 
-    const $day = document.querySelector("#day"); // Changed selector here
-        const weekdayNames = [
-            "일", "월", "화", "수", "목", "금", "토"
-        ];
-        let weekdayIndex = date.getDay();
-        let weekdayName = weekdayNames[weekdayIndex];
-        let day = date.getDate();
-        $day.textContent = `${day} (${weekdayName})`;
-    //end
+            const $day = document.querySelector("#day");
+            const weekdayNames = [
+                "일", "월", "화", "수", "목", "금", "토"
+            ];
+            let weekdayIndex = date.getDay();
+            let weekdayName = weekdayNames[weekdayIndex];
+            let day = date.getDate();
+            $day.textContent = `${day} (${weekdayName})`;
     </script>
   </body>
 </html>
-
-<script>
-$(document).ready(function(){
-  function adjustTextSize() {
-    var windowWidth = $(window).width();
-    var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
-    $('.month-num').css('font-size', monthnumSize + 'px');
-    var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
-    $('.month-str').css('font-size', monthstrSize + 'px');
-    var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
-    $('.year').css('font-size', yearSize + 'px');
-    var textSize = Math.max(30, Math.min(50, windowWidth / 50)); // Example formula
-    $('.day').css('font-size', textSize + 'px');
-  }
-
-  adjustTextSize();
-  $(window).resize(adjustTextSize);
-});
-</script>
