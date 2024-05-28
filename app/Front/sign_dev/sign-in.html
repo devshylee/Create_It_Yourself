@@ -5,51 +5,65 @@
   <meta charset="utf-8" />
   <link rel="stylesheet" href="globals.css" />
   <link rel="stylesheet" href="sign-in.css" />
+
+
 </head>
 
 <body>
   <div class="box">
     <div class="signin">
       <header class="header">
-        <img src  = "/app/Front/img/header.svg" class="div-wrapper">
-          <div class="header-text">CBY</div>
-        
+        <div class="header-text">CBY</div>
       </header>
-      <main>
-        <div class="main">
-          <div class="email-group">
-            <div class="div">
-              <div class="email-text">이메일를 입력하세요</div>
-              <img class="email-icon" src="/app/Front/img/free-icon-face-id-6057590-1.png" />
-            </div>
+      <main class="main">
+        <div class="email-group">
+          <div class="div">
+            <input type="text" class="email-text" placeholder="이메일를 입력하세요">
+            <img class="email-icon" src="/app/Front/img/free-icon-face-id-6057590-1.png" />
           </div>
-          <div class="password-group">
-            <div class="div">
-              <div class="password-text">비밀번호를 입력하세요</div>
-              <img class="password-icon" src="/app/Front/img/free-icon-password-4520142-1.png" />
-            </div>
-          </div>
-          <button class="signin-button">
-            <div class="overlap-2">
-              <div class="button-text">Sign in</div>
-            </div>
-          </button>
-          <button class="signup-button">
-            <div class="overlap-2">
-              <div class="button-text">Sign Up</div>
-            </div>
-          </button>
+
         </div>
+        <div class="password-group">
+          <div class="div">
+            <input type="password" class="password-text" placeholder="비밀번호를 입력하세요">
+            <img class="password-icon" src="/app/Front/img/free-icon-password-4520142-1.png" />
+          </div>
+        </div>
+        <button class="signin-button">
+          <div class="overlap-2">
+            <div class="button-text">Sign in</div>
+          </div>
+        </button>
+        <button class="signup-button">
+          <div class="overlap-2">
+            <div class="button-text">Sign Up</div>
+          </div>
+        </button>
       </main>
       <footer class="footer">
-        <div class="footer_wave">
-          <div class="text-wrapper">Forgot your password</div>
-        </div>
+        <!--Waves Container-->
+          <div>
+            <svg class="footer_wave" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+              <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+              </defs>
+              <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(214,229,207,0.7)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(214,229,207,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(214,229,207,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#D6E5CF" />
+              </g>
+            </svg>
+          </div>
+           <!--Waves end-->
+          <div class="footer_text">Forgot your password</div>
       </footer>
-
-
+      
+      
+     
     </div>
   </div>
 </body>
 
-</html>	
+</html>
