@@ -97,6 +97,11 @@
             return "redirect:/member/";
         }
 
+        @GetMapping("/resetPwd")
+        public String resetPwdForm(){
+            return "reset_password";
+        }
+
         @GetMapping("/passwordCheck")
         public String passwordCheckForm() {
             return "passwordCheck"; // 비밀번호 확인을 위한 폼을 보여주는 뷰로 이동
