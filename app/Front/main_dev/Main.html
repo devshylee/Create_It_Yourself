@@ -1,169 +1,175 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8" />
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="days.css" />
+    <link rel="stylesheet" href="main.css" />
 
-  <link rel="stylesheet" href="global.css" />
-  <link rel="stylesheet" href="days.css" />
-  <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"
+    />
+    <!--reset css css를 개발할때 웹브라우저의 있는 초기값을 삭제시켜줌-->
+  </head>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css" />
-  <!--reset css css를 개발할때 웹브라우저의 있는 초기값을 삭제시켜줌-->
-</head>
-
-<body>
-  <div class="box">
-    <div class="group">
-      <!-- main-->
-      <div class="main">
-        <!-- 사이드 메뉴 항목들 -->
-        <div id="sidebar" class="sidebar">
-          <form action="/member/update">
-            <div class="menu-item"><button onclick="">userUdate</button></div>
-          </form>
-          <div class="menu-item">
-            <button onclick="signout_button()">userSignout</button>
+  <body>
+    <div class="box">
+      <div class="group">
+        <!-- main-->
+        <div class="main">
+          <!-- 사이드 메뉴 항목들 -->
+          <div id="sidebar" class="sidebar">
+            <form action="/member/update">
+              <div class="menu-item"><button onclick="">userUdate</button></div>
+            </form>
+            <div class="menu-item">
+              <button onclick="signout_button()">userSignout</button>
+            </div>
+            <div class="menu-item"><button onclick="">내정보</button></div>
           </div>
-          <div class="menu-item"><button onclick="">내정보</button></div>
+          <!-- 헤더에 있는 date들-->
+          <div class="header_dates">
+            <div class="header_year"><span id="year">2024</span></div>
+            <div class="header_month_num"><span id="month">1</span></div>
+            <div class="header_month_string">
+              <span id="smonth">january</span>
+            </div>
+            <!-- <img class="line" src="/app/Front/img/line-17.png" /> -->
+          </div>
+          <div class="months">
+            <div class="jan">Jan</div>
+            <div class="feb">Feb</div>
+            <div class="mar">Mar</div>
+            <div class="apr">Apr</div>
+            <div class="may">May</div>
+            <div class="jun">Jun</div>
+            <div class="jul">Jul</div>
+            <div class="aug">Aug</div>
+            <div class="sep">Sep</div>
+            <div class="oct">Oct</div>
+            <div class="nov">Nov</div>
+            <div class="dec">Dec</div>
+          </div>
+          <div class="calendar">
+            <ul class="weeks">
+              <li>Sun</li>
+              <li>Mon</li>
+              <li>Tue</li>
+              <li>Wed</li>
+              <li>Thu</li>
+              <li>Fri</li>
+              <li>Sat</li>
+            </ul>
+            <ul class="days">
+              <li class="inactive">27</li>
+              <li class="inactive">28</li>
+              <li class="inactive">29</li>
+              <li class="inactive">30</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>10</li>
+              <li>11</li>
+              <li>12</li>
+              <li>13</li>
+              <li>14</li>
+              <li>15</li>
+              <li>16</li>
+              <li>17</li>
+              <li>18</li>
+              <li>19</li>
+              <li>20</li>
+              <li>21</li>
+              <li>22</li>
+              <li>23</li>
+              <li>24</li>
+              <li>25</li>
+              <li>26</li>
+              <li>27</li>
+              <li>28</li>
+              <li>29</li>
+              <li>30</li>
+              <li>31</li>
+            </ul>
+          </div>
         </div>
-        <!-- 헤더에 있는 date들-->
-        <div class="header_dates">
-          <div class="header_year"><span id="year">2024</span></div>
-          <div class="header_month_num"><span id="month">1</span></div>
-          <div class="header_month_string"> <span id="smonth">january</span></div>
-          <!-- <img class="line" src="/app/Front/img/line-17.png" /> -->
+        <!-- 헤더에 있는 ui들-->
+        <div class="headbar">
+          <img
+            class="imgicon"
+            src="/app/Front/img/ellipse-30.png"
+            onclick="toggleSidebar()"
+          />
+          <button class="home_button" onclick="main_button()">CBY.com</button>
         </div>
-        <div class="months">
-          <div class="jan">Jan</div>
-          <div class="feb">Feb</div>
-          <div class="mar">Mar</div>
-          <div class="apr">Apr</div>
-          <div class="may">May</div>
-          <div class="jun">Jun</div>
-          <div class="jul">Jul</div>
-          <div class="aug">Aug</div>
-          <div class="sep">Sep</div>
-          <div class="oct">Oct</div>
-          <div class="nov">Nov</div>
-          <div class="dec">Dec</div>
-        </div>
-        <div class="calendar">
-          <ul class="weeks">
-            <li>Sun</li>
-            <li>Mon</li>
-            <li>Tue</li>
-            <li>Wed</li>
-            <li>Thu</li>
-            <li>Fri</li>
-            <li>Sat</li>
-          </ul>
-          <ul class="days">
-            <li class="inactive">27</li>
-            <li class="inactive">28</li>
-            <li class="inactive">29</li>
-            <li class="inactive">30</li>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li>11</li>
-            <li>12</li>
-            <li>13</li>
-            <li>14</li>
-            <li>15</li>
-            <li>16</li>
-            <li>17</li>
-            <li>18</li>
-            <li>19</li>
-            <li>20</li>
-            <li>21</li>
-            <li>22</li>
-            <li>23</li>
-            <li>24</li>
-            <li>25</li>
-            <li>26</li>
-            <li>27</li>
-            <li>28</li>
-            <li>29</li>
-            <li>30</li>
-            <li>31</li>
-          </ul>
-
-        </div>
-      </div>
-      <!-- 헤더에 있는 ui들-->
-      <div class="headbar">
-        <img class="imgicon" src="/app/Front/img/ellipse-30.png" onclick="toggleSidebar()" />
-        <button class="home_button" onclick="main_button()">CBY.com</button>
       </div>
     </div>
-  </div>
-  <script>
-    // 사이드바 함수
-    const toggleSidebar = () => {
-      var sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("active");
-    };
-    //end
+    <script>
+      // 사이드바 함수
+      const toggleSidebar = () => {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
+      };
+      //end
 
-    // 버튼 이벤트 처리함수
-    const main_button = () => {
-      url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
-      window.location.href = url;
-    };
-    const signout_button = () => {
-      url = "http://127.0.0.1:5500/app/Front/sign/sign-in.html";
-      window.location.href = url;
-    };
-    //end
+      // 버튼 이벤트 처리함수
+      const main_button = () => {
+        url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
+        window.location.href = url;
+      };
+      const signout_button = () => {
+        url = "http://127.0.0.1:5500/app/Front/sign/sign-in.html";
+        window.location.href = url;
+      };
+      //end
 
-    //헤더에 있는 날짜를 window 시각에 맞춰 바뀌게 해줌
-    let date = new Date();
-    const $year = document.querySelector("#year");
-    $year.textContent = date.getFullYear();
+      //헤더에 있는 날짜를 window 시각에 맞춰 바뀌게 해줌
+      let date = new Date();
+      const $year = document.querySelector("#year");
+      $year.textContent = date.getFullYear();
 
-    const $month = document.querySelector("#month");
-    $month.textContent = date.getMonth();
+      const $month = document.querySelector("#month");
+      $month.textContent = date.getMonth() + 1;
 
-    const $smonth = document.querySelector("#smonth");
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let monthIndex = date.getMonth();
-    let monthName = monthNames[monthIndex - 1];
-    $smonth.textContent = monthName;
-    //end
+      const $smonth = document.querySelector("#smonth");
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let monthIndex = date.getMonth();
+      let monthName = monthNames[monthIndex];
+      $smonth.textContent = monthName;
+      //end
 
-    //days에 마우스가 오버되면 바뀌는 css
-    let $days = document.querySelector(".days");
-    $days.addEventListener("mousemove", (e) => {
-      let x = e.offsetX;
-      let y = e.offsetY;
-      console.log(x, y);
-      let rotateX = (4 / 30) * y - 20;
-      let rotateY = (-1 / 5) * x + 20;
-      $days.style = `transform : perspective(350px) rotateX(${rotateX} deg)
+      //days에 마우스가 오버되면 바뀌는 css
+      let $days = document.querySelector(".days");
+      $days.addEventListener("mousemove", (e) => {
+        let x = e.offsetX;
+        let y = e.offsetY;
+        console.log(x, y);
+        let rotateX = (4 / 30) * y - 20;
+        let rotateY = (-1 / 5) * x + 20;
+        $days.style = `transform : perspective(350px) rotateX(${rotateX} deg)
         rotateY(${rotateY} deg)`;
-    });
-  </script>
-</body>
-
+      });
+    </script>
+  </body>
 </html>
