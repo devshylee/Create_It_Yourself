@@ -70,4 +70,5 @@ public class MemberService {
         MemberDTO memberDTO = memberRepository.findByMemberEmail(memberEmail);
         return (memberDTO == null) ? "ok" : "no";
     }
+
 }

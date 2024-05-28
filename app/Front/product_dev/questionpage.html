@@ -1,81 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Date and Transition</title>
     <link rel="stylesheet" href="globals.css">
-    <link rel="stylesheet" href="questionpage.css">
-    
-    <script>
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("active");
-        }
-    </script>
+    <link rel="stylesheet" href="questionpage.css"> 
 </head>
+<!-- css중복,쓸모없는 것들 정리 , script 기능 주석으로 자세히 정리하기 , 폰트 사이즈 css로 정리하기 , 오탈자 및 클래스 이름들 정리하기-->
 <body>
     <div class="box">
         <div class="question-page">
-            <div class="overlap">
-                <img class="main"/>
-                <div class="question-box">
-                    <div class="days"><span id="day">28&nbsp;&nbsp; (일)</span></div>
-                    <div class ="wheel">
-                        <div class="five">
-                            <div class="question-five"><p class="text">Q : 5</p>  </div>
-                            <div class="anser-five"><input type="text" name="anser" placeholder="A: " /></div>
-                        </div>
-                        <div class="four">
-                            <div class="question-four"><p class="text">Q : 4</p>  </div>
-                            <div class="anser-four"><input type="text" name="anser" placeholder="A: " /></div>
-                        </div>
-                        <div class="three">
-                            <div class="question-three"><p class="text">Q : 3</p>  </div>
-                            <div class="anser-three"><input type="text" name="anser" placeholder="A: " /></div>
-                        </div>
-                        <div class="two">
-                            <div class="question-two"> <p class="text">Q : 2</p>      </div>
-                            <div class="anser-two"><input type="text" name="anser" placeholder="A: " /></div>
-                        </div>
-                        <div class="one">
-                            <div class="question-one">
-                                <p class="text">Q :&nbsp;&nbsp; 오늘의 노래를 정해봐 !!!</p>        
-                            </div>
-                            <div class="anser-one">
-                                <input type="text" name="anser" placeholder="A: " />
-                            </div>
-                        </div>
-                        <div class="next-box"><img class="next" src="img/next.png" /></div>
-                        <div class="back-box"><img class="next" src="img/back.png" /></div>
-                    </div>
-                    <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
-                    <div class="save-box"><img class="save" src="img/save.png" /></div>
-                </div>
+            <header class="header">
                 <div class="header_dates">
                     <div class="header_year"><span id="year">2024</span></div>
                     <div class="header_month_num"><span id="month">1</span></div>
-                    <div class="header_month_string"><span id="smonth">january</span></div>
+                    <div class="header_month_string"> <span id="smonth">january</span></div>
                 </div>
-                <div class="headbar"></div>
-                <div class="icon" onclick="toggleSidebar()"><img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
-                <div id="sidebar" class="sidebar">
-                    <!-- 메뉴 항목들 -->
-                    <form action="/member/update">
-                        <div class="menu-item"><button type="button">userUdate</button></div>
-                    </form>
-                    <form action="/app/Front/sign/sign-in.html">
-                        <div class="menu-item"><button type="button">userLogout</button></div>
-                    </form>
-                    <div class="menu-item"><button type="button">내정보</button></div>
+                <div class="headerbar">
+                    <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png"
+                        onclick="toggleSidebar()" />
+                    <div class="back-main" onclick="main_button()">CBY.com</div>
                 </div>
-                <div class="back-main">CBY.com</div>
+            </header>
+            <main class="question-box">
+                <div class="days"><span id="day">28 (일)</span></div>
+                <div class="wheel">
+                    <div class="five">
+                        <div class="question-five"><input type="text" class="aq" placeholder="지금 가장 하고싶은 일은? "></div>
+                        <div class="answer-five"><input type="text" name="answer" placeholder="A: " /></div>
+                    </div>
+                    <div class="four">
+                        <div class="question-four"><input type="text" class="aq" placeholder="4 "> </div>
+                        <div class="answer-four"><input type="text" name="answer" placeholder="A: " /></div>
+                    </div>
+                    <div class="three">
+                        <div class="question-three"><input type="text" class="aq" placeholder="3"></div>
+                        <div class="answer-three"><input type="text" name="answer" placeholder="A: " /></div>
+                    </div>
+                    <div class="two">
+                        <div class="question-two"> <input type="text" class="aq" placeholder="2"> </div>
+                        <div class="answer-two"><input type="text" name="answer" placeholder="A: " /></div>
+                    </div>
+                    <div class="one">
+                        <div class="question-one"><input type="text" class="aq" placeholder="1"></div>
+                        <div class="answer-one">
+                            <input type="text" name="answer" placeholder="A: " />
+                        </div>
+                    </div>
+                    <div class="next-box"><img class="next" src="img/next.png" /></div>
+                    <div class="back-box"><img class="next" src="img/back.png" /></div>
+                </div>
+                <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
+                <div class="save-box"><img class="save" src="img/save.png" /></div>
+            </main>
+
+
+            <div id="sidebar" class="sidebar">
+                <!-- 메뉴 항목들 -->
+                <form action="/member/update">
+                    <div class="menu-item"><button type="button">userUdate</button></div>
+                </form>
+                <form action="/app/Front/sign/sign-in.html">
+                    <div class="menu-item"><button type="button">userLogout</button></div>
+                </form>
+                <div class="menu-item"><button type="button">내정보</button></div>
             </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             function adjustTextSize() {
                 var windowWidth = $(window).width();
                 var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10));
@@ -84,22 +80,22 @@
                 $('.header_month_string').css('font-size', monthstrSize + 'px');
                 var yearSize = Math.max(50, Math.min(110, windowWidth / 10));
                 $('.header_year').css('font-size', yearSize + 'px');
-                var textSize = Math.max(30, Math.min(50, windowWidth / 50));
+                var textSize = Math.max(18, Math.min(50, windowWidth / 50));
                 $('.days,.text ,input[type="text"]').css('font-size', textSize + 'px');
             }
             adjustTextSize();
             $(window).resize(adjustTextSize);
-                // 초기 활성 요소를 'one'으로 설정합니다.
+            // 초기 활성 요소를 'one'으로 설정합니다.
             $('.wheel > .one').addClass('active');
-            $('.wheel').on('wheel', function(event) {
-                const deltaY = event.originalEvent.deltaY;    
+            $('.wheel').on('wheel', function (event) {
+                const deltaY = event.originalEvent.deltaY;
                 let activeIndex = $('.wheel > .active').index();
                 // 아래로 스크롤하고 이전 요소가 있는 경우
                 if (deltaY > 0 && activeIndex > 0) {
                     // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트합니다.
                     $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
                     $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
-                } 
+                }
                 // 위로 스크롤하고 다음 요소가 있는 경우
                 else if (deltaY < 0 && activeIndex < 4) {
                     // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트합니다.
@@ -108,46 +104,59 @@
                 }
             });
             //다음 요소로 넘어가는 next함수
-            $('.next-box').on('click', function() {
+            $('.next-box').on('click', function () {
                 let activeIndex = $('.wheel > .active').index();
                 if (activeIndex > 0) {
+                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트합니다.
                     $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
                     $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
             });
             // 이전 요소로 이동하는 back 함수
-            $('.back-box').on('click', function() {
+            $('.back-box').on('click', function () {
                 let activeIndex = $('.wheel > .active').index();
                 if (activeIndex < 4) {
+                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트합니다.
                     $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
                     $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
             });
         });
-            let date = new Date();
-            const $year = document.querySelector("#year");
-            $year.textContent = date.getFullYear();
+        let date = new Date();
+        const $year = document.querySelector("#year");
+        $year.textContent = date.getFullYear();
 
-            const $month = document.querySelector("#month");
-            $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexed
+        const $month = document.querySelector("#month");
+        $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexed
 
-            const $smonth = document.querySelector("#smonth");
-            const monthNames = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
-            let monthIndex = date.getMonth();
-            let monthName = monthNames[monthIndex];
-            $smonth.textContent = monthName;
+        const $smonth = document.querySelector("#smonth");
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        let monthIndex = date.getMonth();
+        let monthName = monthNames[monthIndex];
+        $smonth.textContent = monthName;
 
-            const $day = document.querySelector("#day");
-            const weekdayNames = [
-                "일", "월", "화", "수", "목", "금", "토"
-            ];
-            let weekdayIndex = date.getDay();
-            let weekdayName = weekdayNames[weekdayIndex];
-            let day = date.getDate();
-            $day.textContent = `${day} (${weekdayName})`;
+        const $day = document.querySelector("#day");
+        const weekdayNames = [
+            "일", "월", "화", "수", "목", "금", "토"
+        ];
+        let weekdayIndex = date.getDay();
+        let weekdayName = weekdayNames[weekdayIndex];
+        let day = date.getDate();
+        $day.textContent = `${day} (${weekdayName})`;
+
+        
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+        }
+        const main_button = () => {
+            url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
+            window.location.href = url;
+        };
     </script>
 </body>
+
 </html>

@@ -1,96 +1,100 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <mata name = "viewport" content = "width=device-width, inital-scale=1.0">
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="imgpage.css" />
-    
-    <script>
-      function toggleSidebar() {
-        var sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("active"); 
-      }
-      const main_button = () => {
-      url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
-      window.location.href = url;
-      };
-    </script>
-  </head>
-  <body>
-    <div class="box">
-      <div class="img-page">
 
-          <div class="img-box">
-            <div class="days"><span id = "day">28&nbsp;&nbsp; (일)</span></div>
-          <img class = "img" src="img/img.png" />
-            <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
-            <div class="save-box"><img class="save" src="img/save.png" /></div>
-          </div>
-          <div class="header_dates">
-            <div class="header_year"><span id="year">2024</span></div>
-            <div class="header_month_num"><span id="month">1</span></div>
-            <div class="header_month_string"> <span id="smonth">january</span></div>
-          </div>
-          <div class="headbar"></div>
-          <div class="icon" onclick="toggleSidebar()"><img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" /></div>
-              <div id="sidebar" class="sidebar">
-                <!-- 메뉴 항목들 -->
-                <form action="/member/update">
-                  <div class="menu-item"><button onclick="">userUdate</button></div>
-                </form>
-                <form action="/app/Front/sign/sign-in.html">
-                  <div class="menu-item"><button onclick="">userLogout</button></div>
-                </form>
-                <div class="menu-item"><button onclick="">내정보</button></div>
-          </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="globals.css" />
+  <link rel="stylesheet" href="imgpage.css" />
+</head>
+
+<body>
+  <div class="box">
+    <div class="img-page">
+      <header class="header">
+        <div class="header_dates">
+          <div class="header_year"><span id="year">2024</span></div>
+          <div class="header_month_num"><span id="month">1</span></div>
+          <div class="header_month_string"> <span id="smonth">january</span></div>
+        </div>
+        <div class="headerbar">
+          <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png" onclick="toggleSidebar()" />
           <div class="back-main" onclick="main_button()">CBY.com</div>
-        
+        </div>
+      </header>
+      <main class="img-box">
+        <div class="days"><span id="day">28 (일)</span>
+        </div>
+        <img class="img" src="img/img.png" />
+        <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
+        <div class="save-box"><img class="save" src="img/save.png" /></div>
+      </main>
+
+      <div id="sidebar" class="sidebar">
+        <!-- 메뉴 항목들 -->
+        <form action="/member/update">
+          <div class="menu-item"><button onclick="">userUdate</button></div>
+        </form>
+        <form action="/app/Front/sign/sign-in.html">
+          <div class="menu-item"><button onclick="">userLogout</button></div>
+        </form>
+        <div class="menu-item"><button onclick="">내정보</button></div>
       </div>
     </div>
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-    <script>
-// $(document).ready(function(){
-//   function adjustTextSize() {
-//     var windowWidth = $(window).width();
-//     var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
-//     $('.header_month_num').css('font-size', monthnumSize + 'px');
-//     var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
-//     $('.header_month_string').css('font-size', monthstrSize + 'px');
-//     var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
-//     $('.header_year').css('font-size', yearSize + 'px');
-//     var textSize = Math.max(30, Math.min(50, windowWidth / 50)); // Example formula
-//     $('.days').css('font-size', textSize + 'px');
-//   }
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      function adjustTextSize() {
+        var windowWidth = $(window).width();
+        var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
+        $('.header_month_num').css('font-size', monthnumSize + 'px');
+        var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
+        $('.header_month_string').css('font-size', monthstrSize + 'px');
+        var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
+        $('.header_year').css('font-size', yearSize + 'px');
+        var textSize = Math.max(30, Math.min(50, windowWidth / 50)); // Example formula
+        $('.days').css('font-size', textSize + 'px');
+      }
 
-//   adjustTextSize();
-//   $(window).resize(adjustTextSize);
-// });
+      adjustTextSize();
+      $(window).resize(adjustTextSize);
+    });
 
-            let date = new Date();
-            const $year = document.querySelector("#year");
-            $year.textContent = date.getFullYear();
+    let date = new Date();
+    const $year = document.querySelector("#year");
+    const $month = document.querySelector("#month");
+    const $smonth = document.querySelector("#smonth");
+    const $day = document.querySelector("#day");
 
-            const $month = document.querySelector("#month");
-            $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexed
+    $year.textContent = date.getFullYear();
+    $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexe
 
-            const $smonth = document.querySelector("#smonth");
-            const monthNames = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
-            let monthIndex = date.getMonth();
-            let monthName = monthNames[monthIndex];
-            $smonth.textContent = monthName;
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    let monthIndex = date.getMonth();
+    let monthName = monthNames[monthIndex];
+    $smonth.textContent = monthName;
 
-            const $day = document.querySelector("#day");
-            const weekdayNames = [
-                "일", "월", "화", "수", "목", "금", "토"
-            ];
-            let weekdayIndex = date.getDay();
-            let weekdayName = weekdayNames[weekdayIndex];
-            let day = date.getDate();
-            $day.textContent = `${day} (${weekdayName})`;
-    </script>
-  </body>
+    const weekdayNames = [
+      "일", "월", "화", "수", "목", "금", "토"
+    ];
+    let weekdayIndex = date.getDay();
+    let weekdayName = weekdayNames[weekdayIndex];
+    let day = date.getDate();
+    $day.textContent = `${day} (${weekdayName})`;
+
+    function toggleSidebar() {
+      var sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("active");
+    }
+    const main_button = () => {
+      url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
+      window.location.href = url;
+    };
+  </script>
+</body>
+
 </html>

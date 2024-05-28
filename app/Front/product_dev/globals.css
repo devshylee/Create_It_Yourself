@@ -19,3 +19,6 @@ button:focus-visible {
 a {
     text-decoration: none;
 }
+input{
+    all:unset;
+}

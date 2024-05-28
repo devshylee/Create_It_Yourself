@@ -11,9 +11,9 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/db_codingrecipe?useSSL=false&amp;serverTimezone=Asia/Seoul" />
-        <property name="username" value="user_codingrecipe"/>
-        <property name="password" value="1234"/>
+        <property name="url" value="jdbc:mysql://cbydatabase.cr4ge84cgeks.ap-northeast-2.rds.amazonaws.com:3306/CBY_Database?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+        <property name="username" value="admin"/>
+        <property name="password" value="12341234"/>
     </bean>
 
     <!-- 파일 모두 생성했는지 확인 -->
@@ -40,6 +40,24 @@
 
     </bean>
 
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.naver.com" />
+        <property name="port" value="465" />
+        <property name="username" value="{메일을 보낼 메일 아이디}" />
+        <property name="password" value="{메일 비밀번호}" />
+        <property name="defaultEncoding" value="utf-8" />
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+                <prop key="mail.smtps.ssl.trust">*</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+            </props>
+        </property>
+    </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

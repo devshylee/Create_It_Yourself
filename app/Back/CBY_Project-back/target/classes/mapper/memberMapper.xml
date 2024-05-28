@@ -4,26 +4,26 @@
 
 <mapper namespace="Member">
     <insert id="save" parameterType="member">
-        insert into member_table(memberEmail, memberPassword, memberName, signDate, memberBirthDate)
+        insert into Users(memberEmail, memberPassword, memberName, signDate, memberBirthDate)
         values (#{memberEmail}, #{memberPassword}, #{memberName}, #{signDate}, #{memberBirthDate})
     </insert>
     <select id="login" parameterType="member" resultType="member">
-        select * from member_table where memberEmail=#{memberEmail} and memberPassword=#{memberPassword}
+        select * from Users where memberEmail=#{memberEmail} and memberPassword=#{memberPassword}
     </select>
     <select id="findAll" resultType="member">
-        select * from member_table
+        select * from Users
     </select>
     <select id="findById" parameterType="Long" resultType="member">
-        select * from member_table where id=#{id}
+        select * from Users where id=#{id}
     </select>
     <delete id="delete" parameterType="Long">
-        delete from member_table where id=#{id}
+        delete from Users where id=#{id}
     </delete>
     <select id="findByMemberEmail" parameterType="String" resultType="member">
-        select * from member_table where memberEmail=#{loginEmail}
+        select * from Users where memberEmail=#{loginEmail}
     </select>
     <update id="update" parameterType="member">
-        update member_table set memberEmail=#{memberEmail}, memberName=#{memberName}, memberBirthDate=#{memberBirthDate}, memberPassword=#{memberPassword}
+        update Users set memberEmail=#{memberEmail}, memberName=#{memberName}, memberBirthDate=#{memberBirthDate}, memberPassword=#{memberPassword}
         where id=#{id}
     </update>
 </mapper>

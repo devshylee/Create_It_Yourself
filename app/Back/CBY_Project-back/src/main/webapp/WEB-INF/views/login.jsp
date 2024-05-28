@@ -16,6 +16,11 @@
                 window.location.href = "${pageContext.request.contextPath}/member/save";
             });
 
+            document.getElementById("resetPwdButton").addEventListener("click", function(event) {
+                event.preventDefault(); // 버튼의 기본 동작 중단
+                window.location.href = "${pageContext.request.contextPath}/member/resetPwd"; // 비밀번호 재설정 페이지로 이동
+            });
+
             document.getElementById("loginForm").addEventListener("submit", function(event) {
                 event.preventDefault(); // 폼의 기본 제출 동작 중단
 
@@ -70,7 +75,7 @@
                         <div class="text-wrapper-4"><button id="signupButton">Sign Up</button></div>
                     </div>
                 </div>
-                <div class="text-wrapper-5">Forgot your password?</div>
+                <div class="text-wrapper-5"><button id="resetPwdButton">Forgot your password?</button></div>
             </div>
             <% if (request.getAttribute("loginError") != null) { %>
             <div style="color:red;"><%= request.getAttribute("loginError") %></div>

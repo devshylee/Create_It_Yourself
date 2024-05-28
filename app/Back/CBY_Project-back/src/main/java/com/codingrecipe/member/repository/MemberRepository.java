@@ -41,6 +41,7 @@ public class MemberRepository {
     public int update(MemberDTO memberDTO) {
         return sql.update("Member.update", memberDTO);
     }
+
 }
 
 
