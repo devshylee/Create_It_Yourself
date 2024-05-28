@@ -4,6 +4,8 @@ import com.codingrecipe.member.dto.MemberDTO;
 import com.codingrecipe.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -11,28 +13,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public int save(MemberDTO memberDTO) {
+        // 회원가입 시 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(memberDTO.getMemberPassword());
+        memberDTO.setMemberPassword(encodedPassword);
         return memberRepository.save(memberDTO);
     }
 
-    public boolean login(MemberDTO memberDTO) {
-        MemberDTO loginMember = memberRepository.login(memberDTO);
-        if (loginMember != null && loginMember.getMemberPassword().equals(memberDTO.getMemberPassword())) {
-            return true; // 로그인 성공
+    public boolean login(MemberDTO memberDTO, Model model) {
+        // 이메일로 회원 정보 조회
+        MemberDTO loginMember = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
+        // 조회된 회원 정보가 있고, 입력된 비밀번호가 암호화된 비밀번호와 일치하면 로그인 성공
+        if (loginMember != null && passwordEncoder.matches(memberDTO.getMemberPassword(), loginMember.getMemberPassword())) {
+            return true;
         } else {
-            return false; // 로그인 실패
+            model.addAttribute("loginError", "이메일 또는 비밀번호가 틀렸습니다.");
+            return false;
         }
     }
-
-//    public boolean login(MemberDTO memberDTO) {
-//        MemberDTO loginMember = memberRepository.login(memberDTO);
-//        if (loginMember != null) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     public List<MemberDTO> findAll() {
         return memberRepository.findAll();
@@ -51,30 +51,23 @@ public class MemberService {
     }
 
     public boolean update(MemberDTO memberDTO) {
-        int result = memberRepository.update(memberDTO);
-        if (result > 0) {
-            return true;
+        // 비밀번호가 입력되었을 때만 암호화하여 업데이트
+        if (!memberDTO.getMemberPassword().isEmpty()) {
+            String encodedPassword = passwordEncoder.encode(memberDTO.getMemberPassword());
+            memberDTO.setMemberPassword(encodedPassword);
         } else {
-            return false;
+            // 비밀번호가 입력되지 않은 경우에는 기존의 암호화된 비밀번호를 유지
+            MemberDTO existingMember = memberRepository.findById(memberDTO.getId());
+            memberDTO.setMemberPassword(existingMember.getMemberPassword());
         }
+        int result = memberRepository.update(memberDTO);
+        return result > 0;
     }
+
+
 
     public String emailCheck(String memberEmail) {
         MemberDTO memberDTO = memberRepository.findByMemberEmail(memberEmail);
-        if (memberDTO == null) {
-            return "ok";
-        } else {
-            return "no";
-        }
+        return (memberDTO == null) ? "ok" : "no";
     }
 }
-
-
-
-
-
-
-
-
-
-

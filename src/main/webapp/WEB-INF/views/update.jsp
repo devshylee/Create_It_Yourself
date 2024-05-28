@@ -1,29 +1,44 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-    <title>update</title>
+    <meta charset="UTF-8">
+    <title>회원 정보 수정</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/update.css">
 </head>
 <body>
-    <form action="/member/update" method="post" name="updateForm">
-        id: <input type="text" name="id" value="${member.id}"readonly>
-        email: <input type="text" name="memberEmail" value="${member.memberEmail}">
-        password: <input type="text" name="memberPassword" id="memberPassword">
-        name: <input type="text" name="memberName" value="${member.memberName}">
-        Birth: <input type="text" name="memberBirthDate" value="${member.memberBirthDate}">
-        <input type="button" value="수정" onclick="update()">
-
-    </form>
+<div class="container">
+    <header>
+        <a href="http://localhost:8085/member/main" class="logo">CBY</a>
+    </header>
+    <h1>회원 정보 수정</h1>
+    <div class="form-box">
+        <form action="${pageContext.request.contextPath}/member/update" method="post" name="updateForm">
+            <input type="hidden" name="id" value="${member.id}">
+            <div class="form-group">
+                <label for="memberEmail">이메일</label>
+                <input type="text" name="memberEmail" id="memberEmail" value="${member.memberEmail}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="memberName">이름</label>
+                <input type="text" name="memberName" id="memberName" value="${member.memberName}" required>
+            </div>
+            <div class="form-group">
+                <label for="memberBirthDate">생년월일</label>
+                <input type="text" name="memberBirthDate" id="memberBirthDate" value="${member.memberBirthDate}" required>
+            </div>
+            <div class="form-group">
+                <label for="memberPassword">비밀번호</label>
+                <input type="password" name="memberPassword" id="memberPassword">
+            </div>
+            <button type="button" onclick="update()">수정</button>
+        </form>
+    </div>
 </div>
-</body>
 <script>
     const update = () => {
-        const passwordDB = '${member.memberPassword}';
-        const password = document.getElementById("memberPassword").value;
-        if (passwordDB === password) {
             document.updateForm.submit();
-        } else {
-            alert("비밀번호가 일치하지 않습니다!");
-        }
     }
 </script>
+</body>
 </html>

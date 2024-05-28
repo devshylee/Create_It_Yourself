@@ -15,26 +15,23 @@
                 event.preventDefault(); // 버튼의 기본 동작 중단
                 window.location.href = "${pageContext.request.contextPath}/member/save";
             });
+
+            document.getElementById("loginForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // 폼의 기본 제출 동작 중단
+
+                var email = document.getElementsByName("memberEmail")[0].value;
+                var password = document.getElementsByName("memberPassword")[0].value;
+
+                if (!email) {
+                    alert("이메일을 입력하세요");
+                } else if (!password) {
+                    alert("비밀번호를 입력하세요");
+                } else {
+                    this.submit(); // 폼 제출
+                }
+            });
         };
     </script>
-
-<%--    <script>--%>
-<%--        document.getElementById("loginForm").addEventListener("submit", function (event) {--%>
-<%--            event.preventDefault();--%>
-
-<%--            var username = document.getElementById("username").value;--%>
-<%--            var password = document.getElementById("password").value;--%>
-
-
-<%--            if (username === "admin" && password === "password") {--%>
-<%--                document.getElementById("message").innerHTML = "Login successful!";--%>
-<%--            } else {--%>
-<%--                document.getElementById("message").innerHTML = "Invalid username or password.";--%>
-<%--            }--%>
-<%--        });--%>
-
-
-<%--    </script>--%>
 </head>
 <body>
 <div class="box">
@@ -45,7 +42,7 @@
 
                     <div class="overlap-group">
                         <div class="rectangle"></div>
-                        <div class="text-wrapper"><input type="text" name="memberPassword" placeholder="비밀번호를 입력하세요"
+                        <div class="text-wrapper"><input type="password" name="memberPassword" placeholder="비밀번호를 입력하세요"
                                                          value="@connor0721"></div>
                         <img class="free-icon-password" src="${pageContext.request.contextPath}/resources/img/lock_FILL0_wght400_GRAD0_opsz24.png" />
                     </div>
@@ -75,6 +72,9 @@
                 </div>
                 <div class="text-wrapper-5">Forgot your password?</div>
             </div>
+            <% if (request.getAttribute("loginError") != null) { %>
+            <div style="color:red;"><%= request.getAttribute("loginError") %></div>
+            <% } %>
         </form>
     </div>
 </div>

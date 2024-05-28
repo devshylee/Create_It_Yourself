@@ -3,6 +3,7 @@ package com.codingrecipe.member.repository;
 import com.codingrecipe.member.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
+
     private final SqlSessionTemplate sql;
     public int save(MemberDTO memberDTO) {
         System.out.println("memberDTO = " + memberDTO);

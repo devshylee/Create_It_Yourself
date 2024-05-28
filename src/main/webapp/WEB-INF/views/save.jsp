@@ -7,7 +7,6 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/globals.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sign-up.css" />
-    <!-- <link rel="stylesheet" href="sigh-up.js" /> -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
     <script>
@@ -21,13 +20,13 @@
             const memberBirthDate = document.joinform.memberBirthDate.value;
 
             // 입력값이 비어 있는지 확인합니다.
-            if (memberEmail === "") {
-                alert("이메일을 입력해주세요.");
-                document.joinform.memberEmail.focus();
-                return false; // 제출을 막습니다.
-            } else if (memberName === "") {
+            if (memberName === "") {
                 alert("이름을 입력해주세요.");
                 document.joinform.memberName.focus();
+                return false; // 제출을 막습니다.
+            } else if (memberEmail === "") {
+                alert("이메일을 입력해주세요.");
+                document.joinform.memberEmail.focus();
                 return false; // 제출을 막습니다.
             } else if (memberPassword === "") {
                 alert("비밀번호를 입력해주세요.");
@@ -47,7 +46,6 @@
             }
         }
 
-        // save 함수는 여전히 필요하므로 그대로 둡니다.
         function save() {
             const form = document.getElementById("register_form");
             const formData = new FormData(form);
@@ -101,9 +99,13 @@
         const emailCheck = () => {
             const email = document.getElementById("memberEmail").value;
             const checkResult = document.getElementById("check-result");
+
+            if (email === "") {
+                checkResult.innerHTML = "";
+                return;
+            }
             console.log("입력한 이메일", email);
             $.ajax({
-                // 요청방식: post, url: "email-check", 데이터: 이메일
                 type: "post",
                 url: "/member/email-check",
                 data: {
@@ -141,14 +143,14 @@
                     <div class="overlap-group">
                         <div class="rectangle-2"></div>
                         <div class="text-wrapper">
-                            <input type="text" name="memberPassword" placeholder="비밀번호를 입력하세요">
+                            <input type="password" name="memberPassword" placeholder="비밀번호를 입력하세요" tabindex="3">
                         </div>
                         <img class="free-icon-password" src="${pageContext.request.contextPath}/resources/img/free-icon-password-4520142-1.png" />
                     </div>
                     <div class="overlap-3">
                         <div class="rectangle-2"></div>
                         <div class="text-wrapper-3">
-                            <input type="text" name="memberEmail" placeholder="이메일" id="memberEmail" onblur="emailCheck()">
+                            <input type="text" name="memberEmail" placeholder="이메일" id="memberEmail" onblur="emailCheck()" tabindex="2" data-initial-value="">
                         </div>
                         <div class="check-result-wrapper">
                             <p id="check-result"></p>
@@ -160,7 +162,7 @@
                     <div class="overlap-3">
                         <div class="rectangle-2"></div>
                         <div class="text-wrapper-3">
-                            <input type="text" name="memberName" placeholder="이름">
+                            <input type="text" name="memberName" placeholder="이름" tabindex="1">
                         </div>
                     </div>
                 </div>
@@ -169,13 +171,13 @@
                     <div class="overlap-3">
                         <div class="rectangle-2"></div>
                         <div class="text-wrapper-3">
-                            <input type="text" name="memberBirthDate" placeholder="생년월일">
+                            <input type="text" name="memberBirthDate" placeholder="생년월일" tabindex="4">
                         </div>
                     </div>
                 </div>
 
                 <img class="union" src="${pageContext.request.contextPath}/resources/img/union.svg" />
-                <div class="text-wrapper-4">CBY</div>
+                <div class="text-wrapper-4"><a href="http://localhost:8085/">CBY</a></div>
                 <div class="div-wrapper">
                     <div class="overlap-4">
                         <div class="rectangle-3"></div>
@@ -191,5 +193,4 @@
 </div>
 </body>
 
-</html>
 </html>
