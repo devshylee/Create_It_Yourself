@@ -7,10 +7,11 @@ from openpyxl import load_workbook
 from flask import Flask, request, jsonify, render_template
 from flask_session import Session
 from flask_cors import CORS
+import pymysql;
 
 # %%
 # 본인 API키 등록
-GOOGLE_API_KEY = "비밀"
+GOOGLE_API_KEY = ""
 # %%
 import google.generativeai as genai
 from IPython.display import display
@@ -187,13 +188,6 @@ Level_5='''
 app = Flask(__name__)
 CORS(app) # 보안정책 비활성화
 
-# 질문 및 답변을 저장하기 위한 json 선언
-data = {
-    "질문": [],
-    "답변": [],
-    "레벨" : []
-}
-
 # Level 1 질문 생성
 def generate_level1_question():
   response = model.generate_content(Level_1, stream=True) # google.generativeai 모듈의 content생성 함수 
@@ -207,110 +201,77 @@ def generate_level2_question(level1_question, level1_answer):
   response.resolve()
   return response.text
 
+# Level 3 질문 생성
 def generate_level3_question(level2_question, level2_answer):
   prompt = Level_3 + level2_question + level2_answer
   response = model.generate_content(prompt, stream=True)
   response.resolve()
   return response.text
 
+# Level 4 질문 생성
 def generate_level4_question(level3_question, level3_answer):
   prompt = Level_4 + level3_question + level3_answer  
   response = model.generate_content(prompt, stream=True)
   response.resolve()
   return response.text
 
+# Level 5 질문 생성
 def generate_level5_question(level4_question, level4_answer):
   prompt = Level_5 + level4_question + level4_answer
   response = model.generate_content(prompt, stream=True)
   response.resolve()
   return response.text
 
-# 루트경로 접근 시 실행
+# 루트주소 이동
 @app.route('/')
 def home():
-   return 'This is Home!'
+    return 'This is Home!'
 
-# /question에 get형식으로 접근 시 실행
-@app.route('/question', methods=['GET'])
-def get_question():
-   pass
-
-# /question에 post형식으로 접근 시 실행
+# /question 접근 시 실행 ( 첫 번째 질문 실행 )
 @app.route('/question', methods=['POST'])
 def post_question():
-    # 질문 데이터 및 레벨 생성 및 응답
-    response_data = {
-        "question": generate_level1_question(),
-        "level": 1
-    } 
+    question = generate_level1_question()
+    return jsonify({"question": question, "level": 1})
 
-    # JSON 응답 생성 및 전송
-    response = jsonify(response_data)
-    response.headers['Content-Type'] = 'application/json' # http프로토콜의 header에 json타입임을 명시함.
-    return response
+# /question/level2 접근 시 실행 ( 첫 번째 질문의 답변과 레벨을 받으며 다음 질문을 생성 )
+@app.route('/question/level2', methods=['POST'])
+def level2_question():
+    data = request.get_json() # 요청받은 json을 저장함 ( 레벨 및 답변 )
+    level1_question = data['level1_question']
+    level1_answer = data['level1_answer']
+    question = generate_level2_question(level1_question, level1_answer) # 답변을 기반으로 질문 생성
+    return jsonify({'question': question}) # 다음 레벨의 질문을 리턴시킨 후 출력
 
-# 답변 전송 및 다음 질문 수집 API
-# @app.route('/member/answer', methods=['POST'])
-# def receive_answer():
-#     answer_data = json.loads(request.data)
-#     answer = answer_data['answer']
-#     level = answer_data['level']
+# /question/level3 접근 시 실행 ( 두 번째 질문의 답변과 레벨을 받으며 다음 질문을 생성 )
+@app.route('/question/level3', methods=['POST'])
+def level3_question():
+    data = request.get_json()
+    level2_question = data['level2_question']
+    level2_answer = data['level2_answer']
+    question = generate_level3_question(level2_question, level2_answer)
+    return jsonify({'question': question})
 
-#     data["질문"].append(level1_question)
-#     data["답변"].append(answer)
+# 동일
+@app.route('/question/level4', methods=['POST'])
+def level4_question():
+    data = request.get_json()
+    level3_question = data['level3_question']
+    level3_answer = data['level3_answer']
+    question = generate_level4_question(level3_question, level3_answer)
+    return jsonify({'question': question})
 
-    # # 사용자 답변을 활용하여 다음 단계 질문 생성
-    # if level == 1:
-    #     next_question = generate_level2_question(level1_question, answer)
-    # elif level == 2:
-    #     next_question = generate_level3_question(level2_question, answer)
-    # elif level == 3:
-    #     next_question = generate_level4_question(level3_question, answer)
-    # elif level == 4:
-    #     next_question = generate_level5_question(level4_question, answer)
-    # else:
-    #     next_question = "마지막 질문입니다! 답변해주셔서 감사합니다."
-
-    # # 다음 질문 데이터 json 형식으로 변환
-    # response = jsonify({
-    #     "nextQuestion": next_question,
-    #     "nextLevel": level + 1
-    # })
-    # return response
-
+# 동일
+@app.route('/question/level5', methods=['POST'])
+def level5_question():
+    data = request.get_json()
+    level4_question = data['level4_question']
+    level4_answer = data['level4_answer']
+    question = generate_level5_question(level4_question, level4_answer)
+    return jsonify({'question': question})
 
 
 if __name__ == '__main__':
-  app.run(debug=True, host="127.0.0.1", port="5001")
+    app.run(debug=True, host="127.0.0.1", port="5001")
   
-  # Level 1 질문 생성 및 출력
-  # level1_question = generate_level1_question()
-  # print(level1_question)
-
-  # # 사용자 답변 입력 및 다음 질문 생성
-  # level1_answer = input()
-  # level2_question = generate_level2_question(level1_question, level1_answer)
-  # print(level2_question)
-
-  # level2_answer = input()
-  # level3_question = generate_level3_question(level2_question, level2_answer)
-  # print(level3_question)
-
-  # level3_answer = input()
-  # level4_question = generate_level4_question(level3_question, level3_answer)
-  # print(level4_question)
-
-  # level4_answer = input()
-  # level5_question = generate_level5_question(level4_question, level4_answer)
-  # print(level5_question)
-
-  # level5_answer = input()
-
-
-  # 질문-답변 데이터 저장
-  # data = {
-  #   "질문": [level1_question, level2_question, level3_question, level4_question, level5_question],
-  #   "답변": [level1_answer, level2_answer, level3_answer, level4_answer, level5_answer],
-  #   "레벨" : []
-  # }
+  
 # %%
