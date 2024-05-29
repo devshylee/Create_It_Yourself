@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="sign-up.css" />
 
-    <script>
-      function test() {
-        const form = document.getElementById("register_form");
-        const formData = new FormData(form);
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="globals.css" />
+  <link rel="stylesheet" href="sign-up.css" />
 
-        const jsonData = {
-          memberEmail: formData.get("memberEmail"), //이메일
-          memberPassword: formData.get("memberPassword"), //패스워드
-          memberName: formData.get("memberName"), //이름
-          memberBirthDate: formData.get("memberBirthDate"), //생년월일
-        };
+  <script>
+    function test() {
+      const form = document.getElementById("register_form");
+      const formData = new FormData(form);
 
-        // JSON 데이터를 사용하여 API 호출
-        fetch("/member/save", {
-          method: "POST",
-          body: JSON.stringify(jsonData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            // ...
-            // API 응답 처리
-            if (data.success) {
-              alert("회원 가입 성공!");
-              location.href = "/";
-            } else {
-              alert("회원 가입 실패!");
-              console.log(data.error);
-            }
-          });
-      }
+      const jsonData = {
+        memberEmail: formData.get("memberEmail"), //이메일
+        memberPassword: formData.get("memberPassword"), //패스워드
+        memberName: formData.get("memberName"), //이름
+        memberBirthDate: formData.get("memberBirthDate"), //생년월일
+      };
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const signUpButton = document.querySelector(
-          'input[type="submit"][value="Sign-up"]'
-        );
-
-        signUpButton.addEventListener("click", function (event) {
-          test();
+      // JSON 데이터를 사용하여 API 호출
+      fetch("/member/save", {
+        method: "POST",
+        body: JSON.stringify(jsonData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // ...
+          // API 응답 처리
+          if (data.success) {
+            alert("회원 가입 성공!");
+            location.href = "/";
+          } else {
+            alert("회원 가입 실패!");
+            console.log(data.error);
+          }
         });
-      });
-    </script>
-  </head>
+    }
 
-  <body>
-    <!-- <form action="/member/register" method="post" id="register_form">
+    document.addEventListener("DOMContentLoaded", function () {
+      const signUpButton = document.querySelector(
+        'input[type="submit"][value="Sign-up"]'
+      );
+
+      signUpButton.addEventListener("click", function (event) {
+        test();
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <!-- <form action="/member/register" method="post" id="register_form">
 
     <input type="text" name="memberName" placeholder="이름">
     <input type="text" name="memberId" placeholder="아이디">
@@ -62,80 +63,61 @@
   </form>
 -->
 
-    <div class="box">
-      <div class="group">
-        <form action="/member/save" method="post" id="register_form">
-          <div class="overlap">
-            <div class="rectangle"></div>
-            <img class="vector" src="/app/Front/img/vector.svg" />
-            <div class="div">
-              <div class="overlap-group">
-                <div class="rectangle-2"></div>
-                <div class="text-wrapper">
-                  <input
-                    type="text"
-                    name="memberPassword"
-                    placeholder="비밀번호를 입력하세요"
-                    value="testPw1"
-                  />
-                </div>
-                <img
-                  class="free-icon-password"
-                  src="/app/Front/img/free-icon-password-4520142-1.png"
-                />
-              </div>
-              <div class="overlap-3">
-                <div class="rectangle-2"></div>
-                <div class="text-wrapper-3">
-                  <input
-                    type="text"
-                    name="memberEmail"
-                    placeholder="이메일"
-                    id="memberEmail"
-                    onblur="emailCheck()"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="overlap-wrapper">
-              <div class="overlap-3">
-                <div class="rectangle-2"></div>
-                <div class="text-wrapper-3">
-                  <input
-                    type="text"
-                    name="memberName"
-                    placeholder="이름"
-                    value="testName1"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="overlap-group-wrapper">
-              <div class="overlap-3">
-                <div class="rectangle-2"></div>
-                <div class="text-wrapper-3">
-                  <input
-                    type="text"
-                    name="memberBirthDate"
-                    placeholder="생년월일"
-                    value="011201"
-                  />
-                </div>
-              </div>
-            </div>
-            <img class="union" src="/app/Front/img/union.svg" />
-            <div class="text-wrapper-4">CBY</div>
-            <div class="div-wrapper">
-              <div class="overlap-4">
-                <div class="rectangle-3"></div>
-                <div class="text-wrapper-5">
-                  <button onclick="save()">Sign up</button>
-                </div>
-              </div>
-            </div>
+  <div class="box">
+    <div class="signup">
+
+      <header class="header">
+        <div class="header-text">CBY</div>
+      </header>
+      <main class="main">
+        <div class="name-group">
+          <div class="div">
+            <input type="text" class="name-text" placeholder="이름을 입력하세요">
+            <img class="name-icon" src="/app/Front/img/name-icon.png" />
           </div>
-        </form>
-      </div>
+        </div>
+        <div class="email-group">
+          <div class="div">
+            <input type="text" class="email-text" placeholder="이메일를 입력하세요">
+            <img class="email-icon" src="/app/Front/img/email-icon.png" />
+          </div>
+        </div>
+        <div class="password-group">
+          <div class="div">
+            <input type="password" class="password-text" placeholder="비밀번호를 입력하세요">
+            <img class="password-icon" src="/app/Front/img/password-icon.png" />
+          </div>
+        </div>
+        <div class="birthday-group">
+          <div class="div">
+            <input type="text" class="birthday-text" placeholder="생년월일를 입력하세요">
+            <img class="birthday-icon" src="/app/Front/img/birthday-icon.png" />
+          </div>
+        </div>
+        <button class="signup-button">
+          <div class="button-text">Sign Up</div>
+        </button>
+      </main>
+      <footer class="footer">
+        <!--Waves Container-->
+        <div>
+          <svg class="footer_wave" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+              <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+              <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(214,229,207,0.7)" />
+              <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(214,229,207,0.5)" />
+              <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(214,229,207,0.3)" />
+              <use xlink:href="#gentle-wave" x="48" y="7" fill="#D6E5CF" />
+            </g>
+          </svg>
+        </div>
+        <!--Waves end-->
+      </footer>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
