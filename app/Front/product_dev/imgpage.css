@@ -124,35 +124,38 @@
   top: 150px;
   left: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
+
 .box .header_month_num {
   left: 5%;
   color: #3d3a3a;
-  font-size: 8vw;
+  font-size: clamp(50px, 8vw, 128px);
   position: absolute;
 }
 
 .box .header_year {
   right: 5%;
   color: #6e666699;
-  font-size: 6vw;
+  font-size: clamp(50px, 6vw, 110px);
   position: absolute;
 }
+
 .box .header_month_string {
   position: absolute;
   left: calc(5% + 130px);
   color: #6f6767;
-  font-size: 5vw;
+  font-size: clamp(50px, 5vw, 96px);
 }
+
 .box .days {
   position: absolute;
   top: 0;
   font-family: "Carme", Helvetica;
   font-weight: 400;
   color: #3e3a3a;
-  font-size: 3vw;
+  font-size: clamp(18px, 3vw, 50px);
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
