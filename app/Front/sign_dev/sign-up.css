@@ -28,7 +28,6 @@ input {
 .box .header {
   position: relative;
   width: 100%;
-
   top: 0;
   background: url('/app/Front/img/header.svg') no-repeat center bottom;
   background-size: cover;
@@ -40,7 +39,7 @@ input {
   left: 50%;
   font-family: "Koh Santepheap-Regular", Helvetica;
   font-weight: 400;
-  color: #3e3a3a;
+  font-style: #3e3a3a;
   font-size: 64px;
   letter-spacing: 0;
   text-align: center;
@@ -87,7 +86,7 @@ input {
   max-width: 848px;
   height: 114px;
   left: 50%;
-  margin-top: 1%;
+  margin-top: 2%;
   transform: translateX(-50%);
   z-index: 1;
   display: flex;
