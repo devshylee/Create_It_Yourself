@@ -1,12 +1,12 @@
 input {
-  all: unset; 
+  all: unset;
 }
 
 .box {
   position: relative;
   width: 100%;
   max-width: 1920px;
-  height: 100vh; 
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,110 +46,61 @@ input {
   line-height: normal;
   transform: translate(-50%);
 
-  
-  
 }
 
-@media (max-width: 768px) {
-  .box .header-text {
-    font-size: 64px;
-  }
-  .waves {
-    height: 40px;
-    min-height: 40px;
-  }
-}
 /* header style end*/
 
 /* main style */
 .box .main {
   position: absolute;
-  width: 100%;  
+  width: 100%;
+  top: 30%;
   justify-content: center;
+  align-items: center;
+}
+
+.box .input-group {
+  width: 100%;
+  max-width: 846px;
+  height: 90px;
+  background-color: #cfe1e5;
+  border-radius: 209px;
+  border-color: #777f81;
+  display: flex;
   align-items: center;
 }
 
 .box .div {
   position: relative;
   width: 100%;
-  max-width: 846px;
-  height: 114px;
-  background-color: #cfe1e5;
-  border-radius: 209px;
-  border: 1px solid;
-  border-color: #777f81;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} 
-
-.box .email-group {
-  position: relative;
-  width: 100%;
   max-width: 848px;
-  height: 114px;
   left: 50%;
-  margin-top: 5%;
+  margin-top: 1%;
   transform: translateX(-50%);
   z-index: 1;
   display: flex;
-  justify-content: center;
 }
 
-.box .email-text {
-  width: 100%;
-  max-width: 455px;
-  font-family: "Inter-Regular", Helvetica;
+.box .input-text {
+  font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #6f6767;
-  font-size: 40px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-  justify-content: center;
-  align-items: center;
+  font-size: 1.5rem;
+  margin-left: 160px;
 }
 
 .box .email-icon {
   position: absolute;
   width: 69px;
   height: 74px;
-  top: 20px;
   left: 50px;
   object-fit: cover;
-}
-
-.box .password-group {
-  position: relative;
-  width: 100%;
-  max-width: 848px;
-  height: 114px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.box .password-text {
-  width: 100%;
-  max-width: 455px;
-  font-family: "Inter-Regular", Helvetica;
-  font-weight: 400;
-  color: #6f6767;
-  font-size: 40px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
 }
 
 .box .password-icon {
   position: absolute;
   width: 74px;
   height: 66px;
-  top: 20px;
   left: 43px;
 }
 
@@ -167,7 +118,8 @@ input {
   position: relative;
   width: 100%;
   max-width: 416px;
-  height: 114px;
+  height: 90px;
+  margin-top: 1%;
   bottom: 0px;
   z-index: 1;
   background-color: #777f81;
@@ -205,10 +157,10 @@ input {
 
 .box .footer_wave {
   position: absolute;
-  width: 100%; 
+  width: 100%;
   height: 100%;
   bottom: 0;
-  margin-bottom: -7px; 
+  margin-bottom: -7px;
   min-height: 30%;
   max-height: 90%;
 }
@@ -229,3 +181,30 @@ input {
 }
 
 /*end*/
+
+@media (max-width: 768px) {
+
+  .header-text {
+    height: 10rem;
+  }
+
+  .box .div {
+    width: 32rem;
+    margin-top: 3%;
+  }
+
+  .box .signin-button,
+  .box .signup-button {
+    width: 16rem;
+  }
+
+  .box .input-text,
+  .box .button-text {
+    font-size: 1.1rem;
+  }
+
+  .waves {
+    height: 40px;
+    min-height: 40px;
+  }
+}
