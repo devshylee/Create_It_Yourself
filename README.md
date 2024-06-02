@@ -72,11 +72,11 @@ https://devkingdom.tistory.com/110 ( 스프링에서 RESTful API 구현하기 )
 
 
 ## 💡기술스택
-### 통신방법
-  - fetch api를 통한 data통신
+
 ### FE
-  - figma-anima plugin ui구성
-  - Html,CSS,JS
+  - Figma-Anima Plugin UI구성
+  - HTML5, CSS3, JavaScript
+  - Fetch API
  
 ### BE
   - Jave version 11
@@ -86,3 +86,4 @@ https://devkingdom.tistory.com/110 ( 스프링에서 RESTful API 구현하기 )
   - Gradle
   - AWS EC2
   - AWS RDS
+  - Flask
