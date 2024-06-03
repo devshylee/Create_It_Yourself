@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="globals.css">
     <link rel="stylesheet" href="questionpage.css">
 </head>
-<!--  , 오탈자 및 클래스 이름들 정리하기-->
-<!--  사용자에게 300자까지만 입력가능하게 구현 글자수 만큼 공간이 늘어나게-->
+<!-- 글자수 만큼 공간이 늘어나게-->
 <!--  만약 서버로부터 요청이 오래걸릴때 로딩창 만들기 -->
 
 <body>
+    <div id="load">
+        <img src="img/loding.gif" alt="loading">
+    </div>
     <div class="box">
         <div class="question-page">
             <header class="header">
                 <div class="header_dates">
                     <div class="header_year"><span id="year">2024</span></div>
                     <div class="header_month_num"><span id="month">1</span></div>
-                    <div class="header_month_string"> <span id="smonth">january</span></div>
+                    <div class="header_month_string"><span id="smonth">january</span></div>
                 </div>
                 <div class="headerbar">
                     <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png"
@@ -31,36 +33,34 @@
                 <div class="days"><span id="day">28 (일)</span></div>
                 <div class="wheel">
                     <div class="five" id="QnA">
-                        <div class="question"><input type="text" class="aq"
-                                placeholder="지금 가장 하고싶은 일은? "></div>
-                        <div class="answer"><input type="text" name="answer" placeholder="A: " /></div>
+                        <div class="question"><input type="text" class="aq" placeholder="지금 가장 하고싶은 일은? "></div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
                     </div>
                     <div class="four" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="4 "> </div>
-                        <div class="answer"><input type="text" name="answer" placeholder="A: " /></div>
+                        <div class="question"><input type="text" class="aq" placeholder="Q4 "> </div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
                     </div>
                     <div class="three" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="3"></div>
-                        <div class="answer"><input type="text" name="answer" placeholder="A: " />
+                        <div class="question"><input type="text" class="aq" placeholder="Q3"></div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " />
                         </div>
                     </div>
                     <div class="two" id="QnA">
-                        <div class="question" > <input type="text" class="aq" placeholder="2"> </div>
-                        <div class="answer"><input type="text" name="answer" placeholder="A: " /></div>
+                        <div class="question"><input type="text" class="aq" placeholder="Q2"> </div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
                     </div>
                     <div class="one" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="1"></div>
-                        <div class="answer">
-                            <input type="text" name="answer" placeholder="A: " />
-                        </div>
+                        <div class="question"><input type="text" class="aq" placeholder="Q1"></div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
                     </div>
-                    <div class="next-box"><img class="next" src="img/next.png" /></div>
-                    <div class="back-box"><img class="next" src="img/back.png" /></div>
+                </div>
+                <div class="NnB">
+                    <div class="back-box"><img class="arrow" src="img/back.png" /></div>
+                    <div class="next-box"><img class="arrow" src="img/next.png" /></div>
                 </div>
                 <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
-                <div class="save-box"><img class="save" src="img/save.png" /></div>
+                <div class="save-box" onclick="save_button()"><img class="save" src="img/save.png" /></div>
             </main>
-
 
             <div id="sidebar" class="sidebar">
                 <!-- 메뉴 항목들 -->
@@ -127,7 +127,6 @@
                     $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
             });
-
         });
         // 현재 날짜, 시간 가져오기
         let date = new Date();
@@ -177,6 +176,15 @@
             url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
             window.location.href = url;
         };
+        //이미지 페이지로 넘어가는 버튼 함수
+        const save_button = () => {
+            url = "http://127.0.0.1:5501/app/Front/product_dev/imgpage.html";
+            window.location.href = url;
+        };
+        const loading_page = document.getElementById("load");
+        window.onload = function () {
+            loading_page.style.display = 'none';
+        }
     </script>
 </body>
 
