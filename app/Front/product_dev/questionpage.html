@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="questionpage.css">
 </head>
 <!-- 글자수 만큼 공간이 늘어나게-->
-<!--  만약 서버로부터 요청이 오래걸릴때 로딩창 만들기 -->
+<!-- 이미지, 질문 리롤버튼에 횟수 제한 표기(3회), 휠이벤트에 제한시간 추가, 휠 이벤트 시 현재요소가 아닌 요소 비활성화,
+    이미지페이지 이미지와 질문 답변 공존,이미지 페이지의 질문,답변에 시간이지나면 넘어가는 이벤트, 투명버튼 추가 -->
 
 <body>
     <div id="load">
@@ -33,25 +34,25 @@
                 <div class="days"><span id="day">28 (일)</span></div>
                 <div class="wheel">
                     <div class="five" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="지금 가장 하고싶은 일은? "></div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                        <div class="question"><input type="text" id="AQnAA" placeholder="지금 가장 하고싶은 일은? "></div>
+                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"  placeholder="A: " /></div>
                     </div>
                     <div class="four" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="Q4 "> </div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                        <div class="question"><input type="text" id="AQnAA" placeholder="Q4 "> </div>
+                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"   placeholder="A: " /></div>
                     </div>
                     <div class="three" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="Q3"></div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " />
+                        <div class="question"><input type="text" id="AQnAA" placeholder="Q3"></div>
+                        <div class="answer"><input type="text"  id="AQnAA" maxlength="300" placeholder="A: " />
                         </div>
                     </div>
                     <div class="two" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="Q2"> </div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                        <div class="question"><input type="text" id="AQnAA" placeholder="Q2"> </div>
+                        <div class="answer"><input type="text"  id="AQnAA" maxlength="300"  placeholder="A: " /></div>
                     </div>
                     <div class="one" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="Q1"></div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                        <div class="question"><input type="text" id="AQnAA" placeholder="Q1"></div>
+                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"  placeholder="A: " /></div>
                     </div>
                 </div>
                 <div class="NnB">
