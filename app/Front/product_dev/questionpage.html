@@ -56,8 +56,8 @@
                     </div>
                 </div>
                 <div class="NnB">
-                    <div class="back-box"><img class="arrow" src="img/back.png" /></div>
-                    <div class="next-box"><img class="arrow" src="img/next.png" /></div>
+                    <img class="back" src="img/back.png" />
+                    <img class="next" src="img/next.png" />
                 </div>
                 <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
                 <div class="save-box" onclick="save_button()"><img class="save" src="img/save.png" /></div>
@@ -104,7 +104,7 @@
             });
 
             // 'next-box' 클릭 이벤트 핸들러를 설정
-            $('.next-box').on('click', function () {
+            $('.next').on('click', function () {
                 // 현재 활성 요소의 인덱스를 가져옵니다.
                 let activeIndex = $('.wheel > .active').index();
 
@@ -117,7 +117,7 @@
             });
 
             // 'back-box' 클릭 이벤트 핸들러를 설정
-            $('.back-box').on('click', function () {
+            $('.back').on('click', function () {
                 // 현재 활성 요소의 인덱스를 가져옵니다.
                 let activeIndex = $('.wheel > .active').index();
 
