@@ -51,7 +51,6 @@
   background-color: #f1f5f2;
 }
 
-
 .box .headbar {
   position: absolute;
   width: 100%;
@@ -100,6 +99,7 @@
 .text-medium {
   font-size: 24px;
 }
+
 /*calendar 관련 스타일들*/
 .box .calendar {
   position: absolute;
@@ -120,8 +120,6 @@
   list-style: none;
   flex-wrap: wrap;
   text-align: center;
-
-
 }
 
 .calendar ul li {
@@ -182,10 +180,10 @@
   border: 1px solid #b6c4af;
 }
 
-.box .days li:nth-child(7n) {
+/* .box .days li:nth-child(7n) {
   border-color: red;
  
-}
+} */
 
 /* weeks start */
 .box .weeks {
@@ -272,7 +270,7 @@
 .box .header_year {
   right: 5%;
   color: #6e666699;
-  font-size: 6vw;
+  font-size: 5vw;
   position: absolute;
 }
 

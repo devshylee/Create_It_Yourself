@@ -156,6 +156,181 @@
             url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
             window.location.href = url;
         };
+
+
+        //
+        $(document).ready(function () {
+            function adjustTextSize() {
+                var windowWidth = $(window).width();
+                var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
+                $('.month-num').css('font-size', monthnumSize + 'px');
+                var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
+                $('.month-str').css('font-size', monthstrSize + 'px');
+                var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
+                $('.year').css('font-size', yearSize + 'px');
+                var textSize = Math.max(20, Math.min(50, windowWidth / 50)); // Example formula
+                $('.day, .question, .answer').css('font-size', textSize + 'px');
+            }
+            adjustTextSize();
+            $(window).resize(adjustTextSize);
+
+            createQuestion();
+        });
+
+        var currentQuestion = 1;
+        var currentLevel = 1;
+
+        function nextQuestion() {
+            var questionText = document.getElementById('question').textContent;
+            var answerText = document.getElementById('answer').value;
+
+            if (currentLevel === 1) {
+                fetchLevel2Question(questionText, answerText);
+                currentLevel = 2;
+            } else if (currentLevel === 2) {
+                fetchLevel3Question(questionText, answerText);
+                currentLevel = 3;
+            } else if (currentLevel === 3) {
+                fetchLevel4Question(questionText, answerText);
+                currentLevel = 4;
+            } else if (currentLevel === 4) {
+                fetchLevel5Question(questionText, answerText);
+                currentLevel = 5;
+            } else if (currentLevel === 5) {
+                fetchLevel6Question(questionText, answerText);
+                currentLevel = 6;
+            }
+        }
+
+        function fetchLevel2Question(level1_question, level1_answer) {
+            const url = 'http://localhost:5001/question/level2';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level1_question: level1_question,
+                    level1_answer: level1_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 2 question:', error);
+                });
+        }
+
+        function fetchLevel3Question(level2_question, level2_answer) {
+            const url = 'http://localhost:5001/question/level3';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level2_question: level2_question,
+                    level2_answer: level2_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 3 question:', error);
+                });
+        }
+
+        function fetchLevel4Question(level3_question, level3_answer) {
+            const url = 'http://localhost:5001/question/level4';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level3_question: level3_question,
+                    level3_answer: level3_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 4 question:', error);
+                });
+        }
+
+        function fetchLevel5Question(level4_question, level4_answer) {
+            const url = 'http://localhost:5001/question/level5';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level4_question: level4_question,
+                    level4_answer: level4_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 5 question:', error);
+                });
+        }
+
+        function fetchLevel6Question(level5_question, level5_answer) {
+                    const url = 'http://localhost:5001/question/level6';
+
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            level5_question: level5_question,
+                            level5_answer: level5_answer
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('question').textContent = data.question;
+                            document.getElementById('answer').value = '';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching Level 6 question:', error);
+                        });
+                }
+
+        function createQuestion() {
+            fetch("http://localhost:5001/question", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("question").textContent = data.question;
+                });
+        }
+    
     </script>
 </body>
 
