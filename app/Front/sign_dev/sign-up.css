@@ -3,7 +3,6 @@ input {
 }
 
 .box {
-  position: relative;
   width: 100%;
   max-width: 1920px;
   height: 100vh;
@@ -13,24 +12,19 @@ input {
   background-color: #f1f5f2;
   overflow: hidden;
 }
-
 .box .signup {
   position: relative;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
   background-color: #f1f5f2;
-  border-color: #e4cfe5;
 }
-
 /*header style start*/
 .box .header {
   position: relative;
   width: 100%;
   top: 0;
   background: url('/app/Front/img/header.svg') no-repeat center bottom;
-  background-size: cover;
+  background-size: cover;  
 }
 
 .box .header-text {
@@ -39,12 +33,13 @@ input {
   left: 50%;
   font-family: "Koh Santepheap-Regular", Helvetica;
   font-weight: 400;
-  font-style: #3e3a3a;
   font-size: 64px;
+  color: #3e3a3a;
   letter-spacing: 0;
-  text-align: center;
-  line-height: normal;
   transform: translate(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .box .header-img {
@@ -63,162 +58,67 @@ input {
   width: 100%;  
   justify-content: center;
   align-items: center;
-  
+}
+
+.box .input-group {
+
+  width: 100%;
+  max-width: 846px;
+  height: 90px;
+  background-color: #cfe1e5;
+  border-radius: 209px;
+  border-color: #777f81;
+  display: flex;
+  align-items: center;
 }
 
 .box .div {
   position: relative;
   width: 100%;
-  max-width: 846px;
-  height: 114px;
-  background-color: #cfe1e5;
-  border-radius: 209px;
-  border: 1px solid;
-  border-color: #777f81;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} 
-
-.box .name-group {
-  position: relative;
-  width: 100%;
   max-width: 848px;
-  height: 114px;
   left: 50%;
-  margin-top: 2%;
+  margin-top: 1%;
   transform: translateX(-50%);
   z-index: 1;
   display: flex;
-  justify-content: center;
-}
+} 
 
-.box .name-text {
-  width: 100%px;
-  position: absolute;
-  top: 37px;
-  left: 204px;
+.box .input-text {
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #6f6767;
-  font-size: 40px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
+  font-size: 1.5rem;
+  margin-left: 160px;
 }
 
 .box .name-icon {
   position: absolute;
   width: 58px;
   height: 58px;
-  top: 28px;
   left: 51px;
   object-fit: cover;
-}
-
-.box .email-group {
-  position: relative;
-  width: 100%;
-  max-width: 848px;
-  height: 114px;
-  left: 50%;
-  margin-top: 1%;
-  transform: translateX(-50%);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.box .email-text {
-  width: 100%;
-  position: absolute;
-  top: 37px;
-  left: 204px;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #6f6767;
-  font-size: 40px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
 }
 
 .box .email-icon {
   position: absolute;
   width: 69px;
   height: 74px;
-  top: 20px;
   left: 50px;
-}
-
-.box .password-group {
-  position: relative;
-  width: 100%;
-  max-width: 848px;
-  height: 114px;
-  left: 50%;
-  margin-top: 1%;
-  transform: translateX(-50%);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.box .password-text {
-  width: 100%;
-  position: absolute;
-  top: 37px;
-  left: 204px;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #6f6767;
-  font-size: 40px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
+  object-fit: cover;
 }
 
 .box .password-icon {
   position: absolute;
   width: 74px;
   height: 66px;
-  top: 20px;
   left: 43px;
   object-fit: cover;
-}
-
-.box .birthday-group {
-  position: relative;
-  width: 100%;
-  max-width: 848px;
-  height: 114px;
-  left: 50%;
-  margin-top: 1%;
-  transform: translateX(-50%);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.box .birthday-text {
-  width: 100%;
-  position: absolute;
-  top: 37px;
-  left: 204px;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #6f6767;
-  font-size: 40px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
 }
 
 .box .birthday-icon {
   position: absolute;
   width: 63px;
   height: 63px;
-  top: 25px;
   left: 48px;
   object-fit: cover;
 }
@@ -227,7 +127,7 @@ input {
   position: relative;
   width: 100%;
   max-width: 416px;
-  height: 114px;
+  height: 90px;
   margin-top: 1%;
   left: 50%;
   bottom: 0px;
@@ -242,7 +142,7 @@ input {
   font-family: "Inter-Regular", Helvetica;
   font-weight: 400;
   color: #ffffff;
-  font-size: 40px;
+  font-size: 1.5rem;
   letter-spacing: 0;
   line-height: normal;
   text-align: center;
@@ -283,47 +183,26 @@ input {
   align-items: center;
 }
 
-/* Animation */
-.parallax>use {
-  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-}
-
-.parallax>use:nth-child(1) {
-  animation-delay: -2s;
-  animation-duration: 7s;
-}
-
-.parallax>use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
-}
-
-.parallax>use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 13s;
-}
-
-.parallax>use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 20s;
-}
-
-@keyframes move-forever {
-  0% {
-    transform: translate3d(-90px, 0, 0);
-  }
-
-  100% {
-    transform: translate3d(85px, 0, 0);
-  }
-}
-
-/*Shrinking for mobile*/
-@media (max-width: 768px) {
-  .waves {
-    height: 40px;
-    min-height: 40px;
-  }
-}
-
 /*end*/
+
+
+@media (max-width: 768px) {
+  .header-text {
+   height: 10rem;
+   font-size: 128px;
+   
+  }
+  .box .div {
+    width: 32rem;
+    margin-top: 3%;
+  }
+  .box .signup-button{
+    width: 16rem;
+    margin-top: 3%;
+  }
+  .box .input-text,
+  .box .button-text {
+    font-size: 1.1rem;
+  }
+ 
+}

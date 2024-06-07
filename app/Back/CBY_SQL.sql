@@ -11,13 +11,19 @@ CREATE Table Users (
 CREATE Table Answer (
   AnswerId INT PRIMARY KEY AUTO_INCREMENT ,
   QuestionId INT ,
-  Content VARCHAR(200) ,
-  created_at timestamp
+  Answer1 varchar(300),
+  Answer2 varchar(300),
+  Answer3 varchar(300),
+  Answer4 varchar(300),
+  Answer5 varchar(300)
 );
 CREATE Table Question (
   QuestionId INT PRIMARY KEY AUTO_INCREMENT ,
-  Content VARCHAR(200) ,
-  created_at timestamp
+  Question1 VARCHAR(300) ,
+  Question2 VARCHAR(300) ,
+  Question3 VARCHAR(300) ,
+  Question4 VARCHAR(300) ,
+  Question5 VARCHAR(300) ,
 );
 CREATE Table Books (
   BookId INT PRIMARY KEY AUTO_INCREMENT,

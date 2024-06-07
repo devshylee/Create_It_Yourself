@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!-- -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,10 @@
 </head>
 
 <body>
+  <div id="load">
+    <img src="img/loding.gif" alt="loading">
+  </div>
+
   <div class="box">
     <div class="img-page">
       <header class="header">
@@ -23,8 +27,8 @@
         </div>
       </header>
       <main class="img-box">
-        <div class="days"><span id="day">28 (일)</span>
-        </div>
+        <div class="days"><span id="day">28 (일)</span></div>
+        <img class="back" onclick="back_button()" src="img/back.png"/>
         <img class="img" src="img/img.png" />
         <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
         <div class="save-box"><img class="save" src="img/save.png" /></div>
@@ -44,56 +48,61 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function () {
-      function adjustTextSize() {
-        var windowWidth = $(window).width();
-        var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
-        $('.header_month_num').css('font-size', monthnumSize + 'px');
-        var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
-        $('.header_month_string').css('font-size', monthstrSize + 'px');
-        var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
-        $('.header_year').css('font-size', yearSize + 'px');
-        var textSize = Math.max(30, Math.min(50, windowWidth / 50)); // Example formula
-        $('.days').css('font-size', textSize + 'px');
-      }
-
-      adjustTextSize();
-      $(window).resize(adjustTextSize);
-    });
-
+    // 현재 날짜, 시간 가져오기
     let date = new Date();
+    // 연도, 월, 월 이름, 일 요소 가져오기
     const $year = document.querySelector("#year");
     const $month = document.querySelector("#month");
     const $smonth = document.querySelector("#smonth");
     const $day = document.querySelector("#day");
 
+    // 현재 연도를 연도 요소에 설정
     $year.textContent = date.getFullYear();
-    $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexe
 
+    // 현재 월을 월 요소에 설정
+    $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexed
+
+    // 월 이름 배열을 정의합니다.
     const monthNames = [
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
+
+    // 현재 월의 인덱스를 가져와서 해당 월 이름을 월 이름 요소에 설정
     let monthIndex = date.getMonth();
     let monthName = monthNames[monthIndex];
     $smonth.textContent = monthName;
 
+    // 요일 이름 배열을 정의
     const weekdayNames = [
       "일", "월", "화", "수", "목", "금", "토"
     ];
+
+    // 현재 요일의 인덱스를 가져와서 해당 요일 이름과 날짜를 일 요소에 설정
     let weekdayIndex = date.getDay();
     let weekdayName = weekdayNames[weekdayIndex];
     let day = date.getDate();
+    //textCpmtemt로 현재 요일과 날짜 출력
     $day.textContent = `${day} (${weekdayName})`;
 
+    //사이드 바 출력함수
     function toggleSidebar() {
       var sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("active");
     }
+    //메인으로 가는 버튼
     const main_button = () => {
       url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
       window.location.href = url;
     };
+    const back_button = () =>{
+      url = "http://127.0.0.1:5501/app/Front/product_dev/questionpage.html";
+      window.location.href = url;
+    }
+    const loading_page = document.getElementById("load");
+    window.onload = function () {
+      loading_page.style.display = 'none';
+    }
   </script>
 </body>
 

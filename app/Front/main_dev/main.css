@@ -38,7 +38,6 @@
   overflow: hidden;
 }
 
-.box .group,
 .box .main {
   position: absolute;
   width: 100%;
@@ -49,6 +48,7 @@
   align-items: center;
   text-align: center;
   background-color: #f1f5f2;
+  border: 1px solid red;
 }
 
 .box .headbar {
@@ -110,11 +110,20 @@
   border-radius: 54px;
   border: 2px solid #000000;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-  flex-direction: column; /* 수직 정렬을 위해 추가 */
+  display: flex; 
+  flex-direction: column; 
   align-items: center;
   justify-content: center;
 }
 
+.prev_img, .next_img {
+  width: 30px; 
+  background-size: cover;
+}
+
+.prev_img {
+  transform: scaleX(-1);
+}
 .calendar ul {
   display: flex;
   list-style: none;
@@ -180,11 +189,6 @@
   border: 1px solid #b6c4af;
 }
 
-/* .box .days li:nth-child(7n) {
-  border-color: red;
- 
-} */
-
 /* weeks start */
 .box .weeks {
   width: 100%; 
@@ -210,7 +214,7 @@
 /* months start */
 .box .months {
   position: absolute;
-  width: calc(100% - 20px);
+  width: 100%;
   height: 54px;
   top: 245px;
   left: 10px;
@@ -223,29 +227,13 @@
 .box .months div {
   font-size: 3vw;
 }
-
-/* month names */
-.box .months div,
-.box .dec,
-.box .nov,
-.box .oct,
-.box .sep,
-.box .aug,
-.box .jul,
-.box .jun,
-.box .may,
-.box .apr,
-.box .mar,
-.box .feb,
-.box .jan {
-
-  width: 133px;
-  height: 54px;
-  font-family: "Bitter", serif;
-  font-weight: 400;
-  color: #6f6767;
-  font-size: 60px;
+.box .months button, .box .months p {
+  flex: 1; 
+  text-align: center;
+  
 }
+
+
 
 /*header쪽 date */
 .box .header_dates {

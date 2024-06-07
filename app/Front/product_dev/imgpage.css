@@ -4,6 +4,25 @@
   }
 }
 
+#load {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: block;
+  opacity: 0.8;
+  background: white;
+  z-index: 99;
+  text-align: center;
+}
+
+#load > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+}
 .box {
   margin: 0 auto;
   width: 100%;
@@ -23,8 +42,6 @@
   position: relative;
   max-width: 1920px;
 }
-
-
 
 .box .img-box {
   position: absolute;
@@ -46,12 +63,26 @@
 .box .img {
   position: absolute;
   width: 50vw;
-  max-width: 1315px;
+  max-width: 700px;
   height: 50vh;
   top: 100px;
   bottom: 15px;
 }
-
+.back {
+  position: absolute;
+  width: 6vw;
+  max-width: 70px;
+  height: 6vw;
+  max-height: 70px;
+  padding: 5px;
+  margin: 10px;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 .box .reroll-box {
   position: absolute;
   width: 7vw;
@@ -68,15 +99,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
+
 .box .reroll {
   position: absolute;
   width: 4vw;
   max-width: 81px;
   height: 4vw;
   max-height: 74px;
-  
+
 }
+
 .box .save-box {
   position: absolute;
   width: 7vw;
@@ -93,20 +127,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
+
 .box .save {
   position: absolute;
   width: 4vw;
   max-width: 65px;
   height: 4vw;
   max-height: 74px;
-  
+
 }
-.box .header{
+
+.box .header {
   position: absolute;
   width: 100%;
   height: 254px;
 }
+
 .box .headerbar {
   position: absolute;
   width: 100%;
@@ -124,35 +162,38 @@
   top: 150px;
   left: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
+
 .box .header_month_num {
   left: 5%;
   color: #3d3a3a;
-  font-size: 8vw;
+  font-size: clamp(50px, 8vw, 128px);
   position: absolute;
 }
 
 .box .header_year {
   right: 5%;
   color: #6e666699;
-  font-size: 6vw;
+  font-size: clamp(50px, 6vw, 110px);
   position: absolute;
 }
+
 .box .header_month_string {
   position: absolute;
   left: calc(5% + 130px);
   color: #6f6767;
-  font-size: 5vw;
+  font-size: clamp(50px, 5vw, 96px);
 }
+
 .box .days {
   position: absolute;
   top: 0;
   font-family: "Carme", Helvetica;
   font-weight: 400;
   color: #3e3a3a;
-  font-size: 3vw;
+  font-size: clamp(18px, 3vw, 50px);
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
@@ -168,9 +209,11 @@
   background-color: #333;
   transition: all 0.3s ease;
 }
+
 .sidebar.active {
   right: 0;
 }
+
 .icon {
   position: absolute;
   right: 20px;
@@ -178,6 +221,7 @@
   z-index: 999;
   color: #fff;
 }
+
 .box .menuimg {
   position: absolute;
   width: 61px;
@@ -185,6 +229,7 @@
   top: 5px;
   right: 20px;
 }
+
 .box .back-main {
   position: absolute;
   height: 47px;

@@ -6,17 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Date and Transition</title>
     <link rel="stylesheet" href="globals.css">
-    <link rel="stylesheet" href="questionpage.css"> 
+    <link rel="stylesheet" href="questionpage.css">
 </head>
-<!-- css중복,쓸모없는 것들 정리 , script 기능 주석으로 자세히 정리하기 , 폰트 사이즈 css로 정리하기 , 오탈자 및 클래스 이름들 정리하기-->
+<!-- 글자수 만큼 공간이 늘어나게-->
+<!-- 이미지, 질문 리롤버튼에 횟수 제한 표기(3회), 휠이벤트에 제한시간 추가, 휠 이벤트 시 현재요소가 아닌 요소 비활성화,
+    이미지페이지 이미지와 질문 답변 공존,이미지 페이지의 질문,답변에 시간이지나면 넘어가는 이벤트, 투명버튼 추가 -->
+
 <body>
+    <div id="load">
+        <img src="img/loding.gif" alt="loading">
+    </div>
     <div class="box">
         <div class="question-page">
             <header class="header">
                 <div class="header_dates">
                     <div class="header_year"><span id="year">2024</span></div>
                     <div class="header_month_num"><span id="month">1</span></div>
-                    <div class="header_month_string"> <span id="smonth">january</span></div>
+                    <div class="header_month_string"><span id="smonth">january</span></div>
                 </div>
                 <div class="headerbar">
                     <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png"
@@ -27,35 +33,35 @@
             <main class="question-box">
                 <div class="days"><span id="day">28 (일)</span></div>
                 <div class="wheel">
-                    <div class="five">
-                        <div class="question-five"><input type="text" class="aq" placeholder="지금 가장 하고싶은 일은? "></div>
-                        <div class="answer-five"><input type="text" name="answer" placeholder="A: " /></div>
+                    <div class="five" id="QnA">
+                        <div class="question"><input type="text" id="AQnAA" placeholder="지금 가장 하고싶은 일은? "></div>
+                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"  placeholder="A: " /></div>
                     </div>
-                    <div class="four">
-                        <div class="question-four"><input type="text" class="aq" placeholder="4 "> </div>
-                        <div class="answer-four"><input type="text" name="answer" placeholder="A: " /></div>
+                    <div class="four" id="QnA">
+                        <div class="question"><input type="text" id="AQnAA" placeholder="Q4 "> </div>
+                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"   placeholder="A: " /></div>
                     </div>
-                    <div class="three">
-                        <div class="question-three"><input type="text" class="aq" placeholder="3"></div>
-                        <div class="answer-three"><input type="text" name="answer" placeholder="A: " /></div>
-                    </div>
-                    <div class="two">
-                        <div class="question-two"> <input type="text" class="aq" placeholder="2"> </div>
-                        <div class="answer-two"><input type="text" name="answer" placeholder="A: " /></div>
-                    </div>
-                    <div class="one">
-                        <div class="question-one"><input type="text" class="aq" placeholder="1"></div>
-                        <div class="answer-one">
-                            <input type="text" name="answer" placeholder="A: " />
+                    <div class="three" id="QnA">
+                        <div class="question"><input type="text" id="AQnAA" placeholder="Q3"></div>
+                        <div class="answer"><input type="text"  id="AQnAA" maxlength="300" placeholder="A: " />
                         </div>
                     </div>
-                    <div class="next-box"><img class="next" src="img/next.png" /></div>
-                    <div class="back-box"><img class="next" src="img/back.png" /></div>
+                    <div class="two" id="QnA">
+                        <div class="question"><input type="text" id="AQnAA" placeholder="Q2"> </div>
+                        <div class="answer"><input type="text"  id="AQnAA" maxlength="300"  placeholder="A: " /></div>
+                    </div>
+                    <div class="one" id="QnA">
+                        <div class="question"><input type="text" id="AQnAA" placeholder="Q1"></div>
+                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"  placeholder="A: " /></div>
+                    </div>
+                </div>
+                <div class="NnB">
+                    <img class="back" src="img/back.png"/>
+                    <img class="next" src="img/next.png" onclick="createQuestion()"/>
                 </div>
                 <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
-                <div class="save-box"><img class="save" src="img/save.png" /></div>
+                <div class="save-box" onclick="save_button()"><img class="save" src="img/save.png" /></div>
             </main>
-
 
             <div id="sidebar" class="sidebar">
                 <!-- 메뉴 항목들 -->
@@ -72,93 +78,106 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            function adjustTextSize() {
-                var windowWidth = $(window).width();
-                var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10));
-                $('.header_month_num').css('font-size', monthnumSize + 'px');
-                var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10));
-                $('.header_month_string').css('font-size', monthstrSize + 'px');
-                var yearSize = Math.max(50, Math.min(110, windowWidth / 10));
-                $('.header_year').css('font-size', yearSize + 'px');
-                var textSize = Math.max(18, Math.min(50, windowWidth / 50));
-                $('.days,.text ,input[type="text"]').css('font-size', textSize + 'px');
-            }
-            adjustTextSize();
-            $(window).resize(adjustTextSize);
-            // 초기 활성 요소를 'one'으로 설정합니다.
+            // 초기 활성 요소를 'one'으로 설정
             $('.wheel > .one').addClass('active');
+
+            // 'wheel' 이벤트 핸들러를 설정
             $('.wheel').on('wheel', function (event) {
+                // deltaY 값을 가져와서 스크롤 방향을 결정
                 const deltaY = event.originalEvent.deltaY;
+
+                // 현재 활성 요소의 인덱스를 가져옵니다.
                 let activeIndex = $('.wheel > .active').index();
+
                 // 아래로 스크롤하고 이전 요소가 있는 경우
                 if (deltaY > 0 && activeIndex > 0) {
-                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트합니다.
+                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
                     $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
                     $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
                 // 위로 스크롤하고 다음 요소가 있는 경우
                 else if (deltaY < 0 && activeIndex < 4) {
-                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트합니다.
+                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
                     $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
                     $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
             });
-            //다음 요소로 넘어가는 next함수
-            $('.next-box').on('click', function () {
+
+            // 'next-box' 클릭 이벤트 핸들러를 설정
+            $('.next').on('click', function () {
+                // 현재 활성 요소의 인덱스를 가져옵니다.
                 let activeIndex = $('.wheel > .active').index();
+
+                // 현재 활성 요소가 첫 번째 요소가 아닌 경우
                 if (activeIndex > 0) {
-                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트합니다.
+                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
                     $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
                     $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
             });
-            // 이전 요소로 이동하는 back 함수
-            $('.back-box').on('click', function () {
+
+            // 'back-box' 클릭 이벤트 핸들러를 설정
+            $('.back').on('click', function () {
+                // 현재 활성 요소의 인덱스를 가져옵니다.
                 let activeIndex = $('.wheel > .active').index();
+
+                // 현재 활성 요소가 마지막 요소가 아닌 경우
                 if (activeIndex < 4) {
-                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트합니다.
+                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
                     $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
                     $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
             });
         });
+        // 현재 날짜, 시간 가져오기
         let date = new Date();
+        // 연도, 월, 월 이름, 일 요소 가져오기
         const $year = document.querySelector("#year");
+        const $month = document.querySelector("#month");
+        const $smonth = document.querySelector("#smonth");
+        const $day = document.querySelector("#day");
+
+        // 현재 연도를 연도 요소에 설정
         $year.textContent = date.getFullYear();
 
-        const $month = document.querySelector("#month");
+        // 현재 월을 월 요소에 설정
         $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexed
 
-        const $smonth = document.querySelector("#smonth");
+        // 월 이름 배열을 정의합니다.
         const monthNames = [
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
+
+        // 현재 월의 인덱스를 가져와서 해당 월 이름을 월 이름 요소에 설정
         let monthIndex = date.getMonth();
         let monthName = monthNames[monthIndex];
         $smonth.textContent = monthName;
 
-        const $day = document.querySelector("#day");
+        // 요일 이름 배열을 정의
         const weekdayNames = [
             "일", "월", "화", "수", "목", "금", "토"
         ];
+
+        // 현재 요일의 인덱스를 가져와서 해당 요일 이름과 날짜를 일 요소에 설정
         let weekdayIndex = date.getDay();
         let weekdayName = weekdayNames[weekdayIndex];
         let day = date.getDate();
+        //textCpmtemt로 현재 요일과 날짜 출력
         $day.textContent = `${day} (${weekdayName})`;
 
-        
+
+        //사이드 바 출력함수
         function toggleSidebar() {
             var sidebar = document.getElementById("sidebar");
             sidebar.classList.toggle("active");
         }
+        //메인으로 가는 버튼 함수
         const main_button = () => {
             url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
             window.location.href = url;
         };
-
-
-        //
+        // prompt api 호출 
         $(document).ready(function () {
             function adjustTextSize() {
                 var windowWidth = $(window).width();
@@ -331,6 +350,17 @@
                 });
         }
     
+
+        //이미지 페이지로 넘어가는 버튼 함수
+        const save_button = () => {
+            url = "http://127.0.0.1:5501/app/Front/product_dev/imgpage.html";
+            window.location.href = url;
+        };
+        const loading_page = document.getElementById("load");
+        window.onload = function () {
+            loading_page.style.display = 'none';
+        }
+
     </script>
 </body>
 

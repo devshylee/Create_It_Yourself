@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <link rel="stylesheet" href="globals.css" />
   <link rel="stylesheet" href="sign-up.css" />
+  <link rel="stylesheet" href="animation.css" />
 </head>
 
 <body>
@@ -27,33 +28,35 @@
         <div class="header-text">CBY</div>
       </header>
       <main class="main">
-        <div class="name-group">
+        <form action="" method="post" class="input-info">
           <div class="div">
-            <input type="text" class="name-text" placeholder="이름을 입력하세요">
-            <img class="name-icon" src="/app/Front/img/name-icon.png" />
+            <div class="input-group">
+              <input type="text" class="input-text" placeholder="이름을 입력하세요">
+              <img class="name-icon" src="/app/Front/img/name-icon.png" />
+            </div>
           </div>
-        </div>
-        <div class="email-group">
           <div class="div">
-            <input type="text" class="email-text" placeholder="이메일를 입력하세요">
-            <img class="email-icon" src="/app/Front/img/email-icon.png" />
+            <div class="input-group">
+              <input type="text" class="input-text" placeholder="이메일를 입력하세요">
+              <img class="email-icon" src="/app/Front/img/email-icon.png" />
+            </div>
           </div>
-        </div>
-        <div class="password-group">
           <div class="div">
-            <input type="password" class="password-text" placeholder="비밀번호를 입력하세요">
-            <img class="password-icon" src="/app/Front/img/password-icon.png" />
+            <div class="input-group">
+              <input type="password" class="input-text" placeholder="비밀번호를 입력하세요">
+              <img class="password-icon" src="/app/Front/img/password-icon.png" />
+            </div>
           </div>
-        </div>
-        <div class="birthday-group">
           <div class="div">
-            <input type="text" class="birthday-text" placeholder="생년월일를 입력하세요">
-            <img class="birthday-icon" src="/app/Front/img/birthday-icon.png" />
+            <div class="input-group">
+              <input type="text" class="input-text" placeholder="생년월일">
+              <img class="birthday-icon" src="/app/Front/img/birthday-icon.png" />
+            </div>
           </div>
-        </div>
-        <button class="signup-button">
-          <div class="button-text">Sign Up</div>
-        </button>
+          <button type="submit" class="signup-button" disabled="disabled">
+            <div class="button-text">Sign Up</div>
+          </button>
+        </form>
       </main>
       <footer class="footer">
         <!--Waves Container-->
@@ -78,7 +81,7 @@
 
   <script>
 
-    const date = new newDate()
+    const date = new Date();
     //json data 통신방식 
     function test() {
       const form = document.getElementById("register_form");
@@ -123,4 +126,5 @@
 
   </script>
 </body>
+
 </html>
