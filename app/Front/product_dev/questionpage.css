@@ -22,7 +22,7 @@
   left: 50%;
   z-index: 100;
 }
-#AQnAA {
+.AQnAA {
   position: absolute;
   width: 90%;
   max-width: 1009px;
@@ -96,7 +96,7 @@
 }
 
 
-.box .reroll-box {
+.reroll-box {
   position: absolute;
   width: 7vw;
   max-width: 123px;
@@ -113,6 +113,18 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.reroll-box:hover .reroll-counter {
+  display: block; /* hover 시 숫자를 표시 */
+}
+
+.reroll-counter {
+  display: none; /* 기본적으로 숫자는 보이지 않게 설정 */
+  position: absolute;
+  font-size: 1.5rem;
+  color: #000;
 }
 
 .box .reroll {
@@ -121,7 +133,10 @@
   max-width: 81px;
   height: 4vw;
   max-height: 74px;
-
+  display: block;
+}
+.reroll-box:hover .reroll {
+  display: none; /* reroll-box에 hover 시 reroll은 숨김 */
 }
 
 .box .save-box {
@@ -198,7 +213,7 @@
   padding: 15px;
 }
 
-.box .wheel {
+.box .Qbox {
   position: absolute;
   width: 50vw;
   max-width: 1315px;
@@ -209,17 +224,19 @@
   align-items: center;
 }
 
-.wheel>div {
+.Qbox>div {
   transition: transform 1s ease, opacity 1s ease;
   opacity: 0;
   transform: translateY(-100%);
   position: absolute;
+  pointer-events: none; /* 비활성화된 요소는 클릭 불가능 */
 }
 
-.wheel>div.active {
+.Qbox>div.active {
   opacity: 1;
   transform: translateY(0);
   position: absolute;
+  pointer-events: auto; /* 활성화된 요소는 클릭 가능 */
 }
 
 .NnB {
@@ -259,7 +276,6 @@
   align-items: center;
   cursor: pointer;
 }
-
 
 #QnA {
   position: absolute;

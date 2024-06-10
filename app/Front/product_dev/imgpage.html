@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!-- -->
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,12 +29,58 @@
       </header>
       <main class="img-box">
         <div class="days"><span id="day">28 (일)</span></div>
-        <img class="back" onclick="back_button()" src="img/back.png"/>
+        <img class="backpage" onclick="back_button()" src="img/back.png" /><!-- 이미지 출력-->
+
+        <div class="Qbox">
+          <div class="five" id="QnA">
+            <div class="question"><input type="text" class="AQnAA" id="Q5" placeholder="지금 가장 하고싶은 일은? "></div>
+            <div class="answer"><input type="text" class="AQnAA" id="A5" maxlength="300" placeholder="A: " /></div>
+            <div class="NnB">
+              <div class="back"></div>
+              <div class="next"></div>
+            </div>
+          </div>
+          <div class="four" id="QnA">
+            <div class="question"><input type="text" class="AQnAA" id="Q4" placeholder="Q4 "> </div>
+            <div class="answer"><input type="text" class="AQnAA" id="A4" maxlength="300" placeholder="A: " /></div>
+            <div class="NnB">
+              <div class="back"></div>
+              <div class="next"></div>
+            </div>
+          </div>
+          <div class="three" id="QnA">
+            <div class="question"><input type="text" class="AQnAA" id="Q3" placeholder="Q3"></div>
+            <div class="answer"><input type="text" class="AQnAA" id="A3" maxlength="300" placeholder="A: " /></div>
+            <div class="NnB">
+              <div class="back"></div>
+              <div class="next"></div>
+            </div>
+          </div>
+          <div class="two" id="QnA">
+            <div class="question"><input type="text" class="AQnAA" id="Q2" placeholder="Q2"> </div>
+            <div class="answer"><input type="text" class="AQnAA" id="A2" maxlength="300" placeholder="A: " /></div>
+            <div class="NnB">
+              <div class="back"></div>
+              <div class="next"></div>
+            </div>
+          </div>
+          <div class="one" id="QnA">
+            <div class="question"><input type="text" class="AQnAA" id="Q1" placeholder="Q1"></div>
+            <div class="answer"><input type="text" class="AQnAA" id="A1" maxlength="300" placeholder="A: " /></div>
+            <div class="NnB">
+              <div class="back"></div>
+              <div class="next"></div>
+            </div>
+          </div>
+        </div>
+
         <img class="img" src="img/img.png" />
-        <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
+        <div class="reroll-box">
+          <img class="reroll" src="img/reroll.png" />
+          <span class="reroll-counter" id="reroll-counter">3</span> <!-- 숫자를 표시할 요소 추가 -->
+        </div>
         <div class="save-box"><img class="save" src="img/save.png" /></div>
       </main>
-
       <div id="sidebar" class="sidebar">
         <!-- 메뉴 항목들 -->
         <form action="/member/update">
@@ -48,6 +95,131 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
+    $(document).ready(function () {
+      let rerollCount = 3;
+
+      $('.reroll-box').hover(
+        function () {
+          $('#reroll-counter').text(rerollCount); // hover 시 숫자를 업데이트
+        }
+      );
+
+      $('.reroll-box').on('click', function () {
+        if (rerollCount > 0) {
+          rerollCount--;
+          $('#reroll-counter').text(rerollCount); // 클릭 시 숫자를 업데이트
+        }
+      });
+      let lastWheelEventTime = 0;
+      const wheelEventCooldown = 1000; // 1000ms (1초) 동안 이벤트 무시
+      // 초기 활성 요소를 'one'으로 설정
+      $('.Qbox > .one').addClass('active');
+
+      // 'wheel' 이벤트 핸들러를 설정
+      $('.Qbox').on('wheel', function (event) {
+        const currentTime = new Date().getTime();
+        // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+        if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+          return;
+        }
+        lastWheelEventTime = currentTime;
+
+        // deltaY 값을 가져와서 스크롤 방향을 결정
+        const deltaY = event.originalEvent.deltaY;
+
+        // 현재 활성 요소의 인덱스를 가져옵니다.
+        let activeIndex = $('.Qbox > .active').index();
+
+        // 아래로 스크롤하고 이전 요소가 있는 경우
+        if (deltaY > 0 && activeIndex > 0) {
+          // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+          $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+          $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+        }
+        // 위로 스크롤하고 다음 요소가 있는 경우
+        else if (deltaY < 0 && activeIndex < 4) {
+          // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+          $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+          $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+        }
+        else {
+          // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+          $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
+          $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
+        }
+      });
+      // 'next' 클릭 이벤트 핸들러를 설정
+      $('.next').on('click', function () {
+        // 현재 활성 요소의 인덱스를 가져옵니다.
+        let activeIndex = $('.Qbox > .active').index();
+
+        // 현재 활성 요소가 첫 번째 요소가 아닌 경우
+        if (activeIndex > 0) {
+          // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+          $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+          $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+        }
+        else {
+          // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+          $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
+          $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
+        }
+      });
+
+      // 'back' 클릭 이벤트 핸들러를 설정
+      $('.back').on('click', function () {
+        // 현재 활성 요소의 인덱스를 가져옵니다.
+        let activeIndex = $('.Qbox > .active').index();
+
+        // 현재 활성 요소가 마지막 요소가 아닌 경우
+        if (activeIndex < 4) {
+          // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+          $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+          $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+        }
+        else {
+          // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+          $('.Qbox > div').eq(0).addClass('active').css('z-index', 1);
+          $('.Qbox > div').eq(4).removeClass('active').css('z-index', 0);
+        }
+
+      });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+      const data = JSON.parse(localStorage.getItem('formData'));
+      if (data) {
+        document.getElementById('Q5').value = data.Q5;
+        document.getElementById('A5').value = data.A5;
+        document.getElementById('Q4').value = data.Q4;
+        document.getElementById('A4').value = data.A4;
+        document.getElementById('Q3').value = data.Q3;
+        document.getElementById('A3').value = data.A3;
+        document.getElementById('Q2').value = data.Q2;
+        document.getElementById('A2').value = data.A2;
+        document.getElementById('Q1').value = data.Q1;
+        document.getElementById('A1').value = data.A1;
+      }
+    });
+    function autoTransition() {
+      // 현재 활성 요소의 인덱스를 가져옵니다.
+      let activeIndex = $('.Qbox > .active').index();
+
+      // 현재 활성 요소가 마지막 요소가 아닌 경우
+      if (activeIndex > 0) {
+        // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+        $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+        $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+      }
+      else {
+        // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+        $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
+        $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
+      }
+    }
+
+    // 일정 시간마다 autoTransition 함수 호출
+    setInterval(autoTransition, 5000); // 5000ms = 5초
+
     // 현재 날짜, 시간 가져오기
     let date = new Date();
     // 연도, 월, 월 이름, 일 요소 가져오기
@@ -95,7 +267,7 @@
       url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
       window.location.href = url;
     };
-    const back_button = () =>{
+    const back_button = () => {
       url = "http://127.0.0.1:5501/app/Front/product_dev/questionpage.html";
       window.location.href = url;
     }
