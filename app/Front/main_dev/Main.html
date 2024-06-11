@@ -27,20 +27,32 @@
 
         <div class="sidebar_main">
           <div class="setting_theme">
-            <img src="/app/Front/img/next.png" class="toggle_button" onclick="rotateImage(this)">
-            <button></button>
+            <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+            <div class="dropdown_menu">
+              <p>Theme Option 1</p>
+              <p>Theme Option 2</p>
+            </div>
           </div>
           <div class="setting_font">
-            <img src="/app/Front/img/next.png" class="toggle_button" onclick="rotateImage(this)">
-            <button></button>
+            <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+            <div class="dropdown_menu">
+              <p>Font Option 1</p>
+              <p>Font Option 2</p>
+            </div>
           </div>
           <div class="setting_alram">
-            <img src="/app/Front/img/next.png" class="toggle_button" onclick="rotateImage(this)">
-            <button></button>
+            <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+            <div class="dropdown_menu">
+              <p>Alarm Option 1</p>
+              <p>Alarm Option 2</p>
+            </div>
           </div>
           <div class="setting_account">
-            <img src="/app/Front/img/next.png" class="toggle_button" onclick="rotateImage(this)">
-            <button></button>
+            <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+            <div class="dropdown_menu">
+              <p>Account Option 1</p>
+              <p>Account Option 2</p>
+            </div>
           </div>
         </div>
 
@@ -94,12 +106,22 @@
       overlay.classList.remove("active");
     };
 
-    // 이미지 회전 함수
-    const rotateImage = (element) => {
+   // 드롭다운 토글 함수
+   const toggleDropdown = (element) => {
+      const parent = element.closest('.setting_theme, .setting_font, .setting_alram, .setting_account');
+      const dropdown = parent.querySelector('.dropdown_menu');
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+      } else {
+        const newDropdown = document.createElement('div');
+        newDropdown.classList.add('dropdown_menu', 'show');
+        newDropdown.innerHTML = '<p>Option 1</p><p>Option 2</p>';
+        parent.appendChild(newDropdown);
+      }
       element.classList.toggle('rotate');
     };
 
-    // 버튼 이벤트 처리함수
+    // 버튼 이동 이벤트 처리함수
     const main_button = () => {
       const url = "http://127.0.0.1:5501/app/Front/main_dev/Main.html";
       window.location.href = url;
@@ -157,8 +179,8 @@
       for (let i = 1; i <= lastDateofMonth; i++) {
         let isToday =
           i === date.getDate() &&
-          currMonth === new Date().getMonth() &&
-          currYear === new Date().getFullYear()
+            currMonth === new Date().getMonth() &&
+            currYear === new Date().getFullYear()
             ? 'active'
             : '';
         liTag += `<li class="${isToday}">${i}</li>`;
