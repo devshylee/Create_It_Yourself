@@ -13,9 +13,6 @@
     이미지페이지 이미지와 질문 답변 공존,이미지 페이지의 질문,답변에 시간이지나면 넘어가는 이벤트, 투명버튼 추가 -->
 
 <body>
-    <div id="load">
-        <img src="img/loding.gif" alt="loading">
-    </div>
     <div class="box">
         <div class="question-page">
             <header class="header">
@@ -33,26 +30,9 @@
             <main class="question-box">
                 <div class="days"><span id="day">28 (일)</span></div>
                 <div class="wheel">
-                    <div class="five" id="QnA">
-                        <div class="question"><input type="text" id="AQnAA" placeholder="지금 가장 하고싶은 일은? "></div>
-                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"  placeholder="A: " /></div>
-                    </div>
-                    <div class="four" id="QnA">
-                        <div class="question"><input type="text" id="AQnAA" placeholder="Q4 "> </div>
-                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"   placeholder="A: " /></div>
-                    </div>
-                    <div class="three" id="QnA">
-                        <div class="question"><input type="text" id="AQnAA" placeholder="Q3"></div>
-                        <div class="answer"><input type="text"  id="AQnAA" maxlength="300" placeholder="A: " />
-                        </div>
-                    </div>
-                    <div class="two" id="QnA">
-                        <div class="question"><input type="text" id="AQnAA" placeholder="Q2"> </div>
-                        <div class="answer"><input type="text"  id="AQnAA" maxlength="300"  placeholder="A: " /></div>
-                    </div>
                     <div class="one" id="QnA">
-                        <div class="question"><input type="text" id="AQnAA" placeholder="Q1"></div>
-                        <div class="answer"><input type="text" id="AQnAA" maxlength="300"  placeholder="A: " /></div>
+                        <p class="question" id="question"></p>
+                        <div><input class="answer" type="text" id="answer" maxlength="300" placeholder="A: " /></div>
                     </div>
                 </div>
                 <div class="NnB">
@@ -166,7 +146,6 @@
         //textCpmtemt로 현재 요일과 날짜 출력
         $day.textContent = `${day} (${weekdayName})`;
 
-
         //사이드 바 출력함수
         function toggleSidebar() {
             var sidebar = document.getElementById("sidebar");
@@ -196,6 +175,11 @@
             createQuestion();
         });
 
+        function handleFetchError(error) {
+            console.error('Fetch error:', error);
+            alert('An error occurred. Please try again.');
+        }
+
         var currentQuestion = 1;
         var currentLevel = 1;
 
@@ -222,7 +206,7 @@
         }
 
         function fetchLevel2Question(level1_question, level1_answer) {
-            const url = 'http://localhost:5001/question/level2';
+            const url = 'http://13.125.46.32:5001/question/level2';
 
             fetch(url, {
                 method: 'POST',
@@ -245,7 +229,7 @@
         }
 
         function fetchLevel3Question(level2_question, level2_answer) {
-            const url = 'http://localhost:5001/question/level3';
+            const url = 'http://13.125.46.32:5001/question/level3';
 
             fetch(url, {
                 method: 'POST',
@@ -268,7 +252,7 @@
         }
 
         function fetchLevel4Question(level3_question, level3_answer) {
-            const url = 'http://localhost:5001/question/level4';
+            const url = 'http://13.125.46.32:5001/question/level4';
 
             fetch(url, {
                 method: 'POST',
@@ -291,7 +275,7 @@
         }
 
         function fetchLevel5Question(level4_question, level4_answer) {
-            const url = 'http://localhost:5001/question/level5';
+            const url = 'http://13.125.46.32:5001/question/level5';
 
             fetch(url, {
                 method: 'POST',
@@ -314,7 +298,7 @@
         }
 
         function fetchLevel6Question(level5_question, level5_answer) {
-                    const url = 'http://localhost:5001/question/level6';
+                    const url = 'http://13.125.46.32:5001/question/level6';
 
                     fetch(url, {
                         method: 'POST',
@@ -337,7 +321,7 @@
                 }
 
         function createQuestion() {
-            fetch("http://localhost:5001/question", {
+            fetch("http://13.125.46.32:5001/question", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -348,17 +332,6 @@
                 .then(data => {
                     document.getElementById("question").textContent = data.question;
                 });
-        }
-    
-
-        //이미지 페이지로 넘어가는 버튼 함수
-        const save_button = () => {
-            url = "http://127.0.0.1:5501/app/Front/product_dev/imgpage.html";
-            window.location.href = url;
-        };
-        const loading_page = document.getElementById("load");
-        window.onload = function () {
-            loading_page.style.display = 'none';
         }
 
     </script>

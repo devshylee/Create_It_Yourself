@@ -1,21 +1,42 @@
 /*사이드바.css*/
 .sidebar {
   position: fixed;
-  top: 70px;
   right: -450px;
-  width: 450px;
+  width: 350px;
   height: 100%;
-  background-color: #333;
-  transition: all 0.3s ease;
+  bottom: 0;
+  background-color: #CADBCE;
+  
+  z-index: 3;
+  border: 1px solid red;
 }
 .sidebar.active {
   right: 0;
 }
-/*사이드바.css*/
+.sidebar .sidebar_header {
+  border: 1px solid red;
+  height: 70px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 350px);
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+.overlay.active {
+  display: block;
+  right: 350px; 
+}
 
 /* 버튼 css 초기화 */
 button {
-  all : unset;
+  all: unset;
   background: inherit;
   border: none;
   box-shadow: none;
