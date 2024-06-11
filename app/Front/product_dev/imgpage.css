@@ -142,17 +142,26 @@
   align-items: center;
 }
 
+.Q{
+  position: absolute;
+  font-family: "Cairo", Helvetica;
+  color: #3e3a3a;
+  font-size: clamp(15px, 3vw, 40px);
+  left: 10px;
+}
 .AQnAA {
   position: absolute;
   width: 90%;
-  max-width: 1009px;
+  max-width: 800px;
   font-family: "Cairo", Helvetica;
   font-weight: 400;
   color: #3e3a3a;
   font-size: clamp(15px, 3vw, 40px);
   letter-spacing: 0;
   line-height: normal;
+  right: 0px;
 }
+
 
 .NnB {
   position: absolute;
@@ -197,7 +206,7 @@
   height: 100%;
 }
 
-.box .backpage {
+/* .box .backpage {
   position: absolute;
   width: 6vw;
   max-width: 70px;
@@ -211,7 +220,8 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
+} *//* questionpage로 돌아가는 함수(비활성화 삭제예정) */
+
 
 .box .reroll-box {
   position: absolute;
