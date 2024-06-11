@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Date and Transition</title>
+    <link rel="stylesheet" href="globals.css">
+    <link rel="stylesheet" href="questionpage.css">
+</head>
+<!-- 글자수 만큼 공간이 늘어나게-->
+<!--  만약 서버로부터 요청이 오래걸릴때 로딩창 만들기 -->
+
+<body>
+    <div class="box">
+        <div class="question-page">
+            <header class="header">
+                <div class="header_dates">
+                    <div class="header_year"><span id="year">2024</span></div>
+                    <div class="header_month_num"><span id="month">1</span></div>
+                    <div class="header_month_string"><span id="smonth">january</span></div>
+                </div>
+                <div class="headerbar">
+                    <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png"
+                        onclick="toggleSidebar()" />
+                    <div class="back-main" onclick="main_button()">CBY.com</div>
+                </div>
+            </header>
+            <main class="question-box">
+                <div class="days"><span id="day">28 (일)</span></div>
+                <div class="wheel">
+                    <div class="five" id="QnA">
+                        <div class="question"><input type="text" class="aq" placeholder="지금 가장 하고싶은 일은? "></div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                    </div>
+                    <div class="four" id="QnA">
+                        <div class="question"><input type="text" class="aq" placeholder="Q4 "> </div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                    </div>
+                    <div class="three" id="QnA">
+                        <div class="question"><input type="text" class="aq" placeholder="Q3"></div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " />
+                        </div>
+                    </div>
+                    <div class="two" id="QnA">
+                        <div class="question"><input type="text" class="aq" placeholder="Q2"> </div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                    </div>
+                    <div class="one" id="QnA">
+                        <div class="question"><input type="text" class="aq" placeholder="Q1"></div>
+                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                    </div>
+                </div>
+                <div class="NnB">
+                    <div class="back-box"><img class="arrow" src="img/back.png" /></div>
+                    <div class="next-box"><img class="arrow" src="img/next.png" /></div>
+                </div>
+                <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
+                <div class="save-box" onclick="save_button()"><img class="save" src="img/save.png" /></div>
+            </main>
+
+            <div id="sidebar" class="sidebar">
+                <form action="/member/update">
+                    <div class="menu-item"><button type="button">userUdate</button></div>
+                </form>
+                <form action="/app/Front/sign/sign-in.html">
+                    <div class="menu-item"><button type="button">userLogout</button></div>
+                </form>
+                <div class="menu-item"><button type="button">내정보</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 초기 활성 요소를 'one'으로 설정
+            $('.wheel > .one').addClass('active');
+
+            // 'wheel' 이벤트 핸들러를 설정
+            $('.wheel').on('wheel', function (event) {
+                // deltaY 값을 가져와서 스크롤 방향을 결정
+                const deltaY = event.originalEvent.deltaY;
+
+                // 현재 활성 요소의 인덱스를 가져옵니다.
+                let activeIndex = $('.wheel > .active').index();
+
+                // 아래로 스크롤하고 이전 요소가 있는 경우
+                if (deltaY > 0 && activeIndex > 0) {
+                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                    $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+                // 위로 스크롤하고 다음 요소가 있는 경우
+                else if (deltaY < 0 && activeIndex < 4) {
+                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                    $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+            });
+
+            // 'next-box' 클릭 이벤트 핸들러를 설정
+            $('.next-box').on('click', function () {
+                // 현재 활성 요소의 인덱스를 가져옵니다.
+                let activeIndex = $('.wheel > .active').index();
+
+                // 현재 활성 요소가 첫 번째 요소가 아닌 경우
+                if (activeIndex > 0) {
+                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                    $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+            });
+
+            // 'back-box' 클릭 이벤트 핸들러를 설정
+            $('.back-box').on('click', function () {
+                // 현재 활성 요소의 인덱스를 가져옵니다.
+                let activeIndex = $('.wheel > .active').index();
+
+                // 현재 활성 요소가 마지막 요소가 아닌 경우
+                if (activeIndex < 4) {
+                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                    $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+            });
+        });
+
+        let date = new Date();
+        const $year = document.querySelector("#year");
+        const $month = document.querySelector("#month");
+        const $smonth = document.querySelector("#smonth");
+        const $day = document.querySelector("#day");
+
+        $year.textContent = date.getFullYear();
+        $month.textContent = date.getMonth() + 1;
+
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        let monthIndex = date.getMonth();
+        let monthName = monthNames[monthIndex];
+        $smonth.textContent = monthName;
+
+        const weekdayNames = [
+            "일", "월", "화", "수", "목", "금", "토"
+        ];
+
+        let weekdayIndex = date.getDay();
+        let weekdayName = weekdayNames[weekdayIndex];
+        let day = date.getDate();
+        $day.textContent = `${day} (${weekdayName})`;
+
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+        }
+
+        const main_button = () => {
+            url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
+            window.location.href = url;
+        };
+        const save_button = () => {
+            url = "http://127.0.0.1:5501/app/Front/product_dev/imgpage.html";
+            window.location.href = url;
+        };
+    </script>
+</body>
+
+</html>

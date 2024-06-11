@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="globals.css">
     <link rel="stylesheet" href="questionpage.css">
 </head>
-<!-- 글자수 만큼 공간이 늘어나게-->
-<!-- 이미지, 질문 리롤버튼에 횟수 제한 표기(3회), 휠이벤트에 제한시간 추가, 휠 이벤트 시 현재요소가 아닌 요소 비활성화,
-    이미지페이지 이미지와 질문 답변 공존,이미지 페이지의 질문,답변에 시간이지나면 넘어가는 이벤트, 투명버튼 추가 -->
+<!-- 투명버튼 추가 -->
 
 <body>
     <div class="box">
@@ -36,10 +34,13 @@
                     </div>
                 </div>
                 <div class="NnB">
-                    <img class="back" src="img/back.png"/>
-                    <img class="next" src="img/next.png" onclick="createQuestion()"/>
+                    <img class="back" src="img/back.png" />
+                    <img class="next" src="img/next.png" onclick="createQuestion()" />
                 </div>
-                <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
+                <div class="reroll-box">
+                    <img class="reroll" src="img/reroll.png" />
+                    <span class="reroll-counter" id="reroll-counter">3</span> <!-- 숫자를 표시할 요소 추가 -->
+                </div>
                 <div class="save-box" onclick="save_button()"><img class="save" src="img/save.png" /></div>
             </main>
 
@@ -58,57 +59,155 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            // 이미지 페이지로 데이터 전송하는 함수
+            function sendDataToImgPage(question, answer) {
+                // 데이터를 담을 객체 생성
+                const data = {
+                    question: question,
+                    answer: answer
+                };
+
+                // 이미지 페이지 URL
+                const imgPageURL = "imgpage.html";
+
+                // 데이터를 query string으로 변환
+                const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
+
+                // 이미지 페이지로 전송
+                window.location.href = `${imgPageURL}?${queryString}`;
+            }
+
+            // 저장 버튼 클릭 시 데이터를 이미지 페이지로 전송
+            $('.save-box').on('click', function () {
+                // 입력된 question과 answer 가져오기
+                const question = $('.aq').val();
+                const answer = $('input[name="answer"]').val();
+
+                // 가져온 데이터를 이미지 페이지로 전송
+                sendDataToImgPage(question, answer);
+            });
+
+            let rerollCount = 3;
+
+            $('.reroll-box').hover(
+                function () {
+                    $('#reroll-counter').text(rerollCount); // hover 시 숫자를 업데이트
+                }
+            );
+
+            $('.reroll-box').on('click', function () {
+                if (rerollCount > 0) {
+                    rerollCount--;
+                    $('#reroll-counter').text(rerollCount); // 클릭 시 숫자를 업데이트
+                }
+            });
+
+            let lastWheelEventTime = 0;
+            const wheelEventCooldown = 1000; // 1000ms (1초) 동안 이벤트 무시
             // 초기 활성 요소를 'one'으로 설정
-            $('.wheel > .one').addClass('active');
+            $('.Qbox > .one').addClass('active');
 
             // 'wheel' 이벤트 핸들러를 설정
-            $('.wheel').on('wheel', function (event) {
+            $('.Qbox').on('wheel', function (event) {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
+
                 // deltaY 값을 가져와서 스크롤 방향을 결정
                 const deltaY = event.originalEvent.deltaY;
 
                 // 현재 활성 요소의 인덱스를 가져옵니다.
-                let activeIndex = $('.wheel > .active').index();
+                let activeIndex = $('.Qbox > .active').index();
 
                 // 아래로 스크롤하고 이전 요소가 있는 경우
                 if (deltaY > 0 && activeIndex > 0) {
                     // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
-                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
                 // 위로 스크롤하고 다음 요소가 있는 경우
                 else if (deltaY < 0 && activeIndex < 4) {
                     // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
-                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+                else {
+                    // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+                    $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
                 }
             });
 
-            // 'next-box' 클릭 이벤트 핸들러를 설정
+            // 'next' 클릭 이벤트 핸들러를 설정
             $('.next').on('click', function () {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
                 // 현재 활성 요소의 인덱스를 가져옵니다.
-                let activeIndex = $('.wheel > .active').index();
+                let activeIndex = $('.Qbox > .active').index();
 
                 // 현재 활성 요소가 첫 번째 요소가 아닌 경우
                 if (activeIndex > 0) {
                     // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
-                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+                else {
+                    // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+                    $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
                 }
             });
 
-            // 'back-box' 클릭 이벤트 핸들러를 설정
+            // 'back' 클릭 이벤트 핸들러를 설정
             $('.back').on('click', function () {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
                 // 현재 활성 요소의 인덱스를 가져옵니다.
-                let activeIndex = $('.wheel > .active').index();
+                let activeIndex = $('.Qbox > .active').index();
 
                 // 현재 활성 요소가 마지막 요소가 아닌 경우
                 if (activeIndex < 4) {
                     // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
-                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+                else {
+                    // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+                    $('.Qbox > div').eq(0).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(4).removeClass('active').css('z-index', 0);
                 }
             });
+
         });
+        function save_button() {
+            const data = {
+                Q5: document.getElementById('Q5').value,
+                A5: document.getElementById('A5').value,
+                Q4: document.getElementById('Q4').value,
+                A4: document.getElementById('A4').value,
+                Q3: document.getElementById('Q3').value,
+                A3: document.getElementById('A3').value,
+                Q2: document.getElementById('Q2').value,
+                A2: document.getElementById('A2').value,
+                Q1: document.getElementById('Q1').value,
+                A1: document.getElementById('A1').value
+            };
+            localStorage.setItem('formData', JSON.stringify(data));
+            window.location.href = "http://127.0.0.1:5501/app/Front/product_dev/imgpage.html";
+            // url = ;
+            // window.location.href = url;
+        }
         // 현재 날짜, 시간 가져오기
         let date = new Date();
         // 연도, 월, 월 이름, 일 요소 가져오기
@@ -298,7 +397,7 @@
         }
 
         function fetchLevel6Question(level5_question, level5_answer) {
-                    const url = 'http://13.125.46.32:5001/question/level6';
+                    const url = 'http://localhost:5001/question/level6';
 
                     fetch(url, {
                         method: 'POST',
@@ -332,6 +431,11 @@
                 .then(data => {
                     document.getElementById("question").textContent = data.question;
                 });
+        }
+
+        const loading_page = document.getElementById("load");
+        window.onload = function () {
+            loading_page.style.display = 'none';
         }
 
     </script>

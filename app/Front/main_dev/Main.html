@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <link rel="stylesheet" href="global.css" />
-    <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css" />
   <!--reset css css를 개발할때 웹브라우저의 있는 초기값을 삭제시켜줌-->
 </head>
@@ -17,18 +17,37 @@
       <button class="home_button" onclick="main_button()">CBY.com</button>
       <!-- 사이드 메뉴 항목들 -->
       <div id="sidebar" class="sidebar">
-        
-        <div class="sidebar_header"></div>
+
+        <div class="sidebar_header">
+          <div class="sidebar_header_contents">
+            <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" />
+            <p>사용자명</p>
+          </div>
+        </div>
+
         <div class="sidebar_main">
-          
+          <div class="setting_theme">
+            <img src="/app/Front/img/next.png" class="toggle_button" onclick="rotateImage(this)">
+            <button></button>
+          </div>
+          <div class="setting_font">
+            <img src="/app/Front/img/next.png" class="toggle_button" onclick="rotateImage(this)">
+            <button></button>
+          </div>
+          <div class="setting_alram">
+            <img src="/app/Front/img/next.png" class="toggle_button" onclick="rotateImage(this)">
+            <button></button>
+          </div>
+          <div class="setting_account">
+            <img src="/app/Front/img/next.png" class="toggle_button" onclick="rotateImage(this)">
+            <button></button>
+          </div>
         </div>
-        <form action="/member/update">
-          <div class="menu-item"><button type="submit">userUpdate</button></div>
-        </form>
-        <div class="menu-item">
-          <button type="button" onclick="signout_button()">userSignout</button>
+
+        <div class="sidebar_footer">
+          <button class="sign_out">Sign out</button>
         </div>
-        <div class="menu-item"><button type="button">내정보</button></div>
+
       </div>
     </header>
 
@@ -55,12 +74,10 @@
         </ul>
         <ul class="days"></ul>
       </div>
-
     </main>
   </div>
 
   <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
-
   <script>
     // 사이드바 함수
     const toggleSidebar = () => {
@@ -77,18 +94,23 @@
       overlay.classList.remove("active");
     };
 
+    // 이미지 회전 함수
+    const rotateImage = (element) => {
+      element.classList.toggle('rotate');
+    };
+
     // 버튼 이벤트 처리함수
     const main_button = () => {
-      url = "http://127.0.0.1:5501/app/Front/main_dev/Main.html";
+      const url = "http://127.0.0.1:5501/app/Front/main_dev/Main.html";
       window.location.href = url;
     };
     const signout_button = () => {
-      url = "http://127.0.0.1:5501/app/Front/sign/sign-in.html";
+      const url = "http://127.0.0.1:5501/app/Front/sign/sign-in.html";
       window.location.href = url;
     };
 
     //헤더에 있는 날짜를 window 시각에 맞춰 바뀌게 해줌
-    let date = new Date();
+    const date = new Date();
     let currYear = date.getFullYear();
     let currMonth = date.getMonth();
 
