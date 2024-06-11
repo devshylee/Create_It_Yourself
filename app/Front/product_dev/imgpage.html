@@ -29,44 +29,64 @@
       </header>
       <main class="img-box">
         <div class="days"><span id="day">28 (일)</span></div>
-        <img class="backpage" onclick="back_button()" src="img/back.png" /><!-- 이미지 출력-->
+        <!-- <img class="backpage" onclick="back_button()" src="img/back.png" /> questionpage로 돌아가는 함수(비활성화 삭제예정) -->
 
         <div class="Qbox">
           <div class="five" id="QnA">
-            <div class="question"><input type="text" class="AQnAA" id="Q5" placeholder="지금 가장 하고싶은 일은? "></div>
-            <div class="answer"><input type="text" class="AQnAA" id="A5" maxlength="300" placeholder="A: " /></div>
+            <div class="question">
+              <p class="Q">Q5:</p><input type="text" class="AQnAA" id="Q5">
+            </div>
+            <div class="answer">
+              <p class="Q">A:</p><input type="text" class="AQnAA" id="A5" maxlength="300" />
+            </div>
             <div class="NnB">
               <div class="back"></div>
               <div class="next"></div>
             </div>
           </div>
           <div class="four" id="QnA">
-            <div class="question"><input type="text" class="AQnAA" id="Q4" placeholder="Q4 "> </div>
-            <div class="answer"><input type="text" class="AQnAA" id="A4" maxlength="300" placeholder="A: " /></div>
+            <div class="question">
+              <p class="Q">Q4:</p><input type="text" class="AQnAA" id="Q4">
+            </div>
+            <div class="answer">
+              <p class="Q">A:</p><input type="text" class="AQnAA" id="A4" maxlength="300" />
+            </div>
             <div class="NnB">
               <div class="back"></div>
               <div class="next"></div>
             </div>
           </div>
           <div class="three" id="QnA">
-            <div class="question"><input type="text" class="AQnAA" id="Q3" placeholder="Q3"></div>
-            <div class="answer"><input type="text" class="AQnAA" id="A3" maxlength="300" placeholder="A: " /></div>
+            <div class="question">
+              <p class="Q">Q3:</p><input type="text" class="AQnAA" id="Q3">
+            </div>
+            <div class="answer">
+              <p class="Q">A:</p><input type="text" class="AQnAA" id="A3" maxlength="300" />
+            </div>
             <div class="NnB">
               <div class="back"></div>
               <div class="next"></div>
             </div>
           </div>
           <div class="two" id="QnA">
-            <div class="question"><input type="text" class="AQnAA" id="Q2" placeholder="Q2"> </div>
-            <div class="answer"><input type="text" class="AQnAA" id="A2" maxlength="300" placeholder="A: " /></div>
+            <div class="question">
+              <p class="Q">Q2:</p><input type="text" class="AQnAA" id="Q2">
+            </div>
+            <div class="answer">
+              <p class="Q">A:</p><input type="text" class="AQnAA" id="A2" maxlength="300" />
+            </div>
             <div class="NnB">
               <div class="back"></div>
               <div class="next"></div>
             </div>
           </div>
           <div class="one" id="QnA">
-            <div class="question"><input type="text" class="AQnAA" id="Q1" placeholder="Q1"></div>
-            <div class="answer"><input type="text" class="AQnAA" id="A1" maxlength="300" placeholder="A: " /></div>
+            <div class="question">
+              <p class="Q">Q1:</p><input type="text" class="AQnAA" id="Q1">
+            </div>
+            <div class="answer">
+              <p class="Q">A:</p><input type="text" class="AQnAA" id="A1" maxlength="300" />
+            </div>
             <div class="NnB">
               <div class="back"></div>
               <div class="next"></div>
@@ -150,6 +170,12 @@
       });
       // 'next' 클릭 이벤트 핸들러를 설정
       $('.next').on('click', function () {
+        const currentTime = new Date().getTime();
+        // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+        if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+          return;
+        }
+        lastWheelEventTime = currentTime;
         // 현재 활성 요소의 인덱스를 가져옵니다.
         let activeIndex = $('.Qbox > .active').index();
 
@@ -168,6 +194,12 @@
 
       // 'back' 클릭 이벤트 핸들러를 설정
       $('.back').on('click', function () {
+        const currentTime = new Date().getTime();
+        // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+        if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+          return;
+        }
+        lastWheelEventTime = currentTime;
         // 현재 활성 요소의 인덱스를 가져옵니다.
         let activeIndex = $('.Qbox > .active').index();
 
@@ -267,10 +299,10 @@
       url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
       window.location.href = url;
     };
-    const back_button = () => {
-      url = "http://127.0.0.1:5501/app/Front/product_dev/questionpage.html";
-      window.location.href = url;
-    }
+    // const back_button = () => {
+    //   url = "http://127.0.0.1:5501/app/Front/product_dev/questionpage.html";
+    //   window.location.href = url;
+    // } questionpage로 돌아가는 함수(비활성화 삭제예정)
     const loading_page = document.getElementById("load");
     window.onload = function () {
       loading_page.style.display = 'none';

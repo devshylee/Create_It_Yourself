@@ -22,17 +22,6 @@
   left: 50%;
   z-index: 100;
 }
-.AQnAA {
-  position: absolute;
-  width: 90%;
-  max-width: 1009px;
-  font-family: "Cairo", Helvetica;
-  font-weight: 400;
-  color: #3e3a3a;
-  font-size: clamp(15px, 3vw, 40px);
-  letter-spacing: 0;
-  line-height: normal;
-}
 
 .box {
   margin: 0 auto;
@@ -283,6 +272,25 @@
   max-width: 1315px;
   height: 260px;
   top: 20px;
+}
+.Q{
+  position: absolute;
+  font-family: "Cairo", Helvetica;
+  color: #3e3a3a;
+  font-size: clamp(15px, 3vw, 40px);
+  left: 10px;
+}
+.AQnAA {
+  position: absolute;
+  width: 90%;
+  max-width: 1009px;
+  font-family: "Cairo", Helvetica;
+  font-weight: 400;
+  color: #3e3a3a;
+  font-size: clamp(15px, 3vw, 40px);
+  letter-spacing: 0;
+  line-height: normal;
+  right: 0px;
 }
 
 .question {
