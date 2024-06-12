@@ -69,6 +69,7 @@
         <div class="header_month_num"><span id="month"></span></div>
         <div class="header_month_string"><span id="smonth"></span></div>
       </div>
+
       <div class="months">
         <button id="prev" class="material-icons"><img src="/app/Front/img/next.png" class="prev_img"></button>
         <p class="date-current"></p>
@@ -106,8 +107,8 @@
       overlay.classList.remove("active");
     };
 
-   // 드롭다운 토글 함수
-   const toggleDropdown = (element) => {
+    // 드롭다운 토글 함수
+    const toggleDropdown = (element) => {
       const parent = element.closest('.setting_theme, .setting_font, .setting_alram, .setting_account');
       const dropdown = parent.querySelector('.dropdown_menu');
       if (dropdown) {

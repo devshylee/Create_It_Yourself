@@ -25,17 +25,15 @@
 }
 /* 폰트 모음 */
 .box {
-  position: relative;
+  position: absolute;
   margin: 0 auto;
   width: 100%;
   max-width: 1920px;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column; 
-  justify-content: center;
   align-items: center;
   background-color: #f1f5f2;
-  
   
 }
 /*head style css*/
@@ -44,10 +42,9 @@
   width: 100%;
   height: 70px;
   top: 0;
-  left: 0;
   background-color: #d9d9d9;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 2;
+  z-index: 1; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,27 +77,22 @@
 .box .main {
   position: relative;
   width:calc(100% - 15%);
-  height: 100%;
-  left: 0;
-  display: flex;
-  flex: 1;
-  margin: 70px 50px 0 50px;
+  top: 70px; 
+  height: calc(100% - 70px); 
   justify-content: center;
   align-items: center;
   text-align: center;
   background-color: #f1f5f2;
-  
 }
 
 .box .header_dates {
-  position: absolute;
-  font-family: "Calligraffitti", cursive;
+  position: relative;
   width:100%;
-  height: 54px;
-  top: 100px;
-  display: flex;
-  justify-content: space-between;
+  height: 20px;
+  margin-top: 10%;  display: flex;
+  font-family: "Calligraffitti", cursive;
   align-items: center;
+  
 }
 
 .box .header_month_num {
@@ -129,20 +121,16 @@
 
 /* months start */
 .box .months {
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 54px;
-  top: 25%;
+  top: 15%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  font-size: 3vw;
 }
 
-.box .months div {
-  font-size: 3vw;
-  
-}
 .box .months button, .box .months p {
   text-align: center;
   font-family: "Bitter", serif;
@@ -161,43 +149,36 @@
 /* months end */
 
 /*calendar 관련 스타일들*/
+
 .box .calendar {
-  position: absolute;
+  position: relative;
   width:100%;
-  bottom: 15px;
-  top: 300px;
+  
+  margin-top: 100px;
   background-color: #cfe1e5;
-  border-radius: 54px;
+  border-radius: 50px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-  display: flex; 
-  flex-direction: column; 
   align-items: center;
   justify-content: center;
 }
 
 /* days start */
 .box .days {
+  position: relative;
   width: 100%;
   height: 100%;
+  bottom: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: center;  
+  border: 1px solid red;
 }
 
-.box .days div {
-  width: 130px;
-  height: 105px;
-  flex: 1;
-  background-color: #d6e5cf;
-  border-radius: 65px/52.61px;
-  
-}
+
 
 /* weeks start */
 .box .weeks {
   width: 100%; 
   height: 37px;
-  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,18 +194,16 @@
 }
 
 .calendar ul li {
-  width: calc(100% / 7);
   position: relative;
-  
+  width: calc(100% / 7);  
 }
 
 .calendar .days li {
   position: relative;
-  z-index: 1;
+  
   cursor: pointer;
   font-size: 1.3rem;
   font-family: "Bitter", serif;
-
 }
 .days li.inactive {
   color: #aaa;
@@ -237,8 +216,8 @@
 .calendar .days li::before {
   position: absolute;
   content: '';
-  height: 60px;
-  width: 130px;
+  width: calc(100%);
+  max-width: 130px;
   top: 50%;
   left: 50%;
   background-color: #d6e5cf;
@@ -247,6 +226,7 @@
   transition: transform 0.3s ease; 
   transform: translate(-50%, -50%) scale(1); 
   overflow: hidden;
+  
 }
 
 .days li:hover::before {
@@ -263,9 +243,5 @@
   background: #669152;
 }
 
-
 /*calendar 관련 스타일 끝*/
-
-
-
 /*main style css end*/
