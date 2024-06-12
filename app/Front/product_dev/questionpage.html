@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="questionpage.css">
 </head>
 <!-- 투명버튼 추가 -->
-
 <body>
+    <div id="load">
+        <img src="img/loding.gif" alt="loading">
+    </div>
     <div class="box">
         <div class="question-page">
             <header class="header">
@@ -27,10 +29,46 @@
             </header>
             <main class="question-box">
                 <div class="days"><span id="day">28 (일)</span></div>
-                <div class="wheel">
+                <div class="Qbox">
+                    <div class="five" id="QnA">
+                        <div class="question">
+                            <p class="Q">Q5:</p><input type="text" class="AQnAA" id="Q5">
+                        </div>
+                        <div class="answer">
+                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A5" maxlength="300" />
+                        </div>
+                    </div>
+                    <div class="four" id="QnA">
+                        <div class="question">
+                            <p class="Q">Q4:</p><input type="text" class="AQnAA" id="Q4">
+                        </div>
+                        <div class="answer">
+                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A4" maxlength="300" />
+                        </div>
+                    </div>
+                    <div class="three" id="QnA">
+                        <div class="question">
+                            <p class="Q">Q3:</p><input type="text" class="AQnAA" id="Q3">
+                        </div>
+                        <div class="answer">
+                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A3" maxlength="300" />
+                        </div>
+                    </div>
+                    <div class="two" id="QnA">
+                        <div class="question">
+                            <p class="Q">Q2:</p><input type="text" class="AQnAA" id="Q2">
+                        </div>
+                        <div class="answer">
+                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A2" maxlength="300" />
+                        </div>
+                    </div>
                     <div class="one" id="QnA">
-                        <p class="question" id="question"></p>
-                        <div><input class="answer" type="text" id="answer" maxlength="300" placeholder="A: " /></div>
+                        <div class="question">
+                            <p class="Q">Q1:</p><input type="text" class="AQnAA" id="Q1">
+                        </div>
+                        <div class="answer">
+                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A1" maxlength="300" />
+                        </div>
                     </div>
                 </div>
                 <div class="NnB">
@@ -245,6 +283,7 @@
         //textCpmtemt로 현재 요일과 날짜 출력
         $day.textContent = `${day} (${weekdayName})`;
 
+
         //사이드 바 출력함수
         function toggleSidebar() {
             var sidebar = document.getElementById("sidebar");
@@ -274,11 +313,6 @@
             createQuestion();
         });
 
-        function handleFetchError(error) {
-            console.error('Fetch error:', error);
-            alert('An error occurred. Please try again.');
-        }
-
         var currentQuestion = 1;
         var currentLevel = 1;
 
@@ -305,7 +339,7 @@
         }
 
         function fetchLevel2Question(level1_question, level1_answer) {
-            const url = 'http://13.125.46.32:5001/question/level2';
+            const url = 'http://localhost:5001/question/level2';
 
             fetch(url, {
                 method: 'POST',
@@ -328,7 +362,7 @@
         }
 
         function fetchLevel3Question(level2_question, level2_answer) {
-            const url = 'http://13.125.46.32:5001/question/level3';
+            const url = 'http://localhost:5001/question/level3';
 
             fetch(url, {
                 method: 'POST',
@@ -351,7 +385,7 @@
         }
 
         function fetchLevel4Question(level3_question, level3_answer) {
-            const url = 'http://13.125.46.32:5001/question/level4';
+            const url = 'http://localhost:5001/question/level4';
 
             fetch(url, {
                 method: 'POST',
@@ -374,7 +408,7 @@
         }
 
         function fetchLevel5Question(level4_question, level4_answer) {
-            const url = 'http://13.125.46.32:5001/question/level5';
+            const url = 'http://localhost:5001/question/level5';
 
             fetch(url, {
                 method: 'POST',
@@ -397,30 +431,30 @@
         }
 
         function fetchLevel6Question(level5_question, level5_answer) {
-                    const url = 'http://localhost:5001/question/level6';
+            const url = 'http://localhost:5001/question/level6';
 
-                    fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            level5_question: level5_question,
-                            level5_answer: level5_answer
-                        })
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            document.getElementById('question').textContent = data.question;
-                            document.getElementById('answer').value = '';
-                        })
-                        .catch(error => {
-                            console.error('Error fetching Level 6 question:', error);
-                        });
-                }
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level5_question: level5_question,
+                    level5_answer: level5_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 6 question:', error);
+                });
+        }
 
         function createQuestion() {
-            fetch("http://13.125.46.32:5001/question", {
+            fetch("http://localhost:5001/question", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
