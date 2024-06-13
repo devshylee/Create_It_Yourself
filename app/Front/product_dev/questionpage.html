@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="questionpage.css">
 </head>
 <!-- 투명버튼 추가 -->
+
 <body>
     <div id="load">
         <img src="img/loding.gif" alt="loading">
@@ -31,43 +32,43 @@
                 <div class="days"><span id="day">28 (일)</span></div>
                 <div class="Qbox">
                     <div class="five" id="QnA">
-                        <div class="question">
-                            <p class="Q">Q5:</p><input type="text" class="AQnAA" id="Q5">
+                        <div class="AI-question">
+                            <p class="Q">Q5:</p><p class="Q5" id="question5"></p>
                         </div>
-                        <div class="answer">
-                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A5" maxlength="300" />
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A5" id="answer5" maxlength="300" />
                         </div>
-                    </div>
+                    </div>          
                     <div class="four" id="QnA">
-                        <div class="question">
-                            <p class="Q">Q4:</p><input type="text" class="AQnAA" id="Q4">
+                        <div class="AI-question">
+                            <p class="Q">Q4:</p><p class="Q4" id="question4"></p>
                         </div>
-                        <div class="answer">
-                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A4" maxlength="300" />
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A4" id="answer4" maxlength="300" />
                         </div>
-                    </div>
+                    </div>         
                     <div class="three" id="QnA">
-                        <div class="question">
-                            <p class="Q">Q3:</p><input type="text" class="AQnAA" id="Q3">
+                        <div class="AI-question">
+                            <p class="Q">Q3:</p><p class="Q3" id="question3"></p>
                         </div>
-                        <div class="answer">
-                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A3" maxlength="300" />
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A3" id="answer3" maxlength="300" />
                         </div>
                     </div>
                     <div class="two" id="QnA">
-                        <div class="question">
-                            <p class="Q">Q2:</p><input type="text" class="AQnAA" id="Q2">
+                        <div class="AI-question">
+                            <p class="Q">Q2:</p><p class="Q2" id="question2"></p>
                         </div>
-                        <div class="answer">
-                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A2" maxlength="300" />
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A2" id="answer2" maxlength="300" />
                         </div>
                     </div>
                     <div class="one" id="QnA">
-                        <div class="question">
-                            <p class="Q">Q1:</p><input type="text" class="AQnAA" id="Q1">
+                        <div class="AI-question">
+                            <p class="Q">Q1:</p><p class = "Q1" id="question"></p>
                         </div>
-                        <div class="answer">
-                            <p class="Q">A:</p><input type="text" class="AQnAA" id="A1" maxlength="300" />
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A1" id="answer" maxlength="300" />
                         </div>
                     </div>
                 </div>
@@ -226,20 +227,20 @@
                     $('.Qbox > div').eq(4).removeClass('active').css('z-index', 0);
                 }
             });
-
+            createQuestion();
         });
         function save_button() {
             const data = {
-                Q5: document.getElementById('Q5').value,
-                A5: document.getElementById('A5').value,
-                Q4: document.getElementById('Q4').value,
-                A4: document.getElementById('A4').value,
-                Q3: document.getElementById('Q3').value,
-                A3: document.getElementById('A3').value,
-                Q2: document.getElementById('Q2').value,
-                A2: document.getElementById('A2').value,
-                Q1: document.getElementById('Q1').value,
-                A1: document.getElementById('A1').value
+                Q5: document.querySelector('Q5').value,
+                A5: document.querySelector('A5').value,
+                Q4: document.querySelector('Q4').value,
+                A4: document.querySelector('A4').value,
+                Q3: document.querySelector('Q3').value,
+                A3: document.querySelector('A3').value,
+                Q2: document.querySelector('Q2').value,
+                A2: document.querySelector('A2').value,
+                Q1: document.querySelector('Q1').value,
+                A1: document.querySelector('A1').value
             };
             localStorage.setItem('formData', JSON.stringify(data));
             window.location.href = "http://127.0.0.1:5501/app/Front/product_dev/imgpage.html";
@@ -295,23 +296,12 @@
             window.location.href = url;
         };
         // prompt api 호출 
-        $(document).ready(function () {
-            function adjustTextSize() {
-                var windowWidth = $(window).width();
-                var monthnumSize = Math.max(50, Math.min(128, windowWidth / 10)); // Example formula
-                $('.month-num').css('font-size', monthnumSize + 'px');
-                var monthstrSize = Math.max(50, Math.min(96, windowWidth / 10)); // Example formula
-                $('.month-str').css('font-size', monthstrSize + 'px');
-                var yearSize = Math.max(50, Math.min(110, windowWidth / 10)); // Example formula
-                $('.year').css('font-size', yearSize + 'px');
-                var textSize = Math.max(20, Math.min(50, windowWidth / 50)); // Example formula
-                $('.day, .question, .answer').css('font-size', textSize + 'px');
-            }
-            adjustTextSize();
-            $(window).resize(adjustTextSize);
+        
 
-            createQuestion();
-        });
+        function handleFetchError(error) {
+            console.error('Fetch error:', error);
+            alert('An error occurred. Please try again.');
+        }
 
         var currentQuestion = 1;
         var currentLevel = 1;
@@ -339,7 +329,7 @@
         }
 
         function fetchLevel2Question(level1_question, level1_answer) {
-            const url = 'http://localhost:5001/question/level2';
+            const url = 'http://13.125.46.32:5001/question/level2';
 
             fetch(url, {
                 method: 'POST',
@@ -362,7 +352,7 @@
         }
 
         function fetchLevel3Question(level2_question, level2_answer) {
-            const url = 'http://localhost:5001/question/level3';
+            const url = 'http://13.125.46.32:5001/question/level3';
 
             fetch(url, {
                 method: 'POST',
@@ -385,7 +375,7 @@
         }
 
         function fetchLevel4Question(level3_question, level3_answer) {
-            const url = 'http://localhost:5001/question/level4';
+            const url = 'http://13.125.46.32:5001/question/level4';
 
             fetch(url, {
                 method: 'POST',
@@ -408,7 +398,7 @@
         }
 
         function fetchLevel5Question(level4_question, level4_answer) {
-            const url = 'http://localhost:5001/question/level5';
+            const url = 'http://13.125.46.32:5001/question/level5';
 
             fetch(url, {
                 method: 'POST',
@@ -431,7 +421,7 @@
         }
 
         function fetchLevel6Question(level5_question, level5_answer) {
-            const url = 'http://localhost:5001/question/level6';
+            const url = 'http://13.125.46.32:5001/question/level6';
 
             fetch(url, {
                 method: 'POST',
@@ -454,7 +444,7 @@
         }
 
         function createQuestion() {
-            fetch("http://localhost:5001/question", {
+            fetch("http://13.125.46.32:5001/question", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -466,6 +456,7 @@
                     document.getElementById("question").textContent = data.question;
                 });
         }
+
 
         const loading_page = document.getElementById("load");
         window.onload = function () {

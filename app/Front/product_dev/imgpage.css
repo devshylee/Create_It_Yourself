@@ -115,10 +115,23 @@
   height: 260px;
 }
 
-.question {
+#answer , #question {
   position: absolute;
-  width: 40vw;
-  max-width: 800px;
+  width: 90%;
+  max-width: 1009px;
+  font-family: "Cairo", Helvetica;
+  font-weight: 400;
+  color: #3e3a3a;
+  font-size: clamp(15px, 3vw, 40px);
+  letter-spacing: 0;
+  line-height: normal;
+  right: 0px;
+}
+
+.AI-question {
+  position: absolute;
+  width: 100%;
+  max-width: 1315px;
   height: 120px;
   background-color: #D7E6CD;
   border-radius: 54px;
@@ -128,10 +141,10 @@
   align-items: center;
 }
 
-.answer {
+.User-answer {
   position: absolute;
-  width: 40vw;
-  max-width: 800px;
+  width: 100%;
+  max-width: 1315px;
   height: 120px;
   top: 140px;
   background-color: #D7E6CD;

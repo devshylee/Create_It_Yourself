@@ -207,7 +207,7 @@
   width: 50vw;
   max-width: 1315px;
   height: 260px;
-  top: 100px;
+  top: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -271,7 +271,6 @@
   width: 50vw;
   max-width: 1315px;
   height: 260px;
-  top: 20px;
 }
 .Q{
   position: absolute;
@@ -281,7 +280,7 @@
   left: 10px;
 }
 
-.AQnAA {
+#answer , #question {
   position: absolute;
   width: 90%;
   max-width: 1009px;
@@ -294,7 +293,7 @@
   right: 0px;
 }
 
-.question {
+.AI-question {
   position: absolute;
   width: 100%;
   max-width: 1315px;
@@ -307,7 +306,7 @@
   align-items: center;
 }
 
-.answer {
+.User-answer {
   position: absolute;
   width: 100%;
   max-width: 1315px;
