@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="globals.css">
     <link rel="stylesheet" href="questionpage.css">
 </head>
-<!-- 글자수 만큼 공간이 늘어나게-->
-<!--  만약 서버로부터 요청이 오래걸릴때 로딩창 만들기 -->
+<!-- 투명버튼 추가 -->
 
 <body>
+    <div id="load">
+        <img src="img/loding.gif" alt="loading">
+    </div>
     <div class="box">
         <div class="question-page">
             <header class="header">
@@ -28,38 +30,66 @@
             </header>
             <main class="question-box">
                 <div class="days"><span id="day">28 (일)</span></div>
-                <div class="wheel">
+                <div class="Qbox">
                     <div class="five" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="지금 가장 하고싶은 일은? "></div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                        <div class="AI-question">
+                            <p class="Q">Q5:</p>
+                            <p class="Q5" id="question5"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A5" id="answer5" maxlength="300" />
+                        </div>
                     </div>
                     <div class="four" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="Q4 "> </div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                        <div class="AI-question">
+                            <p class="Q">Q4:</p>
+                            <p class="Q4" id="question4"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A4" id="answer4" maxlength="300" />
+                        </div>
                     </div>
                     <div class="three" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="Q3"></div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " />
+                        <div class="AI-question">
+                            <p class="Q">Q3:</p>
+                            <p class="Q3" id="question3"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A3" id="answer3" maxlength="300" />
                         </div>
                     </div>
                     <div class="two" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="Q2"> </div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                        <div class="AI-question">
+                            <p class="Q">Q2:</p>
+                            <p class="Q2" id="question2"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A2" id="answer2" maxlength="300" />
+                        </div>
                     </div>
                     <div class="one" id="QnA">
-                        <div class="question"><input type="text" class="aq" placeholder="Q1"></div>
-                        <div class="answer"><input type="text" maxlength="300" name="answer" placeholder="A: " /></div>
+                        <div class="AI-question">
+                            <p class="Q"></p>
+                            <p class="Q1" id="question"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A1" id="answer" maxlength="300" />
+                        </div>
                     </div>
                 </div>
                 <div class="NnB">
-                    <div class="back-box"><img class="arrow" src="img/back.png" /></div>
-                    <div class="next-box"><img class="arrow" src="img/next.png" /></div>
+                    <img class="back" src="img/back.png" />
+                    <img class="next" src="img/next.png" onclick="createQuestion()" />
                 </div>
-                <div class="reroll-box"><img class="reroll" src="img/reroll.png" /></div>
+                <div class="reroll-box" onclick="rerollQuestion()">
+                    <img class="reroll" src="img/reroll.png" />
+                    <span class="reroll-counter" id="reroll-counter">3</span>
+                </div>
                 <div class="save-box" onclick="save_button()"><img class="save" src="img/save.png" /></div>
             </main>
 
             <div id="sidebar" class="sidebar">
+                <!-- 메뉴 항목들 -->
                 <form action="/member/update">
                     <div class="menu-item"><button type="button">userUdate</button></div>
                 </form>
@@ -73,98 +103,403 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            // 이미지 페이지로 데이터 전송하는 함수
+            function sendDataToImgPage(question, answer) {
+                // 데이터를 담을 객체 생성
+                const data = {
+                    question: question,
+                    answer: answer
+                };
+
+                // 이미지 페이지 URL
+                const imgPageURL = "imgpage.html";
+
+                // 데이터를 query string으로 변환
+                const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
+
+                // 이미지 페이지로 전송
+                window.location.href = `${imgPageURL}?${queryString}`;
+            }
+
+            // 저장 버튼 클릭 시 데이터를 이미지 페이지로 전송
+            $('.save-box').on('click', function () {
+                // 입력된 question과 answer 가져오기
+                const question = $('.aq').val();
+                const answer = $('input[name="answer"]').val();
+
+                // 가져온 데이터를 이미지 페이지로 전송
+                sendDataToImgPage(question, answer);
+            });
+
+            let rerollCount = 3;
+
+            $('.reroll-box').hover(
+                function () {
+                    $('#reroll-counter').text(rerollCount); // hover 시 숫자를 업데이트
+                }
+            );
+
+            $('.reroll-box').on('click', function () {
+                if (rerollCount > 0) {
+                    rerollCount--;
+                    $('#reroll-counter').text(rerollCount); // 화면에 남은 reroll 횟수 업데이트
+                    rerollQuestion(); // rerollQuestion() 함수 호출
+                }
+            });
+
+            // rerollQuestion 함수 정의
+            function rerollQuestion() {
+                // 기존 답변 초기화 (선택 사항)
+                $('.User-answer input').val('');
+
+                // 새 질문 생성 함수 호출
+                createQuestion();
+            }
+
+            let lastWheelEventTime = 0;
+            const wheelEventCooldown = 1000; // 1000ms (1초) 동안 이벤트 무시
             // 초기 활성 요소를 'one'으로 설정
-            $('.wheel > .one').addClass('active');
+            $('.Qbox > .one').addClass('active');
 
             // 'wheel' 이벤트 핸들러를 설정
-            $('.wheel').on('wheel', function (event) {
+            $('.Qbox').on('wheel', function (event) {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
+
                 // deltaY 값을 가져와서 스크롤 방향을 결정
                 const deltaY = event.originalEvent.deltaY;
 
                 // 현재 활성 요소의 인덱스를 가져옵니다.
-                let activeIndex = $('.wheel > .active').index();
+                let activeIndex = $('.Qbox > .active').index();
 
                 // 아래로 스크롤하고 이전 요소가 있는 경우
                 if (deltaY > 0 && activeIndex > 0) {
                     // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
-                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    nextQuestion();
                 }
                 // 위로 스크롤하고 다음 요소가 있는 경우
                 else if (deltaY < 0 && activeIndex < 4) {
                     // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
-                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    nextQuestion();
                 }
             });
 
-            // 'next-box' 클릭 이벤트 핸들러를 설정
-            $('.next-box').on('click', function () {
+            // 'next' 클릭 이벤트 핸들러를 설정
+            $('.next').on('click', function () {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
                 // 현재 활성 요소의 인덱스를 가져옵니다.
-                let activeIndex = $('.wheel > .active').index();
+                let activeIndex = $('.Qbox > .active').index();
 
                 // 현재 활성 요소가 첫 번째 요소가 아닌 경우
                 if (activeIndex > 0) {
                     // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.wheel > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
-                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
+                nextQuestion();
             });
 
-            // 'back-box' 클릭 이벤트 핸들러를 설정
-            $('.back-box').on('click', function () {
+            // 'back' 클릭 이벤트 핸들러를 설정
+            $('.back').on('click', function () {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
                 // 현재 활성 요소의 인덱스를 가져옵니다.
-                let activeIndex = $('.wheel > .active').index();
+                let activeIndex = $('.Qbox > .active').index();
 
                 // 현재 활성 요소가 마지막 요소가 아닌 경우
                 if (activeIndex < 4) {
                     // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.wheel > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
-                    $('.wheel > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                    $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
             });
+            function sendDataToImgPage() {
+                // 데이터를 담을 객체 생성
+                const data = {
+                    question1: $('#question').text(),
+                    answer1: $('#answer').val(),
+                    question2: $('#question2').text(),
+                    answer2: $('#answer2').val(),
+                    question3: $('#question3').text(),
+                    answer3: $('#answer3').val(),
+                    question4: $('#question4').text(),
+                    answer4: $('#answer4').val(),
+                    question5: $('#question5').text(),
+                    answer5: $('#answer5').val()
+                };
+
+                // 이미지 페이지 URL
+                const imgPageURL = "imgtesrt.html";
+
+                // 데이터를 query string으로 변환
+                const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
+
+                // 이미지 페이지로 전송
+                window.location.href = `${imgPageURL}?${queryString}`;
+            }
+            $('.save-box').on('click', function () {
+                sendDataToImgPage();
+            });
+
+            createQuestion();
         });
 
+
+        // 현재 날짜, 시간 가져오기
         let date = new Date();
+        // 연도, 월, 월 이름, 일 요소 가져오기
         const $year = document.querySelector("#year");
         const $month = document.querySelector("#month");
         const $smonth = document.querySelector("#smonth");
         const $day = document.querySelector("#day");
 
+        // 현재 연도를 연도 요소에 설정
         $year.textContent = date.getFullYear();
-        $month.textContent = date.getMonth() + 1;
 
+        // 현재 월을 월 요소에 설정
+        $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexed
+
+        // 월 이름 배열을 정의합니다.
         const monthNames = [
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
 
+        // 현재 월의 인덱스를 가져와서 해당 월 이름을 월 이름 요소에 설정
         let monthIndex = date.getMonth();
         let monthName = monthNames[monthIndex];
         $smonth.textContent = monthName;
 
+        // 요일 이름 배열을 정의
         const weekdayNames = [
             "일", "월", "화", "수", "목", "금", "토"
         ];
 
+        // 현재 요일의 인덱스를 가져와서 해당 요일 이름과 날짜를 일 요소에 설정
         let weekdayIndex = date.getDay();
         let weekdayName = weekdayNames[weekdayIndex];
         let day = date.getDate();
+        //textCpmtemt로 현재 요일과 날짜 출력
         $day.textContent = `${day} (${weekdayName})`;
 
+
+        //사이드 바 출력함수
         function toggleSidebar() {
             var sidebar = document.getElementById("sidebar");
             sidebar.classList.toggle("active");
         }
-
+        //메인으로 가는 버튼 함수
         const main_button = () => {
             url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
             window.location.href = url;
         };
-        const save_button = () => {
-            url = "http://127.0.0.1:5501/app/Front/product_dev/imgpage.html";
-            window.location.href = url;
-        };
+        // prompt api 호출 
+
+
+        function handleFetchError(error) {
+            console.error('Fetch error:', error);
+            alert('An error occurred. Please try again.');
+        }
+
+        var currentQuestion = 1;
+        var currentLevel = 1;
+        var maxQuestion = 5;
+        // 질문 생성 함수
+        function nextQuestion() {
+            if (currentQuestion < maxQuestion) {
+                // 현재 질문 번호를 증가시킵니다.
+                currentQuestion++;
+
+                // 현재 질문 상자에서 다음 질문을 가져옵니다.
+                fetch(`http://13.125.46.32:5001/question/level${currentLevel}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        question: $(`.Qbox > .active .AI-question .Q${currentQuestion}`).text(),
+                        answer: $(`.Qbox > .active .User-answer .A${currentQuestion}`).val()
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // 가져온 질문을 현재 활성화된 질문 상자에 표시합니다.
+                        $(`.Qbox > .active .AI-question .Q${currentQuestion}`).text(data.question);
+                        $(`.Qbox > .active .User-answer .A${currentQuestion}`).val('');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching next question:', error);
+                    });
+            }
+        }
+
+        // 질문 생성 함수
+        function createQuestion() {
+            if (currentQuestion < maxQuestion) {
+                // 질문 생성을 서버에 요청합니다.
+                fetch('http://13.125.46.32:5001/question', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // 생성된 질문을 현재 활성화된 질문 상자에 표시합니다.
+                        $('.Qbox > .active .AI-question .Q').text(`Q${currentQuestion}:`);
+                        $('.Qbox > .active .AI-question .Q' + currentQuestion).text(data.question);
+                    })
+                    .catch(error => {
+                        console.error('Error creating question:', error);
+                    });
+            }
+        }
+
+        function fetchLevel2Question(level1_question, level1_answer) {
+            // level 2 질문을 가져올 URL입니다.
+            const url = 'http://13.125.46.32:5001/question/level2';
+
+            // 서버에게 JSON 형식의 POST 요청을 보냅니다.
+            fetch(url, {
+                method: 'POST', // HTTP 메서드는 POST입니다.
+                headers: {
+                    'Content-Type': 'application/json' // JSON 형식으로 데이터를 보내기 위해 헤더를 설정합니다.
+                },
+                body: JSON.stringify({
+                    level1_question: level1_question, // 레벨 1 질문을 서버에 전송합니다.
+                    level1_answer: level1_answer // 레벨 1 질문에 대한 답변을 서버에 전송합니다.
+                })
+            })
+                .then(response => response.json()) // 서버 응답을 JSON 형식으로 파싱합니다.
+                .then(data => {
+                    // 받은 데이터의 'question' 속성을 사용하여 페이지에 질문을 업데이트합니다.
+                    document.getElementById('question').textContent = data.question;
+                    // 질문을 표시한 후에는 답변 입력 필드를 비웁니다.
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    // 오류가 발생한 경우 콘솔에 오류 메시지를 기록합니다.
+                    console.error('Level 2 질문을 가져오는 중 오류 발생:', error);
+                });
+        }
+
+        function fetchLevel3Question(level2_question, level2_answer) {
+            const url = 'http://13.125.46.32:5001/question/level3';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level2_question: level2_question,
+                    level2_answer: level2_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question2').textContent = data.question;
+                    document.getElementById('answer2').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 3 question:', error);
+                });
+        }
+
+        function fetchLevel4Question(level3_question, level3_answer) {
+            const url = 'http://13.125.46.32:5001/question/level4';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level3_question: level3_question,
+                    level3_answer: level3_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 4 question:', error);
+                });
+        }
+
+        function fetchLevel5Question(level4_question, level4_answer) {
+            const url = 'http://13.125.46.32:5001/question/level5';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level4_question: level4_question,
+                    level4_answer: level4_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 5 question:', error);
+                });
+        }
+
+        function fetchLevel6Question(level5_question, level5_answer) {
+            const url = 'http://13.125.46.32:5001/question/level6';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    level5_question: level5_question,
+                    level5_answer: level5_answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                    document.getElementById('answer').value = '';
+                })
+                .catch(error => {
+                    console.error('Error fetching Level 6 question:', error);
+                });
+        }
+
+
+
+        const loading_page = document.getElementById("load");
+        window.onload = function () {
+            loading_page.style.display = 'none';
+        }
+
     </script>
 </body>
 

@@ -115,7 +115,7 @@
   height: 260px;
 }
 
-#answer , #question {
+#answer , #question, #answer2 , #question2, #answer3 , #question3,#answer4 , #question4,#answer5 , #question5{
   position: absolute;
   width: 90%;
   max-width: 1009px;
@@ -219,21 +219,7 @@
   height: 100%;
 }
 
-/* .box .backpage {
-  position: absolute;
-  width: 6vw;
-  max-width: 70px;
-  height: 6vw;
-  max-height: 70px;
-  padding: 5px;
-  margin: 10px;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-} *//* questionpage로 돌아가는 함수(비활성화 삭제예정) */
+
 
 
 .box .reroll-box {
