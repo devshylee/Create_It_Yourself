@@ -94,7 +94,19 @@
 }
 /*사이드바 css end*/
 
-
+/*이미지 드래그 막기*/
+img {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
 
 /* 버튼 css 초기화 */
 button {
