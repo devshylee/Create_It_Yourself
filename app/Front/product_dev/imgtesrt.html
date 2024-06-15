@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<!-- -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="imgpage.css" />
+</head>
+
+<body>
+    <div id="load">
+        <img src="img/loding.gif" alt="loading">
+    </div>
+
+    <div class="box">
+        <div class="img-page">
+            <header class="header">
+                <div class="header_dates">
+                    <div class="header_year"><span id="year">2024</span></div>
+                    <div class="header_month_num"><span id="month">1</span></div>
+                    <div class="header_month_string"> <span id="smonth">january</span></div>
+                </div>
+                <div class="headerbar">
+                    <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png"
+                        onclick="toggleSidebar()" />
+                    <div class="back-main" onclick="main_button()">CBY.com</div>
+                </div>
+            </header>
+            <main class="img-box">
+                <div class="days"><span id="day">28 (일)</span></div>
+                <!-- <img class="backpage" onclick="back_button()" src="img/back.png" /> questionpage로 돌아가는 함수(비활성화 삭제예정) -->
+
+                <div class="Qbox">
+                    <div class="five" id="QnA">
+                        <div class="AI-question">
+                            <p class="Q">Q5:</p>
+                            <p class="Q5" id="question5"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A5" id="answer5" maxlength="300" />
+                        </div>
+                        <div class="NnB">
+                            <div class="back"></div>
+                            <div class="next"></div>
+                        </div>
+                    </div>
+                    <div class="four" id="QnA">
+                        <div class="AI-question">
+                            <p class="Q">Q4:</p>
+                            <p class="Q4" id="question4"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A4" id="answer4" maxlength="300" />
+                        </div>
+                        <div class="NnB">
+                            <div class="back"></div>
+                            <div class="next"></div>
+                        </div>
+                    </div>
+                    <div class="three" id="QnA">
+                        <div class="AI-question">
+                            <p class="Q">Q3:</p>
+                            <p class="Q3" id="question3"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A3" id="answer3" maxlength="300" />
+                        </div>
+                        <div class="NnB">
+                            <div class="back"></div>
+                            <div class="next"></div>
+                        </div>
+                    </div>
+                    <div class="two" id="QnA">
+                        <div class="AI-question">
+                            <p class="Q">Q2:</p>
+                            <p class="Q2" id="question2"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A2" id="answer2" maxlength="300" />
+                        </div>
+                        <div class="NnB">
+                            <div class="back"></div>
+                            <div class="next"></div>
+                        </div>
+                    </div>
+                    <div class="one" id="QnA">
+                        <div class="AI-question">
+                            <p class="Q"></p>
+                            <p class="Q1" id="question"></p>
+                        </div>
+                        <div class="User-answer">
+                            <p class="Q">A:</p><input type="text" class="A1" id="answer" maxlength="300" />
+                        </div>
+                        <div class="NnB">
+                            <div class="back"></div>
+                            <div class="next"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <img class="img" src="img/img.png" />
+                <div class="reroll-box">
+                    <img class="reroll" src="img/reroll.png" />
+                    <span class="reroll-counter" id="reroll-counter">3</span> <!-- 숫자를 표시할 요소 추가 -->
+                </div>
+                <div class="save-box"><img class="save" src="img/save.png" /></div>
+            </main>
+            <div id="sidebar" class="sidebar">
+                <!-- 메뉴 항목들 -->
+                <form action="/member/update">
+                    <div class="menu-item"><button onclick="">userUdate</button></div>
+                </form>
+                <form action="/app/Front/sign/sign-in.html">
+                    <div class="menu-item"><button onclick="">userLogout</button></div>
+                </form>
+                <div class="menu-item"><button onclick="">내정보</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let rerollCount = 1;
+
+            $('.reroll-box').hover(
+                function () {
+                    $('#reroll-counter').text(rerollCount); // hover 시 숫자를 업데이트
+                }
+            );
+
+            $('.reroll-box').on('click', function () {
+                if (rerollCount > 0) {
+                    rerollCount--;
+                    $('#reroll-counter').text(rerollCount); // 클릭 시 숫자를 업데이트
+                }
+            });
+            let lastWheelEventTime = 0;
+            const wheelEventCooldown = 1000; // 1000ms (1초) 동안 이벤트 무시
+            // 초기 활성 요소를 'one'으로 설정
+            $('.Qbox > .one').addClass('active');
+
+            // 'wheel' 이벤트 핸들러를 설정
+            $('.Qbox').on('wheel', function (event) {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
+
+                // deltaY 값을 가져와서 스크롤 방향을 결정
+                const deltaY = event.originalEvent.deltaY;
+
+                // 현재 활성 요소의 인덱스를 가져옵니다.
+                let activeIndex = $('.Qbox > .active').index();
+
+                // 아래로 스크롤하고 이전 요소가 있는 경우
+                if (deltaY > 0 && activeIndex > 0) {
+                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                    $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+                // 위로 스크롤하고 다음 요소가 있는 경우
+                else if (deltaY < 0 && activeIndex < 4) {
+                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                    $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+                else {
+                    // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+                    $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
+                }
+            });
+            // 'next' 클릭 이벤트 핸들러를 설정
+            $('.next').on('click', function () {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
+                // 현재 활성 요소의 인덱스를 가져옵니다.
+                let activeIndex = $('.Qbox > .active').index();
+
+                // 현재 활성 요소가 첫 번째 요소가 아닌 경우
+                if (activeIndex > 0) {
+                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                    $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+                else {
+                    // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+                    $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
+                }
+            });
+
+            // 'back' 클릭 이벤트 핸들러를 설정
+            $('.back').on('click', function () {
+                const currentTime = new Date().getTime();
+                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
+                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
+                    return;
+                }
+                lastWheelEventTime = currentTime;
+                // 현재 활성 요소의 인덱스를 가져옵니다.
+                let activeIndex = $('.Qbox > .active').index();
+
+                // 현재 활성 요소가 마지막 요소가 아닌 경우
+                if (activeIndex < 4) {
+                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                    $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+                }
+                else {
+                    // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+                    $('.Qbox > div').eq(0).addClass('active').css('z-index', 1);
+                    $('.Qbox > div').eq(4).removeClass('active').css('z-index', 0);
+                }
+
+            });
+            function displayDataFromQueryString() {
+                // 현재 URL에서 query string을 가져옴
+                const queryString = window.location.search.substring(1);
+
+                // query string을 파싱하여 객체로 변환
+                const params = new URLSearchParams(queryString);
+
+                // 각 질문과 답변을 받아옴
+                const question1 = params.get('question1');
+                const answer1 = params.get('answer1');
+                const question2 = params.get('question2');
+                const answer2 = params.get('answer2');
+                const question3 = params.get('question3');
+                const answer3 = params.get('answer3');
+                const question4 = params.get('question4');
+                const answer4 = params.get('answer4');
+                const question5 = params.get('question5');
+                const answer5 = params.get('answer5');
+
+                // 각 질문과 답변을 HTML에 적용
+                $('.five #question5').text(question5);
+                $('.five #answer5').val(answer5);
+
+                $('.four #question4').text(question4);
+                $('.four #answer4').val(answer4);
+
+                $('.three #question3').text(question3);
+                $('.three #answer3').val(answer3);
+
+                $('.two #question2').text(question2);
+                $('.two #answer2').val(answer2);
+
+                $('.one #question').text(question1);
+                $('.one #answer').val(answer1);
+            }
+
+            // 페이지 로딩 시 데이터 출력 함수 호출
+            displayDataFromQueryString();
+        });
+
+
+        function autoTransition() {
+            // 현재 활성 요소의 인덱스를 가져옵니다.
+            let activeIndex = $('.Qbox > .active').index();
+
+            // 현재 활성 요소가 마지막 요소가 아닌 경우
+            if (activeIndex > 0) {
+                // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
+                $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
+                $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+            }
+            else {
+                // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
+                $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
+                $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
+            }
+        }
+
+        // 일정 시간마다 autoTransition 함수 호출
+        setInterval(autoTransition, 5000); // 5000ms = 5초
+
+        // 현재 날짜, 시간 가져오기
+        let date = new Date();
+        // 연도, 월, 월 이름, 일 요소 가져오기
+        const $year = document.querySelector("#year");
+        const $month = document.querySelector("#month");
+        const $smonth = document.querySelector("#smonth");
+        const $day = document.querySelector("#day");
+
+        // 현재 연도를 연도 요소에 설정
+        $year.textContent = date.getFullYear();
+
+        // 현재 월을 월 요소에 설정
+        $month.textContent = date.getMonth() + 1; // Adding 1 to make it 1-indexed
+
+        // 월 이름 배열을 정의합니다.
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        // 현재 월의 인덱스를 가져와서 해당 월 이름을 월 이름 요소에 설정
+        let monthIndex = date.getMonth();
+        let monthName = monthNames[monthIndex];
+        $smonth.textContent = monthName;
+
+        // 요일 이름 배열을 정의
+        const weekdayNames = [
+            "일", "월", "화", "수", "목", "금", "토"
+        ];
+
+        // 현재 요일의 인덱스를 가져와서 해당 요일 이름과 날짜를 일 요소에 설정
+        let weekdayIndex = date.getDay();
+        let weekdayName = weekdayNames[weekdayIndex];
+        let day = date.getDate();
+        //textCpmtemt로 현재 요일과 날짜 출력
+        $day.textContent = `${day} (${weekdayName})`;
+
+        //사이드 바 출력함수
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+        }
+        //메인으로 가는 버튼
+        const main_button = () => {
+            url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
+            window.location.href = url;
+        };
+        // const back_button = () => {
+        //   url = "http://127.0.0.1:5501/app/Front/product_dev/questionpage.html";
+        //   window.location.href = url;
+        // } questionpage로 돌아가는 함수(비활성화 삭제예정)
+        const loading_page = document.getElementById("load");
+        window.onload = function () {
+            loading_page.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

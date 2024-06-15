@@ -266,7 +266,7 @@
   cursor: pointer;
 }
 
-#QnA {
+#QnA ,#QnA1 ,#QnA2 {
   position: absolute;
   width: 50vw;
   max-width: 1315px;
@@ -280,7 +280,7 @@
   left: 10px;
 }
 
-#answer , #question {
+#answer , #question, #answer2 , #question2, #answer3 , #question3,#answer4 , #question4,#answer5 , #question5{
   position: absolute;
   width: 90%;
   max-width: 1009px;
