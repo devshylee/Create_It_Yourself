@@ -82,7 +82,7 @@
 
 .box .Qbox {
   position: absolute;
-  width: 50vw;
+  width: 40vw;
   max-width: 800px;
   height: 260px;
   right: 50px;
@@ -117,12 +117,12 @@
 
 #answer , #question, #answer2 , #question2, #answer3 , #question3,#answer4 , #question4,#answer5 , #question5{
   position: absolute;
-  width: 90%;
+  width: 85%;
   max-width: 1009px;
   font-family: "Cairo", Helvetica;
   font-weight: 400;
   color: #3e3a3a;
-  font-size: clamp(15px, 3vw, 40px);
+  font-size: clamp(10px, 3vw, 30px);
   letter-spacing: 0;
   line-height: normal;
   right: 0px;
@@ -211,11 +211,13 @@
 
 .next:hover {
   background-image: linear-gradient(270deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 0, 0));
+  border-radius: 0 54px 54px 0 ;
   height: 100%;
 }
 
 .back:hover {
   background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 0, 0));
+  border-radius: 54px 0  0 54px  ;
   height: 100%;
 }
 
@@ -361,19 +363,6 @@
   padding: 15px;
 }
 
-.sidebar {
-  position: absolute;
-  top: 70px;
-  right: -250px;
-  width: 250px;
-  height: 100%;
-  background-color: #333;
-  transition: all 0.3s ease;
-}
-
-.sidebar.active {
-  right: 0;
-}
 
 .icon {
   position: absolute;

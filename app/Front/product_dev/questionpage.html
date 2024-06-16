@@ -25,31 +25,80 @@
                 <div class="headerbar">
                     <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png"
                         onclick="toggleSidebar()" />
+                    <div id="sidebar" class="sidebar">
+
+                        <div class="sidebar_header">
+                            <div class="sidebar_header_contents">
+                                <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" />
+                                <p>사용자명</p>
+                            </div>
+                        </div>
+
+                        <div class="sidebar_main">
+                            <div class="setting_theme">
+                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <div class="dropdown_menu">
+                                    <p>Theme Option 1</p>
+                                    <p>Theme Option 2</p>
+                                </div>
+                            </div>
+                            <div class="setting_font">
+                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <div class="dropdown_menu">
+                                    <p>Font Option 1</p>
+                                    <p>Font Option 2</p>
+                                </div>
+                            </div>
+                            <div class="setting_alram">
+                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <div class="dropdown_menu">
+                                    <p>Alarm Option 1</p>
+                                    <p>Alarm Option 2</p>
+                                </div>
+                            </div>
+                            <div class="setting_account">
+                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <div class="dropdown_menu">
+                                    <p>Account Option 1</p>
+                                    <p>Account Option 2</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sidebar_footer">
+                            <button class="sign_out">Sign out</button>
+                        </div>
+
+                    </div>
                     <div class="back-main" onclick="main_button()">CBY.com</div>
                 </div>
+
             </header>
             <main class="question-box">
                 <div class="days"><span id="day">28 (일)</span></div>
                 <div class="Qbox">
                     <div class="five" id="QnA">
                         <div class="AI-question">
-                            <p class="Q">Q5:</p><p class="Q5" id="question5"></p>
+                            <p class="Q">Q5:</p>
+                            <p class="Q5" id="question5"></p>
                         </div>
                         <div class="User-answer">
                             <p class="Q">A:</p><input type="text" class="A5" id="answer5" maxlength="300" />
                         </div>
-                    </div>          
+                    </div>
                     <div class="four" id="QnA">
                         <div class="AI-question">
-                            <p class="Q">Q4:</p><p class="Q4" id="question4"></p>
+                            <p class="Q">Q4:</p>
+                            <p class="Q4" id="question4"></p>
                         </div>
                         <div class="User-answer">
                             <p class="Q">A:</p><input type="text" class="A4" id="answer4" maxlength="300" />
                         </div>
-                    </div>         
+                    </div>
                     <div class="three" id="QnA">
                         <div class="AI-question">
-                            <p class="Q">Q3:</p><p class="Q3" id="question3"></p>
+                            <p class="Q">Q3:</p>
+                            <p class="Q3" id="question3"></p>
                         </div>
                         <div class="User-answer">
                             <p class="Q">A:</p><input type="text" class="A3" id="answer3" maxlength="300" />
@@ -57,7 +106,8 @@
                     </div>
                     <div class="two" id="QnA">
                         <div class="AI-question">
-                            <p class="Q">Q2:</p><p class="Q2" id="question2"></p>
+                            <p class="Q">Q2:</p>
+                            <p class="Q2" id="question2"></p>
                         </div>
                         <div class="User-answer">
                             <p class="Q">A:</p><input type="text" class="A2" id="answer2" maxlength="300" />
@@ -65,7 +115,8 @@
                     </div>
                     <div class="one" id="QnA">
                         <div class="AI-question">
-                            <p class="Q">Q1:</p><p class = "Q1" id="question"></p>
+                            <p class="Q">Q1:</p>
+                            <p class="Q1" id="question"></p>
                         </div>
                         <div class="User-answer">
                             <p class="Q">A:</p><input type="text" class="A1" id="answer" maxlength="300" />
@@ -74,57 +125,52 @@
                 </div>
                 <div class="NnB">
                     <img class="back" src="img/back.png" />
-                    <img class="next" src="img/next.png" onclick="createQuestion()" />
+                    <img class="next" src="img/next.png" onclick="nextQuestion()" />
                 </div>
                 <div class="reroll-box">
                     <img class="reroll" src="img/reroll.png" />
                     <span class="reroll-counter" id="reroll-counter">3</span> <!-- 숫자를 표시할 요소 추가 -->
                 </div>
-                <div class="save-box" onclick="save_button()"><img class="save" src="img/save.png" /></div>
+                <div class="save-box" id="saveButton"><img class="save" src="img/save.png" /></div>
             </main>
 
-            <div id="sidebar" class="sidebar">
-                <!-- 메뉴 항목들 -->
-                <form action="/member/update">
-                    <div class="menu-item"><button type="button">userUdate</button></div>
-                </form>
-                <form action="/app/Front/sign/sign-in.html">
-                    <div class="menu-item"><button type="button">userLogout</button></div>
-                </form>
-                <div class="menu-item"><button type="button">내정보</button></div>
-            </div>
+
         </div>
     </div>
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            // 이미지 페이지로 데이터 전송하는 함수
-            function sendDataToImgPage(question, answer) {
-                // 데이터를 담을 객체 생성
-                const data = {
-                    question: question,
-                    answer: answer
-                };
+        const toggleSidebar = () => {
+            let sidebar = document.getElementById("sidebar");
+            let overlay = document.getElementById("overlay");
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        };
 
-                // 이미지 페이지 URL
-                const imgPageURL = "imgpage.html";
+        const closeSidebar = () => {
+            let sidebar = document.getElementById("sidebar");
+            let overlay = document.getElementById("overlay");
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        };
 
-                // 데이터를 query string으로 변환
-                const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
-
-                // 이미지 페이지로 전송
-                window.location.href = `${imgPageURL}?${queryString}`;
+        // 드롭다운 토글 함수
+        const toggleDropdown = (element) => {
+            const parent = element.closest('.setting_theme, .setting_font, .setting_alram, .setting_account');
+            const dropdown = parent.querySelector('.dropdown_menu');
+            if (dropdown) {
+                dropdown.classList.toggle('show');
+            } else {
+                const newDropdown = document.createElement('div');
+                newDropdown.classList.add('dropdown_menu', 'show');
+                newDropdown.innerHTML = '<p>Option 1</p><p>Option 2</p>';
+                parent.appendChild(newDropdown);
             }
+            element.classList.toggle('rotate');
+        };
 
-            // 저장 버튼 클릭 시 데이터를 이미지 페이지로 전송
-            $('.save-box').on('click', function () {
-                // 입력된 question과 answer 가져오기
-                const question = $('.aq').val();
-                const answer = $('input[name="answer"]').val();
+        $(document).ready(function () {
 
-                // 가져온 데이터를 이미지 페이지로 전송
-                sendDataToImgPage(question, answer);
-            });
 
             let rerollCount = 3;
 
@@ -142,7 +188,7 @@
             });
 
             let lastWheelEventTime = 0;
-            const wheelEventCooldown = 1000; // 1000ms (1초) 동안 이벤트 무시
+            const wheelEventCooldown = 5000; // 5000ms (5초) 동안 이벤트 무시
             // 초기 활성 요소를 'one'으로 설정
             $('.Qbox > .one').addClass('active');
 
@@ -166,18 +212,17 @@
                     // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
                     $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
                     $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+
+                    nextQuestion()
                 }
                 // 위로 스크롤하고 다음 요소가 있는 경우
                 else if (deltaY < 0 && activeIndex < 4) {
                     // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
                     $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
                     $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
+
                 }
-                else {
-                    // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
-                    $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
-                    $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
-                }
+
             });
 
             // 'next' 클릭 이벤트 핸들러를 설정
@@ -197,11 +242,7 @@
                     $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
                     $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                 }
-                else {
-                    // 마지막 요소인 경우 첫 번째 요소로 돌아갑니다.
-                    $('.Qbox > div').eq(4).addClass('active').css('z-index', 1);
-                    $('.Qbox > div').eq(0).removeClass('active').css('z-index', 0);
-                }
+
             });
 
             // 'back' 클릭 이벤트 핸들러를 설정
@@ -229,24 +270,7 @@
             });
             createQuestion();
         });
-        function save_button() {
-            const data = {
-                Q5: document.querySelector('Q5').value,
-                A5: document.querySelector('A5').value,
-                Q4: document.querySelector('Q4').value,
-                A4: document.querySelector('A4').value,
-                Q3: document.querySelector('Q3').value,
-                A3: document.querySelector('A3').value,
-                Q2: document.querySelector('Q2').value,
-                A2: document.querySelector('A2').value,
-                Q1: document.querySelector('Q1').value,
-                A1: document.querySelector('A1').value
-            };
-            localStorage.setItem('formData', JSON.stringify(data));
-            window.location.href = "http://127.0.0.1:5501/app/Front/product_dev/imgpage.html";
-            // url = ;
-            // window.location.href = url;
-        }
+
         // 현재 날짜, 시간 가져오기
         let date = new Date();
         // 연도, 월, 월 이름, 일 요소 가져오기
@@ -285,23 +309,24 @@
         $day.textContent = `${day} (${weekdayName})`;
 
 
-        //사이드 바 출력함수
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("active");
-        }
+
         //메인으로 가는 버튼 함수
         const main_button = () => {
             url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
             window.location.href = url;
         };
         // prompt api 호출 
-        
+
 
         function handleFetchError(error) {
             console.error('Fetch error:', error);
             alert('An error occurred. Please try again.');
         }
+
+        var minQuestion = 1;
+        var maxQuestion = 5;
+        // 저장 버튼을 초기에 비활성화합니다.
+        $('#saveButton').prop('disabled', true);
 
         var currentQuestion = 1;
         var currentLevel = 1;
@@ -309,7 +334,9 @@
         function nextQuestion() {
             var questionText = document.getElementById('question').textContent;
             var answerText = document.getElementById('answer').value;
-
+            if (minQuestion < maxQuestion) {
+                minQuestion++;
+            }
             if (currentLevel === 1) {
                 fetchLevel2Question(questionText, answerText);
                 currentLevel = 2;
@@ -343,8 +370,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('question').textContent = data.question;
-                    document.getElementById('answer').value = '';
+                    document.getElementById('question2').textContent = data.question;
+                    document.getElementById('answer2').value = '';
                 })
                 .catch(error => {
                     console.error('Error fetching Level 2 question:', error);
@@ -366,8 +393,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('question').textContent = data.question;
-                    document.getElementById('answer').value = '';
+                    document.getElementById('question3').textContent = data.question;
+                    document.getElementById('answer3').value = '';
                 })
                 .catch(error => {
                     console.error('Error fetching Level 3 question:', error);
@@ -389,8 +416,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('question').textContent = data.question;
-                    document.getElementById('answer').value = '';
+                    document.getElementById('question4').textContent = data.question;
+                    document.getElementById('answer4').value = '';
                 })
                 .catch(error => {
                     console.error('Error fetching Level 4 question:', error);
@@ -412,8 +439,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('question').textContent = data.question;
-                    document.getElementById('answer').value = '';
+                    document.getElementById('question5').textContent = data.question;
+                    document.getElementById('answer5').value = '';
                 })
                 .catch(error => {
                     console.error('Error fetching Level 5 question:', error);
@@ -457,12 +484,64 @@
                 });
         }
 
+        function sendDataToproduct() {
+            if (minQuestion === maxQuestion) {
+                // 데이터를 담을 객체 생성
+                const data = {
+                    question1: $('#question').text(),
+                    answer1: $('#answer').val(),
+                    question2: $('#question2').text(),
+                    answer2: $('#answer2').val(),
+                    question3: $('#question3').text(),
+                    answer3: $('#answer3').val(),
+                    question4: $('#question4').text(),
+                    answer4: $('#answer4').val(),
+                    question5: $('#question5').text(),
+                    answer5: $('#answer5').val()
+                };
+
+                // 이미지 페이지 URL
+                const productURL = "product.html";
+
+                // 데이터를 query string으로 변환
+                const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
+
+                // 이미지 페이지로 전송
+                window.location.href = `${productURL}?${queryString}`;
+            } else {
+                // 모든 질문이 생성되지 않았다면 알림 또는 사용자에게 메시지 표시
+                alert('모든 질문에 답해주세요!.');
+            }
+        }
+        // 저장 버튼 클릭 시 데이터를 이미지 페이지로 전송
+        $('#saveButton').on('click', function () {
+            // 입력된 question과 answer 가져오기
+            const question = $('.aq').val();
+            const answer = $('input[name="answer"]').val();
+
+            // 가져온 데이터를 이미지 페이지로 전송
+            sendDataToproduct(question, answer);
+        });
 
         const loading_page = document.getElementById("load");
         window.onload = function () {
             loading_page.style.display = 'none';
         }
-
+        //뒤로가기를 막는 함수
+        history.pushState(null, null, location.href);
+        window.onpopstate = function (event) {
+            history.forward();
+        };
+        //새로고침을 막는 함수
+        function doNotReload() {
+            if ((event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) //ctrl+N , ctrl+R
+                || (event.keyCode == 116)) {
+                event.keyCode = 0;
+                event.cancelBubble = true;
+                event.returnValue = false;
+            }
+        }
+        document.onkeydown = doNotReload;
     </script>
 </body>
 
