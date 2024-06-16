@@ -20,7 +20,7 @@
         <div class="sidebar_header">
           <div class="sidebar_header_contents">
             <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" />
-            <p>사용자명</p>
+            <p class="userNickName"></p>
           </div>
         </div>
         <div class="sidebar_main">
@@ -85,6 +85,7 @@
         <ul class="days"></ul>
       </div>
     </main>
+    <p class=".user-data"></p>
   </div>
   <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
   <script>
@@ -124,9 +125,20 @@
       window.location.href = url;
     };
 
+    // 로그아웃 버튼 
     const signout_button = () => {
-      const url = "http://127.0.0.1:5501/app/Front/sign/sign-in.html";
-      window.location.href = url;
+      fetch('/logout', {
+        method: 'POST'
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.href = "http://127.0.0.1:5501/app/Front/sign_dev/sign-in.html";
+          } else {
+            console.error('로그아웃에 실패', data.error);
+          }
+        })
+        .catch(error => console.error(error));
     };
 
     //헤더에 있는 날짜를 window 시각에 맞춰 바뀌게 해줌
@@ -181,11 +193,11 @@
             currYear === new Date().getFullYear()
             ? 'active'
             : '';
-        liTag += `<li class="${isToday}">${i}</li>`;
+        liTag += `<li class="${isToday}" data-date="${currYear}-${currMonth + 1}-${i}">${i}</li>`;
       }
 
       for (let i = lastDayofMonth; i < 6; i++) {
-        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
+        liTag += `<li class="inactive" data-date="${currYear}-${currMonth + 1}-${i}">${i - lastDayofMonth + 1}</li>`;
       }
 
       $days.innerHTML = liTag;
@@ -206,6 +218,14 @@
         }
 
         renderCalendar();
+
+        // const dateElements = document.querySelectorAll(".days li");
+        // dateElements.forEach(dateElement => {
+        //   dateElement.addEventListener("click", () => {
+        //     const selectedDate = dateElement.dataset.date;
+        //     showUserData(selectedDate);
+        //   });
+        // });
       });
     });
     //캘린더 end
@@ -239,14 +259,16 @@
             userDataDiv.appendChild(questionElement);
             userDataDiv.appendChild(answerElement);
 
-
             const clickedDate = document.querySelector(`.days li[data-date="${date}"]`);
             clickedDate.appendChild(userDataDiv);
           }
         })
         .catch(error => console.error(error));
-    }
 
+      // const questionPageURL = `questionpage.html?date=${date}`;
+      const productPageURL = ` http://127.0.0.1:5501/app/Front/product_dev/product.html?date=${date}`;
+      window.location.href = productPageURL;
+    }
     const dateElements = document.querySelectorAll(".days li");
     dateElements.forEach(dateElement => {
       dateElement.addEventListener("click", () => {
@@ -254,6 +276,7 @@
         showUserData(selectedDate);
       });
     });
+
 
   </script>
 </body>
