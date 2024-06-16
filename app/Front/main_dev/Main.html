@@ -209,6 +209,52 @@
       });
     });
     //캘린더 end
+
+
+    // 특정 날짜 클릭 시 사용자 데이터 표시 함수
+    function showUserData(date) {
+      const userEmail = "test2@test2.com";
+      fetch(`/get_qa`, {
+        method: "POST",
+        body: JSON.stringify({ memberEmail: userEmail, created_at: date })
+      })
+        .then(response => response.json())
+        .then(data => {
+          const userQuestions = data.q;
+          const userAnswers = data.a;
+
+          const existingUserData = document.querySelectorAll(".user-data");
+          existingUserData.forEach(element => element.remove());
+
+          for (let i = 0; i < userQuestions.length; i++) {
+            const userDataDiv = document.createElement("div");
+            userDataDiv.classList.add("user-data");
+
+            const questionElement = document.createElement("p");
+            questionElement.textContent = `질문: ${userQuestions[i]}`;
+
+            const answerElement = document.createElement("p");
+            answerElement.textContent = `답변: ${userAnswers[i]}`;
+
+            userDataDiv.appendChild(questionElement);
+            userDataDiv.appendChild(answerElement);
+
+
+            const clickedDate = document.querySelector(`.days li[data-date="${date}"]`);
+            clickedDate.appendChild(userDataDiv);
+          }
+        })
+        .catch(error => console.error(error));
+    }
+
+    const dateElements = document.querySelectorAll(".days li");
+    dateElements.forEach(dateElement => {
+      dateElement.addEventListener("click", () => {
+        const selectedDate = dateElement.dataset.date;
+        showUserData(selectedDate);
+      });
+    });
+
   </script>
 </body>
 
