@@ -1,98 +1,4 @@
-/*사이드바.css*/
-.sidebar {
-  position: fixed;
-  right: -450px;
-  width: 350px;
-  height: 100%;
-  bottom: 0;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #CADBCE;
-  z-index: 3;
 
-}
-.sidebar.active {
-  right: 0;
-}
-.sidebar .sidebar_header {
-  position: relative;
-  top: 0;
-  height: 70px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  background-color: #D9D9D9;
-  display: flex;
-  align-items: center;
-}
-.sidebar .sidebar_header_contents {
-  width: 100%;
-  height: 50px;
-  border: 1px solid red;
-  display: flex;
-  align-items: center;
-  
-}
-
-.sidebar .sidebar_main 
-.setting_theme, .setting_font, 
-.setting_alram, .setting_account{
-  width: 100%;
-  height: 55px;
-  border: 1px solid gray;
-  background-color: #E2E2E2;
-  display: flex;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar .toggle_button {
-  width: 30px;
-  margin: 10px 0 10px 12px;
-  transition: transform 0.4s ease;
-}
-.sidebar .toggle_button.rotate {
-  transform: rotate(90deg);
-}
-.dropdown_menu {
-  display: none;
-  flex-direction: column;
-  margin-left: 42px; /* 조금 더 안쪽으로 배치 */
-  background-color: #F0F0F0;
-  border: 1px solid #D0D0D0;
-  padding: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-.dropdown_menu.show {
-  display: flex;
-}
-
-
-.sidebar .sign_out {
-  position: absolute;
-  width: 100px;
-  height: 25px;
-  right: 0;
-  bottom: 0;
-  margin-right: 5%;
-  margin-bottom: 5%;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: #D9D9D9;
-  border-radius: 65px/52.61px;
-  text-align: center;
-}
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: calc(100% - 350px);
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
-  z-index: 2;
-  transition: all 0.4s ease;
-}
-.overlay.active {
-  display: block;
-  right: 350px; 
-}
-/*사이드바 css end*/
 
 /*이미지 드래그 막기*/
 img {
@@ -118,4 +24,113 @@ button {
   padding: 0;
   overflow: visible;
   cursor: pointer;
+}
+
+/*사이드바.css*/
+.sidebar {
+  position: fixed;
+  right: -450px;
+  width: 350px;
+  height: 100%;
+  bottom: 0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #CADBCE;
+  z-index: 10;
+  overflow-y: auto;
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 350px);
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 3;
+}
+
+.overlay.active {
+  display: block;
+  right: 350px;
+}
+
+.sidebar .sidebar_header {
+  position: relative;
+  width: 100%;
+  top: 0;
+  height: 70px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #D9D9D9;
+  display: flex;
+  align-items: center;
+  z-index: 2; 
+}
+
+.sidebar .sidebar_header_contents {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .sidebar_main {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+}
+
+.setting_theme, .setting_font,
+.setting_alarm, .setting_account {
+  border: 1px solid #D0D0D0;
+  background-color: #D9D9D9;
+}
+
+.sidebar .toggle_button {
+  width: 30px;
+  padding: 20px 10px;
+  cursor: pointer;
+
+  text-align: left;
+  transition: transform 0.4s ease;
+}
+
+.sidebar .toggle_button.rotate {
+  transform: rotate(90deg);
+  }
+
+.sidebar .dropdown_menu {
+  display: none;
+  border: 1px solid #D0D0D0;
+}
+
+.sidebar .dropdown_menu.show {
+  display: flex;
+  height: 20vh;
+  background-color: #CADBCE;
+  
+} 
+.sidebar .sidebar_footer{
+  display: flex;
+  
+  justify-content: flex-end; 
+  padding: 10px;
+  
+  
+}
+.sidebar .sign_out {
+  position: relative;
+  width: 100px;
+  height: 25px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #D9D9D9;
+  border-radius: 65px/52.61px;
+  text-align: center;
 }
