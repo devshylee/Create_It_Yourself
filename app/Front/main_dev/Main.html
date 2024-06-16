@@ -17,33 +17,34 @@
       <button class="home_button" onclick="main_button()">CBY.com</button>
       <!-- 사이드 메뉴 항목들 -->
       <div id="sidebar" class="sidebar">
-
         <div class="sidebar_header">
           <div class="sidebar_header_contents">
             <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" />
             <p>사용자명</p>
           </div>
         </div>
-
         <div class="sidebar_main">
           <div class="setting_theme">
             <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
             <div class="dropdown_menu">
               <p>Theme Option 1</p>
               <p>Theme Option 2</p>
+              <p>Theme Option 2</p>
             </div>
           </div>
           <div class="setting_font">
             <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
             <div class="dropdown_menu">
-              <p>Font Option 1</p>
-              <p>Font Option 2</p>
+              <p>Theme Option 1</p>
+              <p>Theme Option 2</p>
+              <p>Theme Option 2</p>
             </div>
           </div>
-          <div class="setting_alram">
+          <div class="setting_alarm">
             <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
             <div class="dropdown_menu">
               <p>Alarm Option 1</p>
+              <p>Alarm Option 2</p>
               <p>Alarm Option 2</p>
             </div>
           </div>
@@ -55,21 +56,17 @@
             </div>
           </div>
         </div>
-
         <div class="sidebar_footer">
-          <button class="sign_out">Sign out</button>
+          <button class="sign_out" onclick="signout_button()">Sign out</button>
         </div>
-
       </div>
     </header>
-
     <main class="main">
       <div class="header_dates">
         <div class="header_year"><span id="year"></span></div>
         <div class="header_month_num"><span id="month"></span></div>
         <div class="header_month_string"><span id="smonth"></span></div>
       </div>
-
       <div class="months">
         <button id="prev" class="material-icons"><img src="/app/Front/img/next.png" class="prev_img"></button>
         <p class="date-current"></p>
@@ -89,7 +86,6 @@
       </div>
     </main>
   </div>
-
   <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
   <script>
     // 사이드바 함수
@@ -109,7 +105,7 @@
 
     // 드롭다운 토글 함수
     const toggleDropdown = (element) => {
-      const parent = element.closest('.setting_theme, .setting_font, .setting_alram, .setting_account');
+      const parent = element.closest('.setting_theme, .setting_font, .setting_alarm, .setting_account');
       const dropdown = parent.querySelector('.dropdown_menu');
       if (dropdown) {
         dropdown.classList.toggle('show');
@@ -127,6 +123,7 @@
       const url = "http://127.0.0.1:5501/app/Front/main_dev/Main.html";
       window.location.href = url;
     };
+
     const signout_button = () => {
       const url = "http://127.0.0.1:5501/app/Front/sign/sign-in.html";
       window.location.href = url;
@@ -212,6 +209,52 @@
       });
     });
     //캘린더 end
+
+
+    // 특정 날짜 클릭 시 사용자 데이터 표시 함수
+    function showUserData(date) {
+      const userEmail = "test2@test2.com";
+      fetch(`/get_qa`, {
+        method: "POST",
+        body: JSON.stringify({ memberEmail: userEmail, created_at: date })
+      })
+        .then(response => response.json())
+        .then(data => {
+          const userQuestions = data.q;
+          const userAnswers = data.a;
+
+          const existingUserData = document.querySelectorAll(".user-data");
+          existingUserData.forEach(element => element.remove());
+
+          for (let i = 0; i < userQuestions.length; i++) {
+            const userDataDiv = document.createElement("div");
+            userDataDiv.classList.add("user-data");
+
+            const questionElement = document.createElement("p");
+            questionElement.textContent = `질문: ${userQuestions[i]}`;
+
+            const answerElement = document.createElement("p");
+            answerElement.textContent = `답변: ${userAnswers[i]}`;
+
+            userDataDiv.appendChild(questionElement);
+            userDataDiv.appendChild(answerElement);
+
+
+            const clickedDate = document.querySelector(`.days li[data-date="${date}"]`);
+            clickedDate.appendChild(userDataDiv);
+          }
+        })
+        .catch(error => console.error(error));
+    }
+
+    const dateElements = document.querySelectorAll(".days li");
+    dateElements.forEach(dateElement => {
+      dateElement.addEventListener("click", () => {
+        const selectedDate = dateElement.dataset.date;
+        showUserData(selectedDate);
+      });
+    });
+
   </script>
 </body>
 

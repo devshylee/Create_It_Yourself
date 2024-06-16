@@ -9,21 +9,27 @@
 </head>
 
 <body>
-    <div class="overlay"></div> <!-- 초기 어두운 화면을 위한 오버레이 -->
-    <main class="container disabled"> <!-- 초기 비활성화를 위해 클래스 추가 -->
-
+    <div class="overlay"></div>
+    <main class="container disabled">
         <div class="side_lamp">
             <div class="left_lamp">
                 <button class="lamp_toggle"> <img src="img/lamp_off.png" class="lamp_toggle_img"></button>
                 <div class="light"></div>
             </div>
         </div>
-
         <div class="gallery">
             <div class="gallery_group">
                 <div class="bookcase">
                     <h1>2024</h1>
-                    <div class="book"></div>
+                    <div class="book">
+                        <p>January</p>
+                    </div>
+                </div>
+                <div class="bookcase">
+                    <h1>2024</h1>
+                    <div class="book">
+                        <p>January</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,7 +47,10 @@
             const overlay = document.querySelector(".overlay");
             const container = document.querySelector(".container");
             const lampToggles = document.querySelectorAll(".lamp_toggle");
-            let lampStatus = [false, false]; // 두 개의 램프 상태를 저장하는 배열
+            const bookDetailOverlay = document.querySelector(".book-detail-overlay");
+            const bookDetailContent = document.querySelector(".book-content");
+            const closeDetailBtn = document.querySelector(".close-detail");
+            let lampStatus = [false, false];
 
             // 어둡고 비활성화된 상태로 초기화
             overlay.style.display = "block";
@@ -50,7 +59,7 @@
             lampToggles.forEach((button, index) => {
                 button.addEventListener("click", () => {
                     const img = button.querySelector(".lamp_toggle_img");
-                    lampStatus[index] = !lampStatus[index]; // 램프 상태를 토글
+                    lampStatus[index] = !lampStatus[index];
 
                     if (img.src.includes("lamp_off.png")) {
                         img.src = "img/lamp_on.png";
@@ -68,6 +77,18 @@
                         container.classList.add("disabled");
                     }
                 });
+            });
+
+            // 책 클릭 이벤트 핸들러 추가
+            document.querySelectorAll('.book').forEach(book => {
+                book.addEventListener('click', () => {
+                    bookDetailContent.textContent = book.querySelector('p').textContent;
+                    bookDetailOverlay.style.display = 'flex';
+                });
+            });
+
+            closeDetailBtn.addEventListener('click', () => {
+                bookDetailOverlay.style.display = 'none';
             });
 
             let isDown = false;
@@ -106,6 +127,7 @@
                 galleryGroup.scrollTop += e.deltaY;
             });
         });
+
     </script>
 </body>
 
