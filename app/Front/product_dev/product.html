@@ -85,7 +85,7 @@
                             <p class="Q5" id="question5"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><input type="text" class="A5" id="answer5" maxlength="300" />
+                            <p class="Q">A:</p><p class="A5" id="answer5" maxlength="300" ></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -98,7 +98,7 @@
                             <p class="Q4" id="question4"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><input type="text" class="A4" id="answer4" maxlength="300" />
+                            <p class="Q">A:</p><p class="A4" id="answer4" maxlength="300" ></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -111,7 +111,7 @@
                             <p class="Q3" id="question3"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><input type="text" class="A3" id="answer3" maxlength="300" />
+                            <p class="Q">A:</p><p class="A3" id="answer3" maxlength="300" ></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -124,7 +124,7 @@
                             <p class="Q2" id="question2"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><input type="text" class="A2" id="answer2" maxlength="300" />
+                            <p class="Q">A:</p><p class="A2" id="answer2" maxlength="300" ></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -137,7 +137,7 @@
                             <p class="Q1" id="question"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><input type="text" class="A1" id="answer" maxlength="300" />
+                            <p class="Q">A:</p><p class="A1" id="answer" maxlength="300" ></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -146,8 +146,8 @@
                     </div>
                 </div>
 
-                <img class="img" src="http://13.125.46.32:5001/get_qa" />
-                <div class="save-box"><img class="save" src="img/save.png" /></div>
+                <img class="img" src="" id="img" />
+                <div class="save-box" id="saveButton"><img class="save" src="img/save.png" /></div>
             </main>
             <div id="sidebar" class="sidebar">
                 <!-- 메뉴 항목들 -->
@@ -159,9 +159,10 @@
                 </form>
                 <div class="menu-item"><button onclick="">내정보</button></div>
             </div>
-            
+
         </div>
     </div>
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const toggleSidebar = () => {
@@ -314,37 +315,38 @@
 
                 // 각 질문과 답변을 HTML에 적용
                 $('.five #question5').text(question5);
-                $('.five #answer5').val(answer5);
+                $('.five #answer5').text(answer5);
 
                 $('.four #question4').text(question4);
-                $('.four #answer4').val(answer4);
+                $('.four #answer4').text(answer4);
 
                 $('.three #question3').text(question3);
-                $('.three #answer3').val(answer3);
+                $('.three #answer3').text(answer3);
 
                 $('.two #question2').text(question2);
-                $('.two #answer2').val(answer2);
+                $('.two #answer2').text(answer2);
 
                 $('.one #question').text(question1);
-                $('.one #answer').val(answer1);
+                $('.one #answer').text(answer1);
             }
 
             // 페이지 로딩 시 데이터 출력 함수 호출
             displayDataFromQueryString();
+
             createImg();
         });
         function createImg() {
             // 이미지 파일 또는 이미지 데이터를 변수에 할당
-            const imgSrc = $('.img').attr('src'); // 이미지의 src 속성을 가져옵니다.
+            const imgSrc = `http://13.125.46.32:5001/get_image?userEmail=test2@test2.com&created_at=2024-06-16`; // 초기 이미지를 불러올 URL
 
             const imgData = {
                 userEmail: 'test2@test2.com',
-                created_at: '2024-06-15',
+                created_at: '2024-06-16',
                 img: imgSrc // 이미지 URL을 전송할 데이터에 추가합니다.
             };
 
             // 서버로 데이터를 전송합니다.
-            fetch('http://13.125.46.32:5001/get_qa', {
+            fetch(`http://13.125.46.32:5001/get_image?userEmail=${userEmail}&created_at=${created_at}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -358,30 +360,23 @@
                     return response.json(); // 서버에서 반환된 JSON 데이터를 처리
                 })
                 .then(data => {
-                    console.log('Image uploaded successfully:', data);
+                    console.log('이미지 업로드 성공:', data);
 
                     // 서버에서 받은 이미지 URL을 사용하여 이미지 엘리먼트의 src 속성 설정
-                    $('.img').attr('src', data.imgUrl);
+                    document.getElementById('img').src = data.imgUrl;
 
                     // 성공적으로 이미지가 업로드되었을 때 처리할 작업 추가
                 })
                 .catch(error => {
-                    console.error('Error uploading image:', error);
+                    console.error('이미지 업로드 오류:', error);
                 });
         }
 
-
-        //새로고침을 막는 함수
-        function doNotReload() {
-            if ((event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) //ctrl+N , ctrl+R
-                || (event.keyCode == 116)) {
-                event.keyCode = 0;
-                event.cancelBubble = true;
-                event.returnValue = false;
-            }
-        }
-        document.onkeydown = doNotReload;
-
+        
+        // 페이지가 로드될 때 createImg 함수를 호출합니다.
+        window.onload = function() {
+            createImg();
+        };
 
         function autoTransition() {
             // 현재 활성 요소의 인덱스를 가져옵니다.
@@ -441,6 +436,11 @@
         $day.textContent = `${day} (${weekdayName})`;
 
 
+        $('#saveButton').on('click', function () {
+            const mainurl = "http://127.0.0.1:5501/app/Front/main_dev/Main.html";
+
+            window.location.href = mainurl;
+        });
         //메인으로 가는 버튼
         const main_button = () => {
             url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
@@ -450,10 +450,21 @@
         window.onload = function () {
             loading_page.style.display = 'none';
         }
+        //뒤로가기를 막는 함수
         history.pushState(null, null, location.href);
         window.onpopstate = function (event) {
             history.forward();
         };
+        //새로고침을 막는 함수
+        function doNotReload() {
+            if ((event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) //ctrl+N , ctrl+R
+                || (event.keyCode == 116)) {
+                event.keyCode = 0;
+                event.cancelBubble = true;
+                event.returnValue = false;
+            }
+        }
+        document.onkeydown = doNotReload;
     </script>
 </body>
 

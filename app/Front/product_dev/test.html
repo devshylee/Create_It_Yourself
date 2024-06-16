@@ -25,6 +25,51 @@
                 <div class="headerbar">
                     <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png"
                         onclick="toggleSidebar()" />
+                    <div id="sidebar" class="sidebar">
+
+                        <div class="sidebar_header">
+                            <div class="sidebar_header_contents">
+                                <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" />
+                                <p>사용자명</p>
+                            </div>
+                        </div>
+
+                        <div class="sidebar_main">
+                            <div class="setting_theme">
+                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <div class="dropdown_menu">
+                                    <p>Theme Option 1</p>
+                                    <p>Theme Option 2</p>
+                                </div>
+                            </div>
+                            <div class="setting_font">
+                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <div class="dropdown_menu">
+                                    <p>Font Option 1</p>
+                                    <p>Font Option 2</p>
+                                </div>
+                            </div>
+                            <div class="setting_alram">
+                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <div class="dropdown_menu">
+                                    <p>Alarm Option 1</p>
+                                    <p>Alarm Option 2</p>
+                                </div>
+                            </div>
+                            <div class="setting_account">
+                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <div class="dropdown_menu">
+                                    <p>Account Option 1</p>
+                                    <p>Account Option 2</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sidebar_footer">
+                            <button class="sign_out">Sign out</button>
+                        </div>
+
+                    </div>
                     <div class="back-main" onclick="main_button()">CBY.com</div>
                 </div>
             </header>
@@ -69,7 +114,7 @@
                     </div>
                     <div class="one" id="QnA">
                         <div class="AI-question">
-                            <p class="Q"></p>
+                            <p class="Q">Q1:</p>
                             <p class="Q1" id="question"></p>
                         </div>
                         <div class="User-answer">
@@ -77,59 +122,64 @@
                         </div>
                     </div>
                 </div>
-                <div class="NnB">
-                    <img class="back" src="img/back.png" />
-                    <img class="next" src="img/next.png" onclick="createQuestion()" />
-                </div>
-                <div class="reroll-box" onclick="rerollQuestion()">
+
+                <div class="reroll-box">
                     <img class="reroll" src="img/reroll.png" />
                     <span class="reroll-counter" id="reroll-counter">3</span>
                 </div>
-                <div class="save-box" onclick="save_button()"><img class="save" src="img/save.png" /></div>
+                <div class="save-box" id="saveButton"><img class="save" src="img/save.png" /></div>
             </main>
 
-            <div id="sidebar" class="sidebar">
-                <!-- 메뉴 항목들 -->
-                <form action="/member/update">
-                    <div class="menu-item"><button type="button">userUdate</button></div>
-                </form>
-                <form action="/app/Front/sign/sign-in.html">
-                    <div class="menu-item"><button type="button">userLogout</button></div>
-                </form>
-                <div class="menu-item"><button type="button">내정보</button></div>
-            </div>
+
         </div>
     </div>
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        const toggleSidebar = () => {
+            let sidebar = document.getElementById("sidebar");
+            let overlay = document.getElementById("overlay");
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        };
+
+        const closeSidebar = () => {
+            let sidebar = document.getElementById("sidebar");
+            let overlay = document.getElementById("overlay");
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        };
+
+        // 드롭다운 토글 함수
+        const toggleDropdown = (element) => {
+            const parent = element.closest('.setting_theme, .setting_font, .setting_alram, .setting_account');
+            const dropdown = parent.querySelector('.dropdown_menu');
+            if (dropdown) {
+                dropdown.classList.toggle('show');
+            } else {
+                const newDropdown = document.createElement('div');
+                newDropdown.classList.add('dropdown_menu', 'show');
+                newDropdown.innerHTML = '<p>Option 1</p><p>Option 2</p>';
+                parent.appendChild(newDropdown);
+            }
+            element.classList.toggle('rotate');
+        };
+
         $(document).ready(function () {
+
+
             // 이미지 페이지로 데이터 전송하는 함수
-            function sendDataToImgPage(question, answer) {
-                // 데이터를 담을 객체 생성
+            function sendDataToProduct(question, answer) {
                 const data = {
                     question: question,
                     answer: answer
                 };
 
-                // 이미지 페이지 URL
-                const imgPageURL = "imgpage.html";
-
-                // 데이터를 query string으로 변환
+                const productURL = "product.html";
                 const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
 
-                // 이미지 페이지로 전송
-                window.location.href = `${imgPageURL}?${queryString}`;
+                window.location.href = `${productURL}?${queryString}`;
             }
-
-            // 저장 버튼 클릭 시 데이터를 이미지 페이지로 전송
-            $('.save-box').on('click', function () {
-                // 입력된 question과 answer 가져오기
-                const question = $('.aq').val();
-                const answer = $('input[name="answer"]').val();
-
-                // 가져온 데이터를 이미지 페이지로 전송
-                sendDataToImgPage(question, answer);
-            });
 
             let rerollCount = 3;
 
@@ -157,7 +207,7 @@
             }
 
             let lastWheelEventTime = 0;
-            const wheelEventCooldown = 1000; // 1000ms (1초) 동안 이벤트 무시
+            const wheelEventCooldown = 3000; // 3000ms (3초) 동안 이벤트 무시
             // 초기 활성 요소를 'one'으로 설정
             $('.Qbox > .one').addClass('active');
 
@@ -183,79 +233,7 @@
                     $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
                     nextQuestion();
                 }
-                // 위로 스크롤하고 다음 요소가 있는 경우
-                else if (deltaY < 0 && activeIndex < 4) {
-                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
-                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
-                    nextQuestion();
-                }
-            });
 
-            // 'next' 클릭 이벤트 핸들러를 설정
-            $('.next').on('click', function () {
-                const currentTime = new Date().getTime();
-                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
-                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
-                    return;
-                }
-                lastWheelEventTime = currentTime;
-                // 현재 활성 요소의 인덱스를 가져옵니다.
-                let activeIndex = $('.Qbox > .active').index();
-
-                // 현재 활성 요소가 첫 번째 요소가 아닌 경우
-                if (activeIndex > 0) {
-                    // 이전 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.Qbox > div').eq(activeIndex - 1).addClass('active').css('z-index', 1);
-                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
-                }
-                nextQuestion();
-            });
-
-            // 'back' 클릭 이벤트 핸들러를 설정
-            $('.back').on('click', function () {
-                const currentTime = new Date().getTime();
-                // 마지막 이벤트 발생 이후로 충분한 시간이 경과하지 않았으면 리턴
-                if (currentTime - lastWheelEventTime < wheelEventCooldown) {
-                    return;
-                }
-                lastWheelEventTime = currentTime;
-                // 현재 활성 요소의 인덱스를 가져옵니다.
-                let activeIndex = $('.Qbox > .active').index();
-
-                // 현재 활성 요소가 마지막 요소가 아닌 경우
-                if (activeIndex < 4) {
-                    // 다음 요소로 활성 클래스를 옮기고 zIndex를 업데이트
-                    $('.Qbox > div').eq(activeIndex + 1).addClass('active').css('z-index', 1);
-                    $('.Qbox > div').eq(activeIndex).removeClass('active').css('z-index', 0);
-                }
-            });
-            function sendDataToImgPage() {
-                // 데이터를 담을 객체 생성
-                const data = {
-                    question1: $('#question').text(),
-                    answer1: $('#answer').val(),
-                    question2: $('#question2').text(),
-                    answer2: $('#answer2').val(),
-                    question3: $('#question3').text(),
-                    answer3: $('#answer3').val(),
-                    question4: $('#question4').text(),
-                    answer4: $('#answer4').val(),
-                    question5: $('#question5').text(),
-                    answer5: $('#answer5').val()
-                };
-
-                // 이미지 페이지 URL
-                const imgPageURL = "imgtesrt.html";
-
-                // 데이터를 query string으로 변환
-                const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
-
-                // 이미지 페이지로 전송
-                window.location.href = `${imgPageURL}?${queryString}`;
-            }
-            $('.save-box').on('click', function () {
-                sendDataToImgPage();
             });
 
             createQuestion();
@@ -300,11 +278,7 @@
         $day.textContent = `${day} (${weekdayName})`;
 
 
-        //사이드 바 출력함수
-        function toggleSidebar() {
-            var sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("active");
-        }
+
         //메인으로 가는 버튼 함수
         const main_button = () => {
             url = "http://127.0.0.1:5500/app/Front/main_dev/Main.html";
@@ -318,86 +292,57 @@
             alert('An error occurred. Please try again.');
         }
 
+        var minQuestion = 1;
+        var maxQuestion = 5;
+        // 저장 버튼을 초기에 비활성화합니다.
+        $('#saveButton').prop('disabled', true);
+
+        // 질문 생성 함수
         var currentQuestion = 1;
         var currentLevel = 1;
-        var maxQuestion = 5;
-        // 질문 생성 함수
+
         function nextQuestion() {
-            if (currentQuestion < maxQuestion) {
-                // 현재 질문 번호를 증가시킵니다.
-                currentQuestion++;
-
-                // 현재 질문 상자에서 다음 질문을 가져옵니다.
-                fetch(`http://13.125.46.32:5001/question/level${currentLevel}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        question: $(`.Qbox > .active .AI-question .Q${currentQuestion}`).text(),
-                        answer: $(`.Qbox > .active .User-answer .A${currentQuestion}`).val()
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        // 가져온 질문을 현재 활성화된 질문 상자에 표시합니다.
-                        $(`.Qbox > .active .AI-question .Q${currentQuestion}`).text(data.question);
-                        $(`.Qbox > .active .User-answer .A${currentQuestion}`).val('');
-                    })
-                    .catch(error => {
-                        console.error('Error fetching next question:', error);
-                    });
-            }
-        }
-
-        // 질문 생성 함수
-        function createQuestion() {
-            if (currentQuestion < maxQuestion) {
-                // 질문 생성을 서버에 요청합니다.
-                fetch('http://13.125.46.32:5001/question', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({})
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        // 생성된 질문을 현재 활성화된 질문 상자에 표시합니다.
-                        $('.Qbox > .active .AI-question .Q').text(`Q${currentQuestion}:`);
-                        $('.Qbox > .active .AI-question .Q' + currentQuestion).text(data.question);
-                    })
-                    .catch(error => {
-                        console.error('Error creating question:', error);
-                    });
+            var questionText = document.getElementById('question').textContent;
+            var answerText = document.getElementById('answer').value;
+            minQuestion++;
+            if (currentLevel === 1) {
+                fetchLevel2Question(questionText, answerText);
+                currentLevel = 2;
+            } else if (currentLevel === 2) {
+                fetchLevel3Question(questionText, answerText);
+                currentLevel = 3;
+            } else if (currentLevel === 3) {
+                fetchLevel4Question(questionText, answerText);
+                currentLevel = 4;
+            } else if (currentLevel === 4) {
+                fetchLevel5Question(questionText, answerText);
+                currentLevel = 5;
+            } else if (currentLevel === 5) {
+                fetchLevel6Question(questionText, answerText);
+                currentLevel = 6;
             }
         }
 
         function fetchLevel2Question(level1_question, level1_answer) {
-            // level 2 질문을 가져올 URL입니다.
             const url = 'http://13.125.46.32:5001/question/level2';
 
-            // 서버에게 JSON 형식의 POST 요청을 보냅니다.
             fetch(url, {
-                method: 'POST', // HTTP 메서드는 POST입니다.
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json' // JSON 형식으로 데이터를 보내기 위해 헤더를 설정합니다.
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    level1_question: level1_question, // 레벨 1 질문을 서버에 전송합니다.
-                    level1_answer: level1_answer // 레벨 1 질문에 대한 답변을 서버에 전송합니다.
+                    level1_question: level1_question,
+                    level1_answer: level1_answer
                 })
             })
-                .then(response => response.json()) // 서버 응답을 JSON 형식으로 파싱합니다.
+                .then(response => response.json())
                 .then(data => {
-                    // 받은 데이터의 'question' 속성을 사용하여 페이지에 질문을 업데이트합니다.
-                    document.getElementById('question').textContent = data.question;
-                    // 질문을 표시한 후에는 답변 입력 필드를 비웁니다.
-                    document.getElementById('answer').value = '';
+                    document.getElementById('question2').textContent = data.question;
+                    document.getElementById('answer2').value = '';
                 })
                 .catch(error => {
-                    // 오류가 발생한 경우 콘솔에 오류 메시지를 기록합니다.
-                    console.error('Level 2 질문을 가져오는 중 오류 발생:', error);
+                    console.error('Error fetching Level 2 question:', error);
                 });
         }
 
@@ -416,8 +361,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('question2').textContent = data.question;
-                    document.getElementById('answer2').value = '';
+                    document.getElementById('question3').textContent = data.question;
+                    document.getElementById('answer3').value = '';
                 })
                 .catch(error => {
                     console.error('Error fetching Level 3 question:', error);
@@ -439,8 +384,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('question').textContent = data.question;
-                    document.getElementById('answer').value = '';
+                    document.getElementById('question4').textContent = data.question;
+                    document.getElementById('answer4').value = '';
                 })
                 .catch(error => {
                     console.error('Error fetching Level 4 question:', error);
@@ -462,8 +407,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('question').textContent = data.question;
-                    document.getElementById('answer').value = '';
+                    document.getElementById('question5').textContent = data.question;
+                    document.getElementById('answer5').value = '';
                 })
                 .catch(error => {
                     console.error('Error fetching Level 5 question:', error);
@@ -493,12 +438,68 @@
                 });
         }
 
+        function createQuestion() {
+            fetch("http://13.125.46.32:5001/question", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("question").textContent = data.question;
+                });
+        }
+
+        function sendDataToproduct() {
+            if (minQuestion === maxQuestion) {
+                // 데이터를 담을 객체 생성
+                const data = {
+                    question1: $('#question').text(),
+                    answer1: $('#answer').val(),
+                    question2: $('#question2').text(),
+                    answer2: $('#answer2').val(),
+                    question3: $('#question3').text(),
+                    answer3: $('#answer3').val(),
+                    question4: $('#question4').text(),
+                    answer4: $('#answer4').val(),
+                    question5: $('#question5').text(),
+                    answer5: $('#answer5').val()
+                };
+
+                // 이미지 페이지 URL
+                const productURL = "imgtesrt.html";
+
+                // 데이터를 query string으로 변환
+                const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
+
+                // 이미지 페이지로 전송
+                window.location.href = `${productURL}?${queryString}`;
+            } else {
+                // 모든 질문이 생성되지 않았다면 알림 또는 사용자에게 메시지 표시
+                alert('모든 질문에 답해주세요!.');
+            }
+        }
+        // 저장 버튼 클릭 시 데이터를 이미지 페이지로 전송
+        $('#saveButton').on('click', function () {
+            // 입력된 question과 answer 가져오기
+            const question = $('.aq').val();
+            const answer = $('input[name="answer"]').val();
+
+            // 가져온 데이터를 이미지 페이지로 전송
+            sendDataToproduct(question, answer);
+        });
 
 
         const loading_page = document.getElementById("load");
         window.onload = function () {
             loading_page.style.display = 'none';
         }
+        history.pushState(null, null, location.href);
+        window.onpopstate = function (event) {
+            history.forward();
+        };
 
     </script>
 </body>
