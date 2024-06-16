@@ -3,8 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="global.css" />
-  <link rel="stylesheet" href="main.css" />
+  <!-- <link rel="stylesheet" href="global.css" /> -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
+  <!-- <link rel="stylesheet" href="main.css" /> -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css" />
   <!--reset css css를 개발할때 웹브라우저의 있는 초기값을 삭제시켜줌-->
 </head>
@@ -13,19 +15,22 @@
   <div class="box">
     <!-- 헤더에 있는 ui들-->
     <header class="headbar">
-      <img class="imgicon" src="/app/Front/img/ellipse-30.png" onclick="toggleSidebar()" />
+      <!-- <img class="imgicon" src="/app/Front/img/ellipse-30.png" onclick="toggleSidebar()" /> -->
+      <img class="imgicon" src="${pageContext.request.contextPath}/resources/img/ellipse-30.png" onclick="toggleSidebar()" />
       <button class="home_button" onclick="main_button()">CBY.com</button>
       <!-- 사이드 메뉴 항목들 -->
       <div id="sidebar" class="sidebar">
         <div class="sidebar_header">
           <div class="sidebar_header_contents">
-            <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" />
+            <!-- <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" /> -->
+            <img class="sidebar_img" src="${pageContext.request.contextPath}/resources/img/ellipse-30.png" />
             <p class="userNickName"></p>
           </div>
         </div>
         <div class="sidebar_main">
           <div class="setting_theme">
-            <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+            <!-- <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)"> -->
+            <img src="${pageContext.request.contextPath}/resources/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
             <div class="dropdown_menu">
               <p>Theme Option 1</p>
               <p>Theme Option 2</p>
@@ -33,7 +38,8 @@
             </div>
           </div>
           <div class="setting_font">
-            <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+            <!-- <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)"> -->
+            <img src="${pageContext.request.contextPath}/resources/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
             <div class="dropdown_menu">
               <p>Theme Option 1</p>
               <p>Theme Option 2</p>
@@ -41,7 +47,8 @@
             </div>
           </div>
           <div class="setting_alarm">
-            <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+            <!-- <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)"> -->
+            <img src="${pageContext.request.contextPath}/resources/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
             <div class="dropdown_menu">
               <p>Alarm Option 1</p>
               <p>Alarm Option 2</p>
@@ -49,7 +56,8 @@
             </div>
           </div>
           <div class="setting_account">
-            <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+            <!-- <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)"> -->
+            <img src="${pageContext.request.contextPath}/resources/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
             <div class="dropdown_menu">
               <p>Account Option 1</p>
               <p>Account Option 2</p>
@@ -68,9 +76,11 @@
         <div class="header_month_string"><span id="smonth"></span></div>
       </div>
       <div class="months">
-        <button id="prev" class="material-icons"><img src="/app/Front/img/next.png" class="prev_img"></button>
+        <!-- <button id="prev" class="material-icons"><img src="/app/Front/img/next.png" class="prev_img"></button> -->
+        <button id="prev" class="material-icons"><img src="${pageContext.request.contextPath}/resources/img/next.png" class="prev_img"></button>
         <p class="date-current"></p>
-        <button id="next" class="material-icons"><img src="/app/Front/img/next.png" class="next_img"></button>
+        <!-- <button id="next" class="material-icons"><img src="/app/Front/img/next.png" class="next_img"></button> -->
+        <button id="next" class="material-icons"><img src="${pageContext.request.contextPath}/resources/img//next.png" class="next_img"></button>
       </div>
       <div class="calendar">
         <ul class="weeks">
