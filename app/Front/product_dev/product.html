@@ -26,34 +26,36 @@
                     <img class="menuimg" src="/app/Front/img/person_FILL0_wght400_GRAD0_opsz24.png"
                         onclick="toggleSidebar()" />
 
+                    <!-- 사이드 메뉴 항목들 -->
                     <div id="sidebar" class="sidebar">
-
                         <div class="sidebar_header">
                             <div class="sidebar_header_contents">
                                 <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" />
                                 <p>사용자명</p>
                             </div>
                         </div>
-
                         <div class="sidebar_main">
                             <div class="setting_theme">
                                 <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
                                 <div class="dropdown_menu">
                                     <p>Theme Option 1</p>
                                     <p>Theme Option 2</p>
+                                    <p>Theme Option 2</p>
                                 </div>
                             </div>
                             <div class="setting_font">
                                 <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
                                 <div class="dropdown_menu">
-                                    <p>Font Option 1</p>
-                                    <p>Font Option 2</p>
+                                    <p>Theme Option 1</p>
+                                    <p>Theme Option 2</p>
+                                    <p>Theme Option 2</p>
                                 </div>
                             </div>
-                            <div class="setting_alram">
+                            <div class="setting_alarm">
                                 <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
                                 <div class="dropdown_menu">
                                     <p>Alarm Option 1</p>
+                                    <p>Alarm Option 2</p>
                                     <p>Alarm Option 2</p>
                                 </div>
                             </div>
@@ -65,11 +67,9 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="sidebar_footer">
-                            <button class="sign_out">Sign out</button>
+                            <button class="sign_out" onclick="signout_button()">Sign out</button>
                         </div>
-
                     </div>
                     <div class="back-main" onclick="main_button()">CBY.com</div>
                 </div>
@@ -85,7 +85,8 @@
                             <p class="Q5" id="question5"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><p class="A5" id="answer5" maxlength="300" ></p>
+                            <p class="Q">A:</p>
+                            <p class="A5" id="answer5" maxlength="300"></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -98,7 +99,8 @@
                             <p class="Q4" id="question4"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><p class="A4" id="answer4" maxlength="300" ></p>
+                            <p class="Q">A:</p>
+                            <p class="A4" id="answer4" maxlength="300"></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -111,7 +113,8 @@
                             <p class="Q3" id="question3"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><p class="A3" id="answer3" maxlength="300" ></p>
+                            <p class="Q">A:</p>
+                            <p class="A3" id="answer3" maxlength="300"></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -124,7 +127,8 @@
                             <p class="Q2" id="question2"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><p class="A2" id="answer2" maxlength="300" ></p>
+                            <p class="Q">A:</p>
+                            <p class="A2" id="answer2" maxlength="300"></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -137,7 +141,8 @@
                             <p class="Q1" id="question"></p>
                         </div>
                         <div class="User-answer">
-                            <p class="Q">A:</p><p class="A1" id="answer" maxlength="300" ></p>
+                            <p class="Q">A:</p>
+                            <p class="A1" id="answer" maxlength="300"></p>
                         </div>
                         <div class="NnB">
                             <div class="back"></div>
@@ -181,7 +186,7 @@
 
         // 드롭다운 토글 함수
         const toggleDropdown = (element) => {
-            const parent = element.closest('.setting_theme, .setting_font, .setting_alram, .setting_account');
+            const parent = element.closest('.setting_theme, .setting_font, .setting_alarm, .setting_account');
             const dropdown = parent.querySelector('.dropdown_menu');
             if (dropdown) {
                 dropdown.classList.toggle('show');
@@ -193,6 +198,7 @@
             }
             element.classList.toggle('rotate');
         };
+
         $(document).ready(function () {
             let rerollCount = 1;
 
@@ -372,9 +378,9 @@
                 });
         }
 
-        
+
         // 페이지가 로드될 때 createImg 함수를 호출합니다.
-        window.onload = function() {
+        window.onload = function () {
             createImg();
         };
 
