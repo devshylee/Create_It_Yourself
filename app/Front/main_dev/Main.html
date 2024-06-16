@@ -131,7 +131,8 @@
 
     // 버튼 이동 이벤트 처리함수
     const main_button = () => {
-      const url = "http://127.0.0.1:5501/app/Front/main_dev/Main.html";
+      // const url = "http://127.0.0.1:5501/app/Front/main_dev/Main.html";
+      const url = "http://13.125.46.32:5001/Main.html";
       window.location.href = url;
     };
 
@@ -143,7 +144,8 @@
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            window.location.href = "http://127.0.0.1:5501/app/Front/sign_dev/sign-in.html";
+            // window.location.href = "http://127.0.0.1:5501/app/Front/sign_dev/sign-in.html";
+            window.location.href = "http://13.125.46.32:5001/sign-in.html";
           } else {
             console.error('로그아웃에 실패', data.error);
           }
@@ -274,9 +276,9 @@
           }
         })
         .catch(error => console.error(error));
-
-      // const questionPageURL = `questionpage.html?date=${date}`;
-      const productPageURL = ` http://127.0.0.1:5501/app/Front/product_dev/product.html?date=${date}`;
+    
+      // const productPageURL = ` http://127.0.0.1:5501/app/Front/product_dev/product.html?date=${date}`;
+      const questionPageURL = `http://13.125.46.32:5001/questionpage.html?date=${date}`;
       window.location.href = productPageURL;
     }
     const dateElements = document.querySelectorAll(".days li");
