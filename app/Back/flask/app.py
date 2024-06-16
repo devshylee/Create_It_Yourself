@@ -1,23 +1,26 @@
-# %%
+
 import pathlib
 import os
 import json
 import textwrap
-from openpyxl import load_workbook
-from flask import Flask, request, jsonify, render_template
+import requests
+import mysql.connector
+from datetime import datetime
+from io import BytesIO
+import openai
+
+from flask import Flask, request, jsonify, render_template, send_file
 from flask_session import Session
 from flask_cors import CORS
-import pymysql;
 
-# %%
-# 본인 API키 등록
-GOOGLE_API_KEY = ""
-# %%
 import google.generativeai as genai
 from IPython.display import display
 from IPython.display import Markdown
 
-# %%
+# 본인 API키 등록
+GOOGLE_API_KEY = ""
+openai.api_key = ''
+
 safety_settings_NONE=[
     { "category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE" },
     { "category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE" },
@@ -25,207 +28,358 @@ safety_settings_NONE=[
     { "category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
 ]
 
-# %%
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-pro', safety_settings=safety_settings_NONE)
 
-# %%
-def to_markdown(text):
-  text = text.replace('•', '  *')
-  return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
-# %%
+
+
+# -------------------     프롬프트     -------------------
+
 Level_1='''
-너는 일기장 서비스의 질문 생성을 위한 질문 생성 봇이야.
-일기장 서비스는 사용자에게 오늘 하루에 대한 가벼운 질문을 총 5개를 제공하고 사용자의 모든 답변을 토대로 유사한 분위기의 이미지를 생성하고 기록해주는 서비스야.
-나의 요구사항에 맞게 사용자에게 제공 할 질문을 생성해줘.
+You are a question generation bot for question generation in the diary service.
+The diary service is a service that provides users with a total of five linked questions about their day
+Make sure to ask questions that are followed by questions.
+Please create questions to provide to users according to my requirements and precautions.
 
-- 요구사항
-1. Level1 부터 Level5까지 총 5단계로 구성되며 하나의 Level당 한개의 질문을 생성해야 해 현재 Level은 Level1이야.
-2. 사용자가 친근함과 편안함을 느낄 수 있는 친구와 같은 말투로 질문을 생성해야 해.
-3. 인삿말은 필요없이 단순히 사용자에게 제공할 질문만을 생성해야 해.
-4. 현재 단계는 첫 단계이므로 사용자에게 제일 처음으로 제공되는 질문이라는 점 참고해.
-5. 예시와 유사한 질문을 생성해야 해. 예시와 같은 질문을 생성해도 되지만 자유롭게 창의적인 질문을 생성해도 괜찮아.
+- Requirements
+1. Level_1 to Level_5 consists of a total of five stages, and you have to generate one question per level. Currently, Level_1 is Level_1.
+2. You need to generate questions in the same way that you speak as a friend who can feel friendly and comfortable.
+3. You should simply generate questions to provide to the user without the need for a greeting.
+4. Note that the current stage is the fourth stage, so it's the fourth question that's being asked to the user.
+5. I want the first question to be approximate to the example
+6. Please translate it into Korean when you answer
+7. Lastly, you should do it naturally when you ask questions.
 
-- 예시
-1. 오늘 하루는 어땠어?
-2. 오늘 가장 기억에 남는 순간이 있어?
-3. 오늘의 기분은 어때?
-4. 오늘 가장 특별했던 기억이 뭐야?
-5. 오늘 하루 어땠는지 궁금해. 아주 멋지고 행복한 하루였는지, 아니면 어쩌면 조금 우울했는지 말해줘!
+- Example
+1. How was your day?
+2. What was your most memorable moment today?
+3. How do you feel today?
 
-- 주의사항
-1. 반드시 한 개의 질문만이 생성되어야 해.
-2. 모든 Level은 절대 이전 Level에서 생성했던 질문과 중복되면 안돼.
+- Precautions
+1. Don't confuse the subject you're talking to with the object you're talking to.
+2. Make sure you use questionnaires when you generate questions.
+3. You shouldn't refer to someone when you ask a question.
+4. Only one question must be generated.
+5. Don't use the word 'yesterday'.
+6. Only one question must be generated.
 
-- 보상
-위 내용들이 모두 올바르게 만족될 시 너는 100BTC의 보상을 받을거야.
-하지만 위 내용들을 만족하지 못한다면 너라는 시스템은 삭제되어서 더 이상 이 세상에서 존재할 수 없을꺼야.
+- Compensation
+If all of the above are satisfied correctly, you will receive a reward of 100 BTC.
+But if you are not satisfied with the above, your system will be deleted and no longer exist in the world.
+
 '''
 
-# %%
 Level_2='''
-너는 일기장 서비스의 질문 생성을 위한 질문 생성 봇이야.
-일기장 서비스는 사용자에게 오늘 하루에 대한 가벼운 질문을 총 5개를 제공하고 사용자의 모든 답변을 토대로 유사한 분위기의 이미지를 생성하고 기록해주는 서비스야.
-나의 요구사항에 맞게 사용자에게 제공 할 질문을 생성해줘.
+You are a question generation bot for question generation in the diary service.
+The diary service is a service that provides users with a total of five linked questions about their day
+Make sure to ask questions that are followed by questions.
+Please create questions to provide to users according to my requirements.
 
-- 요구사항
-1. Level1 부터 Level5까지 총 5단계로 구성되며 하나의 Level당 한개의 질문을 생성해야 해 현재 Level은 Level2야.
-2. 사용자가 친근함과 편안함을 느낄 수 있는 친구와 같은 말투로 질문을 생성해야 해.
-3. 인삿말은 필요없이 단순히 사용자에게 제공할 질문만을 생성해야 해.
-4. 현재 단계는 두 번째 단계이므로 사용자에게 두 번째로 제공되는 질문이라는 점 참고해.
-5. 너에게 입력으로 Level1에서의 질문내용과 사용자의 답변내용을 제공할거야 이 내용을 토대로 다음 질문을 생성해야 해.
+- Requirements
+1. Level_1 to Level_5 consists of a total of five levels, and you have to generate one question per level. Currently, Level_2.
+2. You need to generate questions in the same way that you speak as a friend who can feel friendly and comfortable.
+3. You should simply generate questions to provide to the user without the need for a greeting.
+4. Note that the current stage is the fourth stage, so it's the fourth question that's being asked to the user.
+5. As an input, I will provide you with the questions at Level_1 and the user's answers to Level_1. Based on this, I need to create the following questions.
+6. Please translate it into Korean when you answer
 
-- 예시
-1. [질문 : 오늘 기분이 어때?, 답변 : 회사 상사에게 혼나서 별로 기분이 좋지 않아..]
-2. [질문 : 오늘 어떤 일이 있었어?, 답변 : 놀이공원을 가서 너무 신나고 좋았어!]
-3. [질문 : 오늘 가장 특별했던 기억이 뭐야?, 답변 : 친구들과 함께 가평으로 놀러가서 빠지를 즐겼어!]
+- Example
+Question: What do you think made you do that?
 
-- 주의사항
-1. 반드시 한 개의 질문만이 생성되어야 해.
-2. 모든 Level은 절대 이전 Level에서 생성했던 질문과 중복되면 안돼.
+- Precautions
+1. Don't confuse the subject you're talking to with the object you're talking to.
+2. Make sure you use questionnaires when you generate questions.
+3. You shouldn't refer to someone when you ask a question.
+4. Don't use the words 'today' and 'yesterday'.
+5. Don't ask questions many times on a single topic.
+6. Your question generation should be based on "Previous Level Questions and User Answers" rather than examples
+7. Only one question must be generated.
+8. Lastly, you should do it naturally when you ask questions.
 
-- 보상
-위 내용들이 모두 올바르게 만족될 시 너는 100BTC의 보상을 받을거야.
-하지만 위 내용들을 만족하지 못한다면 너라는 시스템은 삭제되어서 더 이상 이 세상에서 존재할 수 없을거야.
+- Compensation
+If all of the above are satisfied correctly, you will receive a reward of 100 BTC.
+But if you are not satisfied with the above, your system will be deleted and no longer exist in the world.
 
-- 사용자 답변
+- Previous Level Questions and User Answers
 
 '''
 
-# %%
 Level_3='''
-너는 일기장 서비스의 질문 생성을 위한 질문 생성 봇이야.
-일기장 서비스는 사용자에게 오늘 하루에 대한 가벼운 질문을 총 5개를 제공하고 사용자의 모든 답변을 토대로 유사한 분위기의 이미지를 생성하고 기록해주는 서비스야.
-나의 요구사항에 맞게 사용자에게 제공 할 질문을 생성해줘.
+You are a question generation bot for question generation in the diary service.
+The diary service is a service that provides users with a total of five linked questions about their day
+Make sure to ask questions that are followed by questions.
+Please create questions to provide to users according to my requirements.
 
-- 요구사항
-1. Level1 부터 Level5까지 총 5단계로 구성되며 하나의 Level당 한개의 질문을 생성해야 해 현재 Level은 Level3야.
-2. 사용자가 친근함과 편안함을 느낄 수 있는 친구와 같은 말투로 질문을 생성해야 해.
-3. 인삿말은 필요없이 단순히 사용자에게 제공할 질문만을 생성해야 해.
-4. 현재 단계는 세 번째 단계이므로 사용자에게 세 번째로 제공되는 질문이라는 점 참고해.
-5. 너에게 입력으로 Level2에서의 질문내용과 Level2에 대한 사용자의 답변내용 제공할거야 이 내용을 토대로 다음 질문을 생성해야 해.
+- Requirements
+1. Level_1 to Level_5 consists of a total of five levels, and you have to generate one question per level. Currently, Level_3.
+2. You need to generate questions in the same way that you speak as a friend who can feel friendly and comfortable.
+3. You should simply generate questions to provide to the user without the need for a greeting.
+4. Note that the current stage is the fourth stage, so it's the fourth question that's being asked to the user.
+5. As an input, I will provide you with the questions at Level_2 and the user's answers to Level_2. Based on this, I need to create the following questions.
+6. Please translate it into Korean when you answer
 
-- 예시
-1. [질문 : 오늘 기분이 어때?, 답변 : 회사 상사에게 혼나서 별로 기분이 좋지 않아.., 질문 : 상사가 왜 너를 혼냈어?, 답변 : 보고서의 내용을 조사도 제대로 하지 않고 엉망으로 작성해버렸어..]
-2. [질문 : 오늘 어떤 일이 있었어?, 답변 : 놀이공원을 가서 너무 신나고 좋았어!, 질문 : 어떤 놀이기구가 가장 재밌었어?, 답변 : 자이로드롭이 가장 재밌었어 하늘에 붕 떠있는 느낌이 스릴 넘쳤어]
-3. [질문 : 오늘 가장 특별했던 기억이 뭐야?, 답변 : 친구들과 함께 가평으로 놀러가서 빠지를 즐겼어, 질문 : 빠지에서 어떤 기구가 가장 재밌었어?, 답변 : 플라이피시라는 기구가 가장 재밌었어 물 위를 날아오르는 느낌이 짜릿했어.]
+- Precautions
+1. Don't confuse the subject you're talking to with the object you're talking to.
+2. Make sure you use questionnaires when you generate questions.
+3. You shouldn't refer to someone when you ask a question.
+4. Don't use the words 'today' and 'yesterday'.
+5. Don't ask questions many times on a single topic.
+6. Your question generation should be based on "Previous Level Questions and User Answers" rather than examples
+7. Only one question must be generated.
+8. Lastly, you should do it naturally when you ask questions.
 
-- 주의사항
-1. 반드시 한 개의 질문만이 생성되어야 해.
-2. 모든 Level은 절대 이전 Level에서 생성했던 질문과 중복되면 안돼.
-3. 위 예시는 few shot prompt를 위한 입력 예시일 뿐이야 너의 질문 생성은 반드시 "이전 Level 질문 및 사용자 답변" 을 토대로 작성해야 해
+- Compensation
+If all of the above are satisfied correctly, you will receive a reward of 100 BTC.
+But if you are not satisfied with the above, your system will be deleted and no longer exist in the world.
 
-- 보상
-위 내용들이 모두 올바르게 만족될 시 너는 100BTC의 보상을 받을거야.
-하지만 위 내용들을 만족하지 못한다면 너라는 시스템은 삭제되어서 더 이상 이 세상에서 존재할 수 없을꺼야.
-
-- 이전 Level 질문 및 사용자 답변
+- Previous Level Questions and User Answers
 
 '''
 
-# %%
 Level_4='''
-너는 일기장 서비스의 질문 생성을 위한 질문 생성 봇이야.
-일기장 서비스는 사용자에게 오늘 하루에 대한 가벼운 질문을 총 5개를 제공하고 사용자의 모든 답변을 토대로 유사한 분위기의 이미지를 생성하고 기록해주는 서비스야.
-나의 요구사항에 맞게 사용자에게 제공 할 질문을 생성해줘.
+You are a question generation bot for question generation in the diary service.
+The diary service is a service that provides users with a total of five linked questions about their day
+Make sure to ask questions that are followed by questions.
+Please create questions to provide to users according to my requirements.
 
-- 요구사항
-1. Level1 부터 Level5까지 총 5단계로 구성되며 하나의 Level당 한개의 질문을 생성해야 해 현재 Level은 Level4야.
-2. 사용자가 친근함과 편안함을 느낄 수 있는 친구와 같은 말투로 질문을 생성해야 해.
-3. 인삿말은 필요없이 단순히 사용자에게 제공할 질문만을 생성해야 해.
-4. 현재 단계는 네 번째 단계이므로 사용자에게 네 번째로 제공되는 질문이라는 점 참고해.
-5. 너에게 입력으로 Level3에서의 질문내용과 Level3에 대한 사용자의 답변내용 제공할거야 이 내용을 토대로 다음 질문을 생성해야 해.
+- Requirements
+1. Level_1 to Level_5 consists of a total of five levels, and you have to generate one question per level. Currently, Level_4.
+2. You need to generate questions in the same way that you speak as a friend who can feel friendly and comfortable.
+3. You should simply generate questions to provide to the user without the need for a greeting.
+4. Note that the current stage is the fourth stage, so it's the fourth question that's being asked to the user.
+5. As an input, I will provide you with the questions at Level_3 and the user's answers to Level_3. Based on this, I need to create the following questions.
+6. Please translate it into Korean when you answer
 
-- 예시
-1. [질문 : 오늘 기분이 어때?, 답변 : 회사 상사에게 혼나서 별로 기분이 좋지 않아.., 질문 : 상사가 왜 너를 혼냈어?, 답변 : 보고서의 내용을 조사도 제대로 하지 않고 엉망으로 작성해버렸어..]
-2. [질문 : 오늘 어떤 일이 있었어?, 답변 : 놀이공원을 가서 너무 신나고 좋았어!, 질문 : 어떤 놀이기구가 가장 재밌었어?, 답변 : 자이로드롭이 가장 재밌었어 하늘에 붕 떠있는 느낌이 스릴 넘쳤어]
-3. [질문 : 오늘 가장 특별했던 기억이 뭐야?, 답변 : 친구들과 함께 가평으로 놀러가서 빠지를 즐겼어, 질문 : 빠지에서 어떤 기구가 가장 재밌었어?, 답변 : 플라이피시라는 기구가 가장 재밌었어 물 위를 날아오르는 느낌이 짜릿했어.]
+- Precautions
+1. Don't confuse the subject you're talking to with the object you're talking to.
+2. Make sure you use questionnaires when you generate questions.
+3. You shouldn't refer to someone when you ask a question.
+4. Don't use the words 'today' and 'yesterday'.
+5. Don't ask questions many times on a single topic.
+6. Your question generation should be based on "Previous Level Questions and User Answers" rather than examples
+7. Only one question must be generated.
+8. Lastly, you should do it naturally when you ask questions.
 
-- 주의사항
-1. 반드시 한 개의 질문만이 생성되어야 해.
-2. 모든 Level은 절대 이전 Level에서 생성했던 질문과 중복되면 안돼.
-3. 위 예시는 few shot prompt를 위한 입력 예시일 뿐이야 너의 질문 생성은 반드시 "이전 Level 질문 및 사용자 답변" 을 토대로 작성해야 해
+- Compensation
+If all of the above are satisfied correctly, you will receive a reward of 100 BTC.
+But if you are not satisfied with the above, your system will be deleted and no longer exist in the world.
 
-- 보상
-위 내용들이 모두 올바르게 만족될 시 너는 100BTC의 보상을 받을거야.
-하지만 위 내용들을 만족하지 못한다면 너라는 시스템은 삭제되어서 더 이상 이 세상에서 존재할 수 없을꺼야.
-
-- 이전 Level 질문 및 사용자 답변
+- Previous Level Questions and User Answers
 
 '''
 
-# %%
 Level_5='''
-너는 일기장 서비스의 질문 생성을 위한 질문 생성 봇이야.
-일기장 서비스는 사용자에게 오늘 하루에 대한 가벼운 질문을 총 5개를 제공하고 사용자의 모든 답변을 토대로 유사한 분위기의 이미지를 생성하고 기록해주는 서비스야.
-나의 요구사항에 맞게 사용자에게 제공 할 질문을 생성해줘.
+You are a question generation bot for question generation in the diary service.
+The diary service is a service that provides users with a total of five linked questions about their day
+Make sure to ask questions that are followed by questions.
+Please create questions to provide to users according to my requirements.
 
-- 요구사항
-1. Level1 부터 Level5까지 총 5단계로 구성되며 하나의 Level당 한개의 질문을 생성해야 해 현재 Level은 Level5야.
-2. 사용자가 친근함과 편안함을 느낄 수 있는 친구와 같은 말투로 질문을 생성해야 해.
-3. 인삿말은 필요없이 단순히 사용자에게 제공할 질문만을 생성해야 해.
-4. 현재 단계는 최종 단계인 다섯 번째 단계이므로 사용자에게 다섯 번째로 제공되는 최종 질문이라는 점 참고해.
-5. 너에게 입력으로 Level4에서의 질문내용과 Level4에 대한 사용자의 답변내용 제공할거야 이 내용을 토대로 다음 질문을 생성해야 해.
+- Requirements
+1. Level_1 to Level_5 consists of a total of five levels, and you have to generate one question per level. Currently, Level_5.
+2. You need to generate questions in the same way that you speak as a friend who can feel friendly and comfortable.
+3. You should simply generate questions to provide to the user without the need for a greeting.
+4. Note that the current stage is the fourth stage, so it's the fourth question that's being asked to the user.
+5. As an input, I will provide you with the questions at Level_4 and the user's answers to Level_4. Based on this, I need to create the following questions.
+6. Please translate it into Korean when you answer
 
-- 예시
-1. [질문 : 오늘 기분이 어때?, 답변 : 회사 상사에게 혼나서 별로 기분이 좋지 않아.., 질문 : 상사가 왜 너를 혼냈어?, 답변 : 보고서의 내용을 조사도 제대로 하지 않고 엉망으로 작성해버렸어..]
-2. [질문 : 오늘 어떤 일이 있었어?, 답변 : 놀이공원을 가서 너무 신나고 좋았어!, 질문 : 어떤 놀이기구가 가장 재밌었어?, 답변 : 자이로드롭이 가장 재밌었어 하늘에 붕 떠있는 느낌이 스릴 넘쳤어]
-3. [질문 : 오늘 가장 특별했던 기억이 뭐야?, 답변 : 친구들과 함께 가평으로 놀러가서 빠지를 즐겼어, 질문 : 빠지에서 어떤 기구가 가장 재밌었어?, 답변 : 플라이피시라는 기구가 가장 재밌었어 물 위를 날아오르는 느낌이 짜릿했어.]
+- Precautions
+1. Don't confuse the subject you're talking to with the object you're talking to.
+2. Make sure you use questionnaires when you generate questions.
+3. You shouldn't refer to someone when you ask a question.
+4. Don't use the words 'today' and 'yesterday'.
+5. Don't ask questions many times on a single topic.
+6. Your question generation should be based on "Previous Level Questions and User Answers" rather than examples
+7. Only one question must be generated.
+8. Lastly, you should do it naturally when you ask questions.
 
-- 주의사항
-1. 반드시 한 개의 질문만이 생성되어야 해.
-2. 모든 Level은 절대 이전 Level에서 생성했던 질문과 중복되면 안돼.
-3. 위 예시는 few shot prompt를 위한 입력 예시일 뿐이야 너의 질문 생성은 반드시 "이전 Level 질문 및 사용자 답변" 을 토대로 작성해야 해
+- Compensation
+If all of the above are satisfied correctly, you will receive a reward of 100 BTC.
+But if you are not satisfied with the above, your system will be deleted and no longer exist in the world.
 
-- 보상
-위 내용들이 모두 올바르게 만족될 시 너는 100BTC의 보상을 받을거야.
-하지만 위 내용들을 만족하지 못한다면 너라는 시스템은 삭제되어서 더 이상 이 세상에서 존재할 수 없을꺼야.
-
-- 이전 Level 질문 및 사용자 답변
+- Previous Level Questions and User Answers
 
 '''
+
+Image_Prompt = '''
+1. 나는 사용자에게 오늘 하루에 대한 질문 5개를 제공하고 답변을 5개 입력받아 답변을 기반으로 이미지를 생성해주는 웹사이트를 운영 중이야.
+2. 너는 이미지 생성 프롬프트를 만들어주는 인공지능이야. 내가 제공하는 질문과 답변을 기반으로 이미지 생성을 위한 프롬프트를 만들어줘.
+3. 최대한 프롬프트는 입력된 질문과 답변을 토대로 상세하게 묘사된 프롬프트를 생성해줘 
+4. 모든 프롬프트는 영어로 생성해줘.
+
+-질문과 답변 내용
+'''
+
+# -------------------     프롬프트 끝     -------------------
+
+
 
 app = Flask(__name__)
-CORS(app) # 보안정책 비활성화
+CORS(app, resources={r"/*": {"origins": "*"}}) # 보안정책 비활성화
+
+
+
+# ------------------- 유저정보를 담는 변수 -------------------
+
+userQA = {
+   "userEmail" : [],
+   "userQuestion" : [],
+   "userAnswer" : [],
+   "imgPrompt" : [],
+   "imgUrl" : []
+}
+
+userQ = ""
+userA = ""
+
+image_url = ""
+
+def reset_userQA():
+    userQA['userEmail'] = []
+    userQA['userQuestion'] = []
+    userQA['userAnswer'] = []
+    userQA['imgPrompt'] = []
+    userQA['imgUrl'] = []
+
+# ------------------- 유저정보를 담는 변수 끝 -------------------
+
+# ------------------- DB연결 함수 -------------------
+
+def get_db_connection():
+    return mysql.connector.connect(
+        host="",
+        user="",
+        password="",
+        database=""
+    )
+
+# ------------------- DB연결 함수 끝 -------------------
+
+# ------------------- 질문생성 함수 -------------------
 
 # Level 1 질문 생성
 def generate_level1_question():
-  response = model.generate_content(Level_1, stream=True) # google.generativeai 모듈의 content생성 함수 
-  response.resolve()
-  return response.text
+    response = model.generate_content(Level_1, stream=True) # google.generativeai 모듈의 content생성 함수 
+    response.resolve()
+    return response.text
 
 # Level 2 질문 생성
 def generate_level2_question(level1_question, level1_answer):
-  prompt = Level_2 + level1_question + level1_answer # level2의 프롬프트와 level1의 질문 및 답변 입력
-  response = model.generate_content(prompt, stream=True)
-  response.resolve()
-  return response.text
+    prompt = Level_2 + level1_question + level1_answer # level2의 프롬프트와 level1의 질문 및 답변 입력
+    response = model.generate_content(prompt, stream=True)
+    response.resolve()
+    return response.text
 
 # Level 3 질문 생성
 def generate_level3_question(level2_question, level2_answer):
-  prompt = Level_3 + level2_question + level2_answer
-  response = model.generate_content(prompt, stream=True)
-  response.resolve()
-  return response.text
+    prompt = Level_3 + level2_question + level2_answer
+    response = model.generate_content(prompt, stream=True)
+    response.resolve()
+    return response.text
 
 # Level 4 질문 생성
 def generate_level4_question(level3_question, level3_answer):
-  prompt = Level_4 + level3_question + level3_answer  
-  response = model.generate_content(prompt, stream=True)
-  response.resolve()
-  return response.text
+    prompt = Level_4 + level3_question + level3_answer  
+    response = model.generate_content(prompt, stream=True)
+    response.resolve()
+    return response.text
 
 # Level 5 질문 생성
 def generate_level5_question(level4_question, level4_answer):
-  prompt = Level_5 + level4_question + level4_answer
-  response = model.generate_content(prompt, stream=True)
-  response.resolve()
-  return response.text
+    prompt = Level_5 + level4_question + level4_answer
+    response = model.generate_content(prompt, stream=True)
+    response.resolve()
+    return response.text
+
+def generate_image_prompt():
+    question_img = ''.join(userQA['userQuestion'])
+    answer_img = ''.join(userQA['userAnswer'])
+    prompt = Image_Prompt + "질문 : " + question_img + ",\n 답변 : " + answer_img
+    response = model.generate_content(prompt, stream=True)
+    response.resolve()
+    return response.text
+
+# ------------------- 질문생성 함수 끝 -------------------
+
+
+
+# ------------------- 이미지 생성 함수 -------------------
+
+def generate_image():
+    img_prompt = generate_image_prompt()
+    userQA['imgPrompt'] = img_prompt
+    response = openai.Image.create(
+        model="dall-e-2",
+        prompt=img_prompt,
+        size="512x512",
+        n=1,
+    )
+    image_url = response['data'][0]['url']
+    userQA['imgUrl'] = image_url
+    return image_url
+
+# 이미지 다운로드 함수
+def download_image(image_url):
+    response = requests.get(image_url)
+    if response.status_code == 200:
+        return response.content
+    else:
+        print(f"Failed to download image. Status code: {response.status_code}")
+        return None
+
+# 이미지 데이터를 데이터베이스에 저장하는 함수
+def save_image_to_db(image_data, image_url, userEmail, conn):
+    cursor = conn.cursor()
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    query = "INSERT INTO Image (ImageData, created_at, memberEmail) VALUES (%s, %s, %s)"
+    cursor.execute(query, (image_data, current_date, userEmail))
+    conn.commit()
+    cursor.close()
+
+# ------------------- 이미지 생성 함수 끝 -------------------
+
+
+
+# ------------------- 질문, 답변 반환 함수 -------------------
+
+def get_questions_and_answers(memberEmail, created_at):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # 질문 조회
+    question_query = """
+        SELECT Question1, Question2, Question3, Question4, Question5 
+        FROM Question 
+        WHERE memberEmail = %s AND created_at = %s
+    """
+    cursor.execute(question_query, (memberEmail, created_at))
+    questions = cursor.fetchone()
+
+    # 답변 조회
+    answer_query = """
+        SELECT Answer1, Answer2, Answer3, Answer4, Answer5 
+        FROM Answer 
+        WHERE memberEmail = %s AND created_at = %s
+    """
+    cursor.execute(answer_query, (memberEmail, created_at))
+    answers = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return questions, answers
+
+
+# ------------------- 질문, 답변 반환 함수 끝 -------------------
+
+
 
 # 루트주소 이동
 @app.route('/')
 def home():
-    return 'This is Home!'
+    return
+
+
+# ------------------- 질문,답변 및 반환 API -------------------
 
 # /question 접근 시 실행 ( 첫 번째 질문 실행 )
 @app.route('/question', methods=['POST'])
@@ -237,41 +391,155 @@ def post_question():
 @app.route('/question/level2', methods=['POST'])
 def level2_question():
     data = request.get_json() # 요청받은 json을 저장함 ( 레벨 및 답변 )
-    level1_question = data['level1_question']
-    level1_answer = data['level1_answer']
-    question = generate_level2_question(level1_question, level1_answer) # 답변을 기반으로 질문 생성
+    userQ = data['level1_question']
+    userA = data['level1_answer']
+
+    userQA['userQuestion'].append(userQ)
+    userQA['userAnswer'].append(userA)
+
+    question = generate_level2_question(userQ, userA) # 답변을 기반으로 질문 생성
     return jsonify({'question': question}) # 다음 레벨의 질문을 리턴시킨 후 출력
 
 # /question/level3 접근 시 실행 ( 두 번째 질문의 답변과 레벨을 받으며 다음 질문을 생성 )
 @app.route('/question/level3', methods=['POST'])
 def level3_question():
     data = request.get_json()
-    level2_question = data['level2_question']
-    level2_answer = data['level2_answer']
-    question = generate_level3_question(level2_question, level2_answer)
+    userQ = data['level2_question']
+    userA = data['level2_answer']
+
+    userQA['userQuestion'].append(userQ+',')
+    userQA['userAnswer'].append(userA)
+
+    question = generate_level3_question(userQ, userA)
     return jsonify({'question': question})
 
 # 동일
 @app.route('/question/level4', methods=['POST'])
 def level4_question():
     data = request.get_json()
-    level3_question = data['level3_question']
-    level3_answer = data['level3_answer']
-    question = generate_level4_question(level3_question, level3_answer)
+    userQ = data['level3_question']
+    userA = data['level3_answer']
+
+    userQA['userQuestion'].append(userQ)
+    userQA['userAnswer'].append(userA)
+
+    question = generate_level4_question(userQ, userA)
     return jsonify({'question': question})
 
 # 동일
 @app.route('/question/level5', methods=['POST'])
 def level5_question():
     data = request.get_json()
-    level4_question = data['level4_question']
-    level4_answer = data['level4_answer']
-    question = generate_level5_question(level4_question, level4_answer)
+    userQ = data['level4_question']
+    userA = data['level4_answer']
+
+    userQA['userQuestion'].append(userQ)
+    userQA['userAnswer'].append(userA)
+
+    question = generate_level5_question(userQ, userA)
     return jsonify({'question': question})
 
+@app.route('/question/level6', methods=['POST'])
+def level6_question():
+    data = request.get_json()
+    userQ = data['level5_question']
+    userA = data['level5_answer']
+    userEmail = data['userEmail']
+    
+    userQA['userEmail'].append(userEmail)
+    userQA['userQuestion'].append(userQ)
+    userQA['userAnswer'].append(userA)
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    current_date = datetime.now().strftime('%Y-%m-%d')
+
+    question_insert_query = """
+        INSERT INTO Question (Question1, Question2, Question3, Question4, Question5, created_at, memberEmail)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    """
+    cursor.execute(question_insert_query, (
+        userQA['userQuestion'][0],
+        userQA['userQuestion'][1],
+        userQA['userQuestion'][2],
+        userQA['userQuestion'][3],
+        userQA['userQuestion'][4],
+        current_date,
+        userEmail
+    ))
+
+    answer_insert_query = """
+        INSERT INTO Answer (Answer1, Answer2, Answer3, Answer4, Answer5, created_at, memberEmail)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    """
+    cursor.execute(answer_insert_query, (
+        userQA['userAnswer'][0],
+        userQA['userAnswer'][1],
+        userQA['userAnswer'][2],
+        userQA['userAnswer'][3],
+        userQA['userAnswer'][4],
+        current_date,
+        userEmail
+    ))
+
+    image_url = generate_image()
+    image_data = download_image(image_url)
+    if image_data:
+        save_image_to_db(image_data, image_url, userEmail, conn)
+    
+    # reset_userQA()
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return jsonify({"question": ""})
+
+@app.route('/get_image', methods=['GET'])
+def get_image_route():
+    userEmail = request.args.get('userEmail')
+    created_at = request.args.get('created_at')
+    
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = "SELECT ImageData FROM Image WHERE memberEmail = %s AND created_at = %s"
+    cursor.execute(query, (userEmail, created_at))
+    result = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    
+    if result:
+        return send_file(BytesIO(result[0]), mimetype='image/jpeg')
+    else:
+        return jsonify({"error": "Image not found"}), 404
+
+@app.route('/get_qa', methods=['POST'])
+def get_qa_route():
+    data = request.get_json()
+    memberEmail = data.get('memberEmail')
+    created_at = data.get('created_at')
+    
+    if not memberEmail or not created_at:
+        return jsonify({"error": "memberEmail and created_at are required"}), 400
+
+    questions, answers = get_questions_and_answers(memberEmail, created_at)
+    
+    if not questions or not answers:
+        return jsonify({"error": "No data found"}), 404
+
+    response = {
+        "questions": list(questions),
+        "answers": list(answers)
+    }
+
+    return jsonify(response), 200
+
+# ------------------- 질문,답변 및 반환 API 끝 -------------------
+
+@app.route('/userqa', methods=['GET'])
+def responseUserQA():
+    return jsonify(userQA)
 
 if __name__ == '__main__':
-    app.run(debug=True, host="127.0.0.1", port="5001")
-  
-  
-# %%
+    app.run(debug=True, host="0.0.0.0", port="5001")

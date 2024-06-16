@@ -1,116 +1,112 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="gallery.css" />
     <title>Welcome CBY Project</title>
 </head>
+
 <body>
-    <main class = "container">
+    <div class="overlay"></div> <!-- 초기 어두운 화면을 위한 오버레이 -->
+    <main class="container disabled"> <!-- 초기 비활성화를 위해 클래스 추가 -->
+
+        <div class="side_lamp">
+            <div class="left_lamp">
+                <button class="lamp_toggle"> <img src="img/lamp_off.png" class="lamp_toggle_img"></button>
+                <div class="light"></div>
+            </div>
+        </div>
+
         <div class="gallery">
             <div class="gallery_group">
                 <div class="bookcase">
                     <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
+                    <div class="book"></div>
                 </div>
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
+            </div>
+        </div>
 
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
-                </div>
-             
-            
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
-                </div>
-                
-                
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book_group">
-                        <div class="book">
-
-                        </div>
-                        
-                    </div>
-                </div>
-                
-                
-                
-
+        <div class="side_lamp">
+            <div class="right_lamp">
+                <button class="lamp_toggle"><img src="img/lamp_off.png" class="lamp_toggle_img"></button>
+                <div class="light"></div>
             </div>
         </div>
     </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const galleryGroup = document.querySelector(".gallery_group");
+            const overlay = document.querySelector(".overlay");
+            const container = document.querySelector(".container");
+            const lampToggles = document.querySelectorAll(".lamp_toggle");
+            let lampStatus = [false, false]; // 두 개의 램프 상태를 저장하는 배열
+
+            // 어둡고 비활성화된 상태로 초기화
+            overlay.style.display = "block";
+            container.classList.add("disabled");
+
+            lampToggles.forEach((button, index) => {
+                button.addEventListener("click", () => {
+                    const img = button.querySelector(".lamp_toggle_img");
+                    lampStatus[index] = !lampStatus[index]; // 램프 상태를 토글
+
+                    if (img.src.includes("lamp_off.png")) {
+                        img.src = "img/lamp_on.png";
+                    } else {
+                        img.src = "img/lamp_off.png";
+                    }
+
+                    if (lampStatus.every(status => status)) {
+                        // 모든 램프가 켜졌을 때
+                        overlay.style.display = "none";
+                        container.classList.remove("disabled");
+                    } else if (lampStatus.every(status => !status)) {
+                        // 모든 램프가 꺼졌을 때
+                        overlay.style.display = "block";
+                        container.classList.add("disabled");
+                    }
+                });
+            });
+
+            let isDown = false;
+            let startY;
+            let scrollTop;
+
+            galleryGroup.addEventListener("mousedown", (e) => {
+                if (container.classList.contains("disabled")) return;
+                isDown = true;
+                startY = e.pageY - galleryGroup.offsetTop;
+                scrollTop = galleryGroup.scrollTop;
+                galleryGroup.style.cursor = "grabbing";
+            });
+
+            galleryGroup.addEventListener("mouseleave", () => {
+                isDown = false;
+                galleryGroup.style.cursor = "grab";
+            });
+
+            galleryGroup.addEventListener("mouseup", () => {
+                isDown = false;
+                galleryGroup.style.cursor = "grab";
+            });
+
+            galleryGroup.addEventListener("mousemove", (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const y = e.pageY - galleryGroup.offsetTop;
+                const walk = (y - startY) * 1;
+                galleryGroup.scrollTop = scrollTop - walk;
+            });
+
+            galleryGroup.addEventListener("wheel", (e) => {
+                if (container.classList.contains("disabled")) return;
+                e.preventDefault();
+                galleryGroup.scrollTop += e.deltaY;
+            });
+        });
+    </script>
 </body>
+
 </html>
