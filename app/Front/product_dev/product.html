@@ -31,12 +31,16 @@
                         <div class="sidebar_header">
                             <div class="sidebar_header_contents">
                                 <img class="sidebar_img" src="/app/Front/img/ellipse-30.png" />
-                                <p>사용자명</p>
+                                <!-- <img class="sidebar_img" src="${pageContext.request.contextPath}/resources/img/ellipse-30.png" /> -->
+                                <p class="userNickName"></p>
                             </div>
                         </div>
                         <div class="sidebar_main">
                             <div class="setting_theme">
-                                <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <img src="img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <p>테마 설정
+                                <p>
+                                    <!-- <img src="${pageContext.request.contextPath}/resources/img/next.png" class="toggle_button" onclick="toggleDropdown(this)"> -->
                                 <div class="dropdown_menu">
                                     <p>Theme Option 1</p>
                                     <p>Theme Option 2</p>
@@ -45,6 +49,8 @@
                             </div>
                             <div class="setting_font">
                                 <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <p>폰트 설정</p>
+                                <!-- <img src="${pageContext.request.contextPath}/resources/img/next.png" class="toggle_button" onclick="toggleDropdown(this)"> -->
                                 <div class="dropdown_menu">
                                     <p>Theme Option 1</p>
                                     <p>Theme Option 2</p>
@@ -53,6 +59,8 @@
                             </div>
                             <div class="setting_alarm">
                                 <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <p>알림 설정</p>
+                                <!-- <img src="${pageContext.request.contextPath}/resources/img/next.png" class="toggle_button" onclick="toggleDropdown(this)"> -->
                                 <div class="dropdown_menu">
                                     <p>Alarm Option 1</p>
                                     <p>Alarm Option 2</p>
@@ -61,6 +69,8 @@
                             </div>
                             <div class="setting_account">
                                 <img src="/app/Front/img/next.png" class="toggle_button" onclick="toggleDropdown(this)">
+                                <p>계정 설정</p>
+                                <!-- <img src="${pageContext.request.contextPath}/resources/img/next.png" class="toggle_button" onclick="toggleDropdown(this)"> -->
                                 <div class="dropdown_menu">
                                     <p>Account Option 1</p>
                                     <p>Account Option 2</p>
@@ -170,6 +180,7 @@
     <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // 사이드바 함수
         const toggleSidebar = () => {
             let sidebar = document.getElementById("sidebar");
             let overlay = document.getElementById("overlay");
