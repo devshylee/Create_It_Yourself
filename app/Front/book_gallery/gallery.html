@@ -10,47 +10,94 @@
 
 <body>
     <div class="overlay"></div>
+    <div class="left_lamp">
+        <button class="lamp_toggle"><img src="img/lamp_off.png" class="lamp_toggle_img"></button>
+        <div class="light"></div>
+    </div>
     <main class="container disabled">
-        <div class="side_lamp">
-            <div class="left_lamp">
-                <button class="lamp_toggle"> <img src="img/lamp_off.png" class="lamp_toggle_img"></button>
-                <div class="light"></div>
-            </div>
-        </div>
         <div class="gallery">
             <div class="gallery_group">
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book">
-                        <p>January</p>
-                    </div>
-                </div>
-                <div class="bookcase">
-                    <h1>2024</h1>
-                    <div class="book">
-                        <p>January</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="side_lamp">
-            <div class="right_lamp">
-                <button class="lamp_toggle"><img src="img/lamp_off.png" class="lamp_toggle_img"></button>
-                <div class="light"></div>
+                <div class="bookcase">
+                    <h1>2024</h1>
+                    <div class="book_group">
+                        <div class="book">
+                            <p>January</p>
+                        </div>
+                        <div class="book">
+                            <p>February</p>
+                        </div>
+                        <div class="book">
+                            <p>March</p>
+                        </div>
+                        <div class="book">
+                            <p>April</p>
+                        </div>
+                        <div class="book">
+                            <p>May</p>
+                        </div>
+                        <div class="book">
+                            <p>June</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bookcase">
+                    <h1>2023</h1>
+                    <div class="book_group">
+                        <div class="book">
+                            <p>January</p>
+                        </div>
+                        <div class="book">
+                            <p>February</p>
+                        </div>
+                        <div class="book">
+                            <p>March</p>
+                        </div>
+                        <div class="book">
+                            <p>April</p>
+                        </div>
+                        <div class="book">
+                            <p>May</p>
+                        </div>
+                        <div class="book">
+                            <p>June</p>
+                        </div>
+                        <div class="book">
+                            <p>July</p>
+                        </div>
+                        <div class="book">
+                            <p>August</p>
+                        </div>
+                        <div class="book">
+                            <p>September</p>
+                        </div>
+                        <div class="book">
+                            <p>October</p>
+                        </div>
+                        <div class="book">
+                            <p>November</p>
+                        </div>
+                        <div class="book">
+                            <p>December</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
+    <div class="right_lamp">
+        <button class="lamp_toggle"><img src="img/lamp_off.png" class="lamp_toggle_img"></button>
+        <div class="light"></div>
+    </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const galleryGroup = document.querySelector(".gallery_group");
             const overlay = document.querySelector(".overlay");
             const container = document.querySelector(".container");
             const lampToggles = document.querySelectorAll(".lamp_toggle");
-            const bookDetailOverlay = document.querySelector(".book-detail-overlay");
-            const bookDetailContent = document.querySelector(".book-content");
-            const closeDetailBtn = document.querySelector(".close-detail");
             let lampStatus = [false, false];
+            let particleInterval;
 
             // 어둡고 비활성화된 상태로 초기화
             overlay.style.display = "block";
@@ -68,28 +115,50 @@
                     }
 
                     if (lampStatus.every(status => status)) {
-                        // 모든 램프가 켜졌을 때
                         overlay.style.display = "none";
                         container.classList.remove("disabled");
-                    } else if (lampStatus.every(status => !status)) {
-                        // 모든 램프가 꺼졌을 때
+
+                        if (!particleInterval) {
+                            particleInterval = setInterval(createParticle, 500);
+                        }
+                    } else if (lampStatus.some(status => status)) {
+                        // 하나 이상의 램프가 켜져 있을 때
+                        overlay.style.display = "none";
+                        container.classList.remove("disabled");
+
+                        clearInterval(particleInterval);
+                        particleInterval = null;
+                    } else {
                         overlay.style.display = "block";
                         container.classList.add("disabled");
+
+                        clearInterval(particleInterval);
+                        particleInterval = null;
                     }
                 });
             });
 
-            // 책 클릭 이벤트 핸들러 추가
-            document.querySelectorAll('.book').forEach(book => {
-                book.addEventListener('click', () => {
-                    bookDetailContent.textContent = book.querySelector('p').textContent;
-                    bookDetailOverlay.style.display = 'flex';
-                });
-            });
+            function createParticle() {
+                const particles = document.querySelectorAll('.light');
+                particles.forEach(lightElement => {
+                    const particle = document.createElement("div");
+                    particle.classList.add("particle");
 
-            closeDetailBtn.addEventListener('click', () => {
-                bookDetailOverlay.style.display = 'none';
-            });
+                    // 랜덤 색상 설정
+                    const colors = ["yellow", "skyblue"];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.backgroundColor = randomColor;
+
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.animationDuration = `${2 + Math.random() * 3}s`;
+
+                    lightElement.appendChild(particle);
+
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 5000);
+                });
+            }
 
             let isDown = false;
             let startY;
@@ -126,7 +195,56 @@
                 e.preventDefault();
                 galleryGroup.scrollTop += e.deltaY;
             });
+
+            const books = document.querySelectorAll(".book");
+            books.forEach((book, index) => {
+                book.addEventListener("click", () => {
+                    // 클릭한 책의 텍스트 가져오기
+                    const month = book.querySelector("p").textContent.toLowerCase();
+
+                    // 메인 페이지로 이동하는 URL 생성
+                    // const mainUrl = `http://127.0.0.1:5501/app/Front/main_dev/Main.html#${month}`;
+                    const mainUrl =  `http://13.125.46.32:5001/main.html`
+                    
+
+                    // 페이지 이동
+                    window.location.href = mainUrl;
+                });
+            });
         });
+
+
+        // 책 클릭 시 중앙에 크기가 300px x 300px인 책 나타내기
+        // const books = document.querySelectorAll(".book");
+        // books.forEach(book => {
+        //     book.addEventListener("click", () => {
+        //         const bookClone = book.cloneNode(true);
+        //         const bookContainer = document.createElement("div");
+        //         bookContainer.classList.add("book-container");
+        //         bookContainer.appendChild(bookClone);
+
+        //         // 중앙 정렬을 위한 스타일 설정
+        //         bookContainer.style.position = "fixed";
+        //         bookContainer.style.top = "50%";
+        //         bookContainer.style.left = "50%";
+        //         bookContainer.style.transform = "translate(-50%, -50%)";
+        //         bookContainer.style.width = "300px";
+        //         bookContainer.style.height = "300px";
+        //         bookContainer.style.zIndex = "100";
+
+        //
+        //         overlay.style.display = "block";
+
+        //
+        //         document.body.appendChild(bookContainer);
+
+        //         // overlay 클릭 시 책 숨기기
+        //         overlay.addEventListener("click", () => {
+        //             document.body.removeChild(bookContainer);
+        //             overlay.style.display = "none";
+        //         });
+        //     });
+        // });
 
     </script>
 </body>

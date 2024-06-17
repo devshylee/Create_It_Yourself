@@ -89,6 +89,9 @@ button {
 
 .setting_theme, .setting_font,
 .setting_alarm, .setting_account {
+  
+  display: flex;
+  align-items: center;
   border: 1px solid #D0D0D0;
   background-color: #D9D9D9;
 }
