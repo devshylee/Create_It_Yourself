@@ -343,16 +343,16 @@
         });
         function createImg() {
             // 이미지 파일 또는 이미지 데이터를 변수에 할당
-            const imgSrc = `http://13.125.46.32:5001/get_image`; // 초기 이미지를 불러올 URL
+            // const imgSrc = `http://13.125.46.32:5001/get_image`; // 초기 이미지를 불러올 URL
 
-            const imgData = {
-                userEmail: 'test2@test2.com',
-                created_at: '2024-06-16',
-                img: imgSrc // 이미지 URL을 전송할 데이터에 추가합니다.
-            };
+            // const imgData = {
+            //     userEmail: 'test2@test2.com',
+            //     created_at: '2024-06-16',
+            //     img: imgSrc // 이미지 URL을 전송할 데이터에 추가합니다.
+            // };
 
             // 서버로 데이터를 전송합니다.
-            fetch(`http://13.125.46.32:5001/get_image`, {
+            fetch(`http://13.125.46.32:5001/get_image?userEmail = `, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json'

@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <!-- <link rel="stylesheet" href="global.css" /> -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" />
-  <!-- <link rel="stylesheet" href="main.css" /> -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
+  <link rel="stylesheet" href="global.css" />
+  <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css" /> -->
+  <link rel="stylesheet" href="main.css" />
+  <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" /> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css" />
   <!--reset css css를 개발할때 웹브라우저의 있는 초기값을 삭제시켜줌-->
 </head>
@@ -80,7 +80,7 @@
         <button id="prev" class="material-icons"><img src="${pageContext.request.contextPath}/resources/img/next.png" class="prev_img"></button>
         <p class="date-current"></p>
         <!-- <button id="next" class="material-icons"><img src="/app/Front/img/next.png" class="next_img"></button> -->
-        <button id="next" class="material-icons"><img src="${pageContext.request.contextPath}/resources/img//next.png" class="next_img"></button>
+        <button id="next" class="material-icons"><img src="${pageContext.request.contextPath}/resources/img/next.png" class="next_img"></button>
       </div>
       <div class="calendar">
         <ul class="weeks">
@@ -95,7 +95,7 @@
         <ul class="days"></ul>
       </div>
     </main>
-    <p class=".user-data"></p>
+    <p class="user-data"></p>
   </div>
   <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
   <script>
@@ -246,6 +246,7 @@
     // 특정 날짜 클릭 시 사용자 데이터 표시 함수
     function showUserData(date) {
       const userEmail = "test2@test2.com";
+
       fetch(`/get_qa`, {
         method: "POST",
         body: JSON.stringify({ memberEmail: userEmail, created_at: date })
@@ -255,7 +256,7 @@
           const userQuestions = data.q;
           const userAnswers = data.a;
 
-          const existingUserData = document.querySelectorAll(".user-data");
+          const existingUserData = document.querySelectorAll("user-data");
           existingUserData.forEach(element => element.remove());
 
           for (let i = 0; i < userQuestions.length; i++) {
@@ -277,10 +278,12 @@
         })
         .catch(error => console.error(error));
     
-      // const productPageURL = ` http://127.0.0.1:5501/app/Front/product_dev/product.html?date=${date}`;
-      const questionPageURL = `http://13.125.46.32:5001/questionpage.html?date=${date}`;
+      const productPageURL = ` http://127.0.0.1:5501/app/Front/product_dev/questionpage.html?date=${date}`;
+      // const questionPageURL = `http://13.125.46.32:5001/questionpage.html?date=${date}`;
       window.location.href = productPageURL;
     }
+    
+
     const dateElements = document.querySelectorAll(".days li");
     dateElements.forEach(dateElement => {
       dateElement.addEventListener("click", () => {
