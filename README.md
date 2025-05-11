@@ -56,9 +56,3 @@
 | **Database** | MySQL, AWS RDS |
 | **Deployment** | AWS EC2 |
 | **AI 모델** | Google Gemini Pro, OpenAI DALL·E 3 |
-
----
-
-## 🎬 결과물 시연
-
-> 프로젝트 시연 영상 및 갤러리 등은 추후 GitHub 링크 또는 배포 링크에 추가해주시면 좋습니다.
